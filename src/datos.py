@@ -1,43 +1,52 @@
-# Matriz de pilotos: [sigla, nombre, nacionalidad, escudería, puntos]
-pilotos = [ 
-            ["VER","Max Verstappen","Holanda","RBR",0],
-            [ "HAD","IHadjar","Francia","RBR",0],
-            [ "HAM","Lewis Hamilton","Reino Unido","FER",0],
-            [ "LEC","Charles Leclerc","Mónaco","FER",0],
-            [ "RUS","George Russell","Reino Unido","MER",0],
-            [ "ANT","Kimi Antonelli","Italia","MER",0],
-            [ "NOR","Lando Norris","Reino Unido","MCL",0],
-            ["PIA","Oscar Piastri", "Australia","MCL", 0],
-            [ "ALO","Fernando Alonso","España","AST",0],
-            [ "STR","Lance Stroll","Canadá","AST",0],
-            [ "COL","Franco Colapinto","Argentina","ALP",0],
-            [ "GAS","Pierre Gasly","Francia","ALP",0],
-            [ "SAI","Carlos Sainz","España","WIL",0],
-            [ "ALB","Alexander Albon","Tailandia","WIL",0],
-            [ "LAW","Liam Lawson","Nueva Zelanda","RB",0],
-            [ "LIN","Arvid Lindblad","Reino Unido","RB",0],
-            [ "BEA","Oliver Bearman","Reino Unido","HAAS",0],
-            [ "OCO","Esteban Ocon","Francia","HAAS",0],
-            [ "BOR","Gabriel Bortoleto","Brasil","AUD",0],
-            [ "HUL","Nico Hülkenberg","Alemania","AUD",0],
-            ["BOT","Valtteri Bottas", "Finlandia","CAD", 0],
-            ["PER","Sergio Pérez","México","CAD",0]
-        ]
+"""
+Diccionario de Pilotos:
+- Clave: Sigla de piloto(3 letras)
+- Valor: Diccionario con tupla inmutable (Nombre, Nacionalidad), escuderia, puntos 
+"""
+pilotos = {
+    "VER":{"datos_personales":("Max Verstappen","Holanda"),"escuderia":"RBR","puntos":0},
+    "HAD":{"datos_personales":("Isack Hadjar","Francia"),"escuderia":"RBR","puntos":0},
+    "HAM":{"datos_personales":("Lewis Hamilton","Reino Unido"),"escuderia":"FER","puntos":0},
+    "LEC":{"datos_personales":("Charles Leclerc","Monaco"),"escuderia":"FER","puntos":0},
+    "RUS":{"datos_personales":("George Rusell","Reino Unido"),"escuderia":"MER","puntos":0},
+    "ANT":{"datos_personales":("Kimi Antonelli","Italia"),"escuderia":"MER","puntos":0},
+    "NOR":{"datos_personales":("Lando Norris","Reino Unido"),"escuderia":"MCL","puntos":0},
+    "PIA":{"datos_personales":("Oscar Piastri","Australia"),"escuderia":"MCL","puntos":0},
+    "ALO":{"datos_personales":("Fernando Alonso","España"),"escuderia":"AST","puntos":0},
+    "STR":{"datos_personales":("Lance Stroll","Canada"),"escuderia":"AST","puntos":0},
+    "COL":{"datos_personales":("Franco Colapinto","Argentina"),"escuderia":"ALP","puntos":0},
+    "GAS":{"datos_personales":("Pierre Gasly","Francia"),"escuderia":"ALP","puntos":0},
+    "SAI":{"datos_personales":("Carlos Sainz","España"),"escuderia":"WIL","puntos":0},
+    "ALB":{"datos_personales":("Alexander Albon","Tailandia"),"escuderia":"WIL","puntos":0},
+    "LAW":{"datos_personales":("Liam Lawson","Nueva Zelanda"),"escuderia":"RBU","puntos":0},
+    "LIN":{"datos_personales":("Arvid Linbland","Reino Unido"),"escuderia":"RBU","puntos":0},
+    "BEA":{"datos_personales":("Oliver Bearman","Reino Unido"),"escuderia":"HAS","puntos":0},
+    "OCO":{"datos_personales":("Esteban Ocon","Francia"),"escuderia":"HAS","puntos":0},
+    "BOR":{"datos_personales":("Ganriel Bortoleto","Brasil"),"escuderia":"AUD","puntos":0},
+    "HUL":{"datos_personales":("Niko Hulkenberg","Alemania"),"escuderia":"AUD","puntos":0},
+    "BOT":{"datos_personales":("Valtteri Bottas","Finlandia"),"escuderia":"CAD","puntos":0},
+    "PER":{"datos_personales":("Sergio Perez","Mexico"),"escuderia":"CAD","puntos":0}
+}
+"""
+Diccionario de Escuderias:
+    - Clave: Sigla de la escuderia (3 letras)
+    - Valor: Diccionario con nombre, pais, pilotos, puntos
+"""
 
-# Matriz de escuderías: [sigla, nombre, país, puntos]
-escuderias=[
-            ["RBR","Oracle Red Bull Racing", "Austria",0],
-            ["MER","Mercedes-AMG Petronas", "Alemania",0],
-            ["FER","Scuderia Ferrari", "Italia",0],
-            ["MCL","McLaren F1 Team", "Reino Unido",0],
-            ["ALP","Alpine F1 Team", "Francia",0],
-            ["AST","Aston Martin Aramco", "Reino Unido",0],
-            ["WIL","Williams Racing", "Reino Unido",0],
-            ["HAAS","Haas F1 Team", "Estados Unidos",0],
-            ["CAD","Cadillac Racing", "Estados Unidos",0],
-            ["RB","Racing Bulls","Italia",0],
-            ["AUD","Audi Revolut","Alemania",0]
-            ]
+escuderias_ = {
+    "RBR": {"nombre": "Oracle Red Bull Racing","pais":"Austria","pilotos":["VER","HAD"],"puntos":0},
+    "MER": {"nombre":"Mercedes-AMG Petronas","pais":"Alemania","pilotos":["RUS","ANT"],"puntos":0},
+    "FER": {"nombre": "Scuderia Ferrari", "pais": "Italia", "pilotos": ["HAM", "LEC"], "puntos": 0},
+    "MCL": {"nombre": "McLaren F1 Team", "pais": "Reino Unido", "pilotos": ["NOR", "PIA"], "puntos": 0},
+    "ALP": {"nombre": "Alpine F1 Team", "pais": "Francia", "pilotos": ["COL", "GAS"], "puntos": 0},
+    "AST": {"nombre": "Aston Martin Aramco", "pais": "Reino Unido", "pilotos": ["ALO", "STR"], "puntos": 0},
+    "WIL": {"nombre": "Williams Racing", "pais": "Reino Unido", "pilotos": ["SAI", "ALB"], "puntos": 0},
+    "HAS": {"nombre": "Haas F1 Team", "pais": "Estados Unidos", "pilotos": ["BEA", "OCO"], "puntos": 0},
+    "CAD": {"nombre": "Cadillac Racing", "pais": "Estados Unidos", "pilotos": ["BOT", "PER"], "puntos": 0},
+    "RBU": {"nombre": "Racing Bulls", "pais": "Italia", "pilotos": ["LAW", "LIN"], "puntos": 0},
+    "AUD": {"nombre": "Audi Revolut", "pais": "Alemania", "pilotos": ["BOR", "HUL"], "puntos": 0}
+    
+}
 
 # Lista de carreras del campeonato
 carreras= ["Australia","China","Japon","Miami","Canadá","Monaco","Barcelona","Austria","Gran Bretaña","Belgica","Hungria",
@@ -55,5 +64,4 @@ for fila in range(cantidad_pilotos):
     fila_vacia = []
     for columna in range(cantidad_carreras):
         fila_vacia.append(0) 
-    matriz_resultados.append(fila_vacia)   
-    
+    matriz_resultados.append(fila_vacia)
