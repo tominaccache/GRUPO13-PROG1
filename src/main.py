@@ -1,12 +1,14 @@
 from rich.console import Console
 from rich.panel import Panel
 
-# Inicializamos la consola 
+# Inicializamos la consola
 console = Console()
 
+
 def limpiar_consola():
-    """Objetivo: Limpiar la consola para que quede más prolijo""" 
+    """Objetivo: Limpiar la consola para que quede más prolijo"""
     console.clear()
+
 
 def mostrar_menu():
     """
@@ -25,47 +27,61 @@ def mostrar_menu():
         "[bold red]8. Cargar Datos[/bold red]\n"
         "[bold red]0. Salir[/bold red]"
     )
-    
+
     # Imprimimos el menú dentro de un recuadro
-    panel = Panel(texto_menu, title="[bold red] Administrador de Campeonato F1 🏆[/bold red]"
-                  ,border_style ="bold red",style="on white",padding=(1, 4), expand=False)
+    panel = Panel(
+        texto_menu,
+        title="[bold red] Administrador de Campeonato F1 🏆[/bold red]",
+        border_style="bold red",
+        style="on white",
+        padding=(1, 4),
+        expand=False,
+    )
     console.print(panel)
 
     return console.input("\n[bold red]Seleccione una opción: [/bold red]")
-    
+
+
 def main():
-    """Objetivo: Funcion Principal que mantiene el ciclo de vida del proyecto """
+    """Objetivo: Funcion Principal que mantiene el ciclo de vida del proyecto"""
     opcion = "-1"
     while opcion != "0":
         limpiar_consola()
         opcion = mostrar_menu()
         print()
         match opcion:
-            case "1": 
-                console.print ("[bold red]--> Abriendo Modulo de Pilotos[/bold red]")
+            case "1":
+                console.print("[bold red]--> Abriendo Modulo de Pilotos[/bold red]")
             case "2":
-                console.print ("[bold red]--> Abriendo Modulo de Escuderias[/bold red]")
+                console.print("[bold red]--> Abriendo Modulo de Escuderias[/bold red]")
             case "3":
-                console.print ("[bold red]--> Abriendo Registro de Carreras[/bold red]")
+                console.print("[bold red]--> Abriendo Registro de Carreras[/bold red]")
             case "4":
-                console.print ("[bold red]--> Abriendo Tablas de Posiciones[/bold red]")
+                console.print("[bold red]--> Abriendo Tablas de Posiciones[/bold red]")
             case "5":
-                console.print ("[bold red]--> Generando Estadisticas[/bold red]")
+                console.print("[bold red]--> Generando Estadisticas[/bold red]")
             case "6":
-                console.print ("[bold red]--> Generando Proyeccion del Campeonato[/bold red]")
+                console.print(
+                    "[bold red]--> Generando Proyeccion del Campeonato[/bold red]"
+                )
             case "7":
-                console.print ("[bold red]--> Guardando datos en Archivo[/bold red]")
+                console.print("[bold red]--> Guardando datos en Archivo[/bold red]")
             case "8":
-                console.print ("[bold red]--> Cargando datos en Archivo[/bold red]")
+                console.print("[bold red]--> Cargando datos en Archivo[/bold red]")
             case "0":
-                console.print ("[bold red]--> ¡Gracias por utilizar la aplicacion! Nos vemos la proxima.[/bold red]")
+                console.print(
+                    "[bold red]--> ¡Gracias por utilizar la aplicacion! Nos vemos la proxima.[/bold red]"
+                )
                 opcion = "0"
             case _:
-                console.print("[bold red]--> Error: Opción no válida. Ingrese un número del 0 al 8.[/bold red]")
-                
+                console.print(
+                    "[bold red]--> Error: Opción no válida. Ingrese un número del 0 al 8.[/bold red]"
+                )
+
         if opcion != "0":
             print()
             console.input("[bold red]Presione Enter para continuar... [/bold red]")
+
 
 if __name__ == "__main__":
     main()
