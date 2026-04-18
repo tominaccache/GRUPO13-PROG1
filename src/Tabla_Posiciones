@@ -1,0 +1,86 @@
+from rich.console import Console
+from rich.panel import Panel
+from rich.table import Table
+
+console = Console()
+
+def limpiar_consola():
+    console.clear()
+
+def mostrar_menu():
+    texto_menu = (
+        "[bold red]1. Gestionar Pilotos[/bold red]\n"
+        "[bold red]2. Gestionar Escuderías[/bold red]\n"
+        "[bold red]3. Registrar Resultados de Gran Premio[/bold red]\n"
+        "[bold red]4. Ver Tabla de Posiciones[/bold red]\n"
+        "[bold red]5. Ver Estadísticas[/bold red]\n"
+        "[bold red]6. Proyección de Campeonato[/bold red]\n"
+        "[bold red]7. Guardar Datos[/bold red]\n"
+        "[bold red]8. Cargar Datos[/bold red]\n"
+        "[bold red]0. Salir[/bold red]"
+    )
+    
+    panel = Panel(texto_menu, title="[bold red] Administrador de Campeonato F1 🏆[/bold red]"
+                  ,border_style ="bold red",style="on white",padding=(1, 4), expand=False)
+    console.print(panel)
+
+    return console.input("\n[bold red]Seleccione una opción: [/bold red]")
+
+def menu_tabla_posiciones():
+    texto_menu = (
+        "[bold blue]1. Ver Tabla de Pilotos[/bold blue]\n"
+        "[bold blue]2. Ver Tabla de Escuderías[/bold blue]\n"
+        "[bold blue]3. Exportar Clasificación[/bold blue]\n"
+        "[bold blue]0. Volver al menú principal[/bold blue]"
+    )
+    
+    panel = Panel(texto_menu, title="[bold blue] Tabla de Posiciones 📊 [/bold blue]"
+                  ,border_style ="bold blue",style="on white",padding=(1, 4), expand=False)
+    console.print(panel)
+
+    return console.input("\n[bold blue]Seleccione una opción: [/bold blue]")
+
+def mostrar_tabla_ejemplo():
+    tabla = Table(title="Clasificación Actual F1", header_style="bold blue", border_style="blue")
+
+    tabla.add_column("Pos", justify="center")
+    tabla.add_column("Piloto")
+    tabla.add_column("Escudería")
+    tabla.add_column("Puntos", justify="right")
+
+    tabla.add_row("1", "Max Verstappen", "Red Bull", "350")
+    tabla.add_row("2", "Lando Norris", "McLaren", "280")
+    tabla.add_row("3", "Charles Leclerc", "Ferrari", "275")
+
+    console.print(tabla)
+
+def main():
+    continuar_programa = True
+    
+    while continuar_programa:
+        limpiar_consola()
+        opcion = mostrar_menu()
+        
+        match opcion:
+            case "4":
+                en_menu_posiciones = True
+                while en_menu_posiciones:
+                    limpiar_consola()
+                    op_tabla = menu_tabla_posiciones()
+                    
+                    if op_tabla == "1":
+                        limpiar_consola()
+                        mostrar_tabla_ejemplo()
+                        console.input("\n[bold blue]Presione Enter para volver...[/bold blue]")
+                    elif op_tabla == "0":
+                        en_menu_posiciones = False
+            
+            case "0":
+                console.print("\n[bold red]--> Saliendo del programa...[/bold red]")
+                continuar_programa = False
+            case _:
+                console.print("\n[bold red]--> Opción no válida o en desarrollo.[/bold red]")
+                console.input("[bold red]Presione Enter para continuar...[/bold red]")
+
+if __name__ == "__main__":
+    main()
