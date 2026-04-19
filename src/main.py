@@ -1,8 +1,6 @@
 from rich.console import Console
 from rich.panel import Panel
 from menuPilotoEscuderia import menu_pilotos
-from menuEscuderias import menu_escuderias
-
 # Inicializamos la consola
 console = Console()
 
