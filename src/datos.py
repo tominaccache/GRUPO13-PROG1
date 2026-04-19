@@ -26,7 +26,7 @@ pilotos = {
         "puntos": 0,
     },
     "RUS": {
-        "datos_personales": ["George Rusell", "Reino Unido"],
+        "datos_personales": ["George Russell", "Reino Unido"],
         "escuderia": "MER",
         "puntos": 0,
     },
@@ -81,7 +81,7 @@ pilotos = {
         "puntos": 0,
     },
     "LIN": {
-        "datos_personales": ["Arvid Linbland", "Reino Unido"],
+        "datos_personales": ["Arvid Lindbland", "Reino Unido"],
         "escuderia": "RBU",
         "puntos": 0,
     },
@@ -96,12 +96,12 @@ pilotos = {
         "puntos": 0,
     },
     "BOR": {
-        "datos_personales": ["Ganriel Bortoleto", "Brasil"],
+        "datos_personales": ["Gabriel Bortoleto", "Brasil"],
         "escuderia": "AUD",
         "puntos": 0,
     },
     "HUL": {
-        "datos_personales": ["Niko Hulkenberg", "Alemania"],
+        "datos_personales": ["Niko Hülkenberg", "Alemania"],
         "escuderia": "AUD",
         "puntos": 0,
     },
@@ -122,7 +122,7 @@ Diccionario de Escuderias:
     - Valor: Diccionario con nombre, pais, pilotos, puntos
 """
 
-escuderias_ = {
+escuderias = {
     "RBR": {
         "nombre": "Oracle Red Bull Racing",
         "pais": "Austria",
