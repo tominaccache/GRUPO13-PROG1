@@ -1,5 +1,7 @@
 from rich.console import Console
 from rich.panel import Panel
+from menuPilotoEscuderia import menu_pilotos
+from menuEscuderias import menu_escuderias
 
 # Inicializamos la consola
 console = Console()
@@ -31,11 +33,12 @@ def mostrar_menu():
     # Imprimimos el menú dentro de un recuadro
     panel = Panel(
         texto_menu,
-        title="[bold red] Administrador de Campeonato F1 🏆[/bold red]",
+        title="[bold red] Administrador de Campeonato F1[/bold red]",
         border_style="bold red",
         style="on white",
         padding=(1, 4),
         expand=False,
+        width=70
     )
     console.print(panel)
 
@@ -52,8 +55,10 @@ def main():
         match opcion:
             case "1":
                 console.print("[bold red]--> Abriendo Modulo de Pilotos[/bold red]")
+                menu_pilotos()
             case "2":
                 console.print("[bold red]--> Abriendo Modulo de Escuderias[/bold red]")
+                menu_escuderias()
             case "3":
                 console.print("[bold red]--> Abriendo Registro de Carreras[/bold red]")
             case "4":
@@ -72,7 +77,6 @@ def main():
                 console.print(
                     "[bold red]--> ¡Gracias por utilizar la aplicacion! Nos vemos la proxima.[/bold red]"
                 )
-                opcion = "0"
             case _:
                 console.print(
                     "[bold red]--> Error: Opción no válida. Ingrese un número del 0 al 8.[/bold red]"
