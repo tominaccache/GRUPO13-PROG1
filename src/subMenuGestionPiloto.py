@@ -2,8 +2,7 @@ import re
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
-# Asegurate de importar tus diccionarios desde tu archivo de datos
-# from datos import pilotos, escuderias_ 
+from datos import pilotos, escuderias_ 
 
 console = Console()
 
