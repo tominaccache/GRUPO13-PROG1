@@ -53,7 +53,7 @@ def modificar_escuderia():
     Salida: No retorna nada, modifica el diccionario escuderias_ en memoria.
     """
     console.print("[bold red] Modificar Escuderia[/bold red]\n")
-    sigla = console.input("[bold red]Ingrese la sigla de la escuderia: ").upper()
+    sigla = console.input("[bold red]Ingrese la sigla de la escuderia: [/bold red]").upper()
     if not validar_sigla(sigla):
         console.print(
             "[bold red] Error: La sigla debe tener exactamente 3 letras.[/bold red]\n"
@@ -114,7 +114,7 @@ def eliminar_escuderia():
     Salida: No retorna nada, modifica el diccionario escuderias en memoria.
     """
     console.print("[bold red]Eliminar escuderia[/bold red]\n")
-    sigla = console.input("[bold red]Ingrese la sigla de la escuderia ").upper()
+    sigla = console.input("[bold red]Ingrese la sigla de la escuderia: [/bold red]").upper()
     if not validar_sigla(sigla):
         console.print(
             "[bold red] Error: La sigla debe tener exactamente 3 letras.[/bold red]\n"
@@ -161,7 +161,7 @@ def mostrar_menu_escuderias():
         style="on white",
         padding=(1, 4),
         expand=True,
-        width=49,
+        width=49
     )
     console.print(panel)
 
@@ -172,7 +172,6 @@ def menu_escuderias():
         console.clear()
         mostrar_menu_escuderias()
         opcion = console.input("\n[bold red]Seleccione una opción: [/bold red]")
-        print()
         match opcion:
             case "1":
                 console.clear()

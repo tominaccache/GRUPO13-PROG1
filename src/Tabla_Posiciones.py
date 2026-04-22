@@ -32,25 +32,8 @@ def menu_tabla_posiciones():
         op = console.input("\n[bold red]Seleccione una opción: [/bold red]")
         if op == "1":
             limpiar_consola()
-            mostrar_tabla_ejemplo()
             console.input("\nPresione Enter para volver...")
 
         elif op == "0":
             break
 
-
-def mostrar_tabla_ejemplo():
-    tabla = Table(
-        title="Clasificación Actual F1", header_style="bold red", border_style="red"
-    )
-
-    tabla.add_column("Pos", justify="center")
-    tabla.add_column("Piloto")
-    tabla.add_column("Escudería")
-    tabla.add_column("Puntos", justify="right")
-
-    tabla.add_row("1", "Max Verstappen", "Red Bull", "350")
-    tabla.add_row("2", "Lando Norris", "McLaren", "280")
-    tabla.add_row("3", "Charles Leclerc", "Ferrari", "275")
-
-    console.print(tabla)

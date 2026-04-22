@@ -1,3 +1,11 @@
+from datos import pilotos, puntos_por_posicion
+from rich.console import Console
+from rich.panel import Panel
+
+# Inicializamos la consola
+console = Console()
+
+
 def obtener_lider(pilotos):
     lider = None
     max_puntos = -1
@@ -10,7 +18,7 @@ def obtener_lider(pilotos):
     return lider, max_puntos
 
 
-def analizar_piloto(pilotos, puntos_por_carrera):
+def analizar_piloto():
     sigla = input("Ingrese sigla del piloto: ").upper()
 
     if sigla not in pilotos:
@@ -22,34 +30,60 @@ def analizar_piloto(pilotos, puntos_por_carrera):
     lider, puntos_lider = obtener_lider(pilotos)
     puntos_piloto = pilotos[sigla]["puntos"]
 
-    max_por_carrera = max(puntos_por_carrera)
+    max_por_carrera = max(puntos_por_posicion)
 
     maximo_posible = puntos_piloto + (carreras_restantes * max_por_carrera)
-
-    print("\n--- RESULTADO ---")
-    print(f"Lider: {lider} ({puntos_lider} pts)")
-    print(f"{sigla}: {puntos_piloto} pts")
-    print(f"Maximo posible: {maximo_posible}")
-
+    resultado = (
+        f"[bold red]Lider: [/bold red]{lider} ({puntos_lider} pts)\n"
+        f"[bold red]{sigla}:[/bold red] {puntos_piloto} pts\n"
+    )
     if maximo_posible >= puntos_lider:
-        print("Sigue en competencia")
+        resultado += "[bold green]Sigue en competencia[/bold green]"
     else:
-        print("Ya no puede alcanzarlo")
+        resultado += "[bold red]Ya no puede alcanzar al piloto lider[/bold red]"
+    panel = Panel(
+        resultado,
+        title="[bold red]Resultado Proyección[/bold red]",
+        border_style="bold red",
+        style="on white",
+        padding=(1, 4),
+        expand=False,
+        width=70,
+    )
+    console.print(panel)
 
 
-def submenu_proyeccion(pilotos, puntos_por_carrera):
-    opcion = ""
+def mostrar_menu_proyeccion():
+    """
+    Objetivo: Mostrar el submenu de Proyeccion del Campeonato
+    Salida: Retorna la opcion ingresada por el usuario como un string
+    """
+    texto_menu = (
+        "[bold red]1. Analizar Piloto[/bold red]\n"
+        "[bold red]0. Volver al menú principal[/bold red]\n"
+    )
+    panel = Panel(
+        texto_menu,
+        title="[bold red] Proyeccion del Campeonato[/bold red]",
+        border_style="bold red",
+        style="on white",
+        padding=(1, 4),
+        expand=True,
+        width=49,
+    )
+    console.print(panel)
 
+
+def submenu_proyeccion():
+    opcion = "-1"
     while opcion != "0":
-        print("\n--- PROYECCION DE CAMPEONATO ---")
-        print("1. Analizar piloto")
-        print("0. Volver")
-
-        opcion = input("Opcion: ")
+        console.clear()
+        mostrar_menu_proyeccion()
+        opcion = console.input("[bold red] Seleccione una opción: [/bold red]")
 
         if opcion == "1":
-            analizar_piloto(pilotos, puntos_por_carrera)
+            analizar_piloto()
         elif opcion == "0":
-            print("Volviendo...")
+            console.print("[bold red]--> Volviendo al menú principal...[/bold red]")
         else:
-            print("Opcion invalida")
+            console.print("[bold red]Opcion invalida[/bold red]")

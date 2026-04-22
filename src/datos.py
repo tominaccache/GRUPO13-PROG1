@@ -1,7 +1,10 @@
 """
 Diccionario de Pilotos:
 - Clave: Sigla de piloto(3 letras)
-- Valor: Diccionario con tupla inmutable (Nombre, Nacionalidad), escuderia, puntos
+- Valor: Diccionario con:
+    - datos_personales:lista [Nombre, Nacionalidad]
+    - escuderia: sigla de la escuderia
+    - puntos: puntos acumulados
 """
 
 pilotos = {
@@ -217,7 +220,7 @@ carreras = [
     "Abu Dhabi"
 ]
 
-puntos = [25, 18, 15, 12, 10, 8, 6, 4, 2, 1]
+puntos_por_posicion = [25, 18, 15, 12, 10, 8, 6, 4, 2, 1]
 
 # Matriz de resultados:
 

@@ -3,7 +3,7 @@ from rich.panel import Panel
 from subMenuGestionPiloto import menu_pilotos
 from menuEscuderias import menu_escuderias
 from Tabla_Posiciones import menu_tabla_posiciones
-
+from proyeccion import submenu_proyeccion
 # Inicializamos la consola
 console = Console()
 
@@ -68,9 +68,7 @@ def main():
             case "5":
                 console.print("[bold red]--> Generando Estadisticas[/bold red]")
             case "6":
-                console.print(
-                    "[bold red]--> Generando Proyeccion del Campeonato[/bold red]"
-                )
+                submenu_proyeccion()
             case "7":
                 console.print("[bold red]--> Guardando datos en Archivo[/bold red]")
             case "8":
