@@ -1,6 +1,5 @@
 from rich.console import Console
 from rich.panel import Panel
-from menuPilotoEscuderia import menu_escuderias
 # Inicializamos la consola
 console = Console()
 
@@ -55,7 +54,6 @@ def main():
                 console.print("[bold red]--> Abriendo Modulo de Pilotos[/bold red]")
             case "2":
                 console.print("[bold red]--> Abriendo Modulo de Escuderias[/bold red]")
-                menu_escuderias()
             case "3":
                 console.print("[bold red]--> Abriendo Registro de Carreras[/bold red]")
             case "4":
