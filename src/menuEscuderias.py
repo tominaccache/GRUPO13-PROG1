@@ -69,8 +69,32 @@ def modificar_escuderia():
         f"[bold red]Escuderia '{sigla}' modificada correctamente.[/bold red]\n"
     )
 
-def ver_escuderia():
-    return
+def ver_escderias():
+    """
+    Objetivo: Mostrar todas las escuderias cargadas en una tabla.
+    Entrada: No recibe parametros.
+    Salida: No retorna nada, imprime la tabla por consola.
+    """
+
+    tabla = Table(title="Escuderias", border_style="bold red", style="on white")
+
+    # Definimos las columnas de la tabla
+    tabla.add_column("Sigla", style="bold white", justify="center")
+    tabla.add_column("Nombre", style="bold white", justify="center")
+    tabla.add_column("Pais", style="bold white", justify="center")
+    tabla.add_column("Pilotos", style="bold white", justify="center")
+    tabla.add_column("Puntos", style="bold white", justify="center")
+
+    for sigla, datos in escuderias.items():
+        tabla.add_row(
+                    sigla,
+                    datos["nombre"],
+                    datos["pais"],
+                    ",".join(datos["pilotos"]) if datos["pilotos"] else "Sin Pilotos",
+                    str(datos["puntos"]),
+                )
+    console.print(tabla)
+        
 
 
 def eliminar_escuderia():
