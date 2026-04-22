@@ -11,18 +11,18 @@ def mostrar_menu_pilotos():
     Objetivo: Mostrar el submenú de Gestión de Pilotos.
     """
     texto_menu = (
-        "[bold blue]1. Agregar piloto[/bold blue]\n"
-        "[bold blue]2. Modificar Piloto[/bold blue]\n"
-        "[bold blue]3. Eliminar piloto[/bold blue]\n"
-        "[bold blue]4. Buscar piloto[/bold blue]\n"
-        "[bold blue]5. Listar pilotos[/bold blue]\n"
-        "[bold blue]0. Volver al menú principal[/bold blue]"
+        "[bold red]1. Agregar piloto[/bold red]\n"
+        "[bold red]2. Modificar Piloto[/bold red]\n"
+        "[bold red]3. Eliminar piloto[/bold red]\n"
+        "[bold red]4. Buscar piloto[/bold red]\n"
+        "[bold red]5. Listar pilotos[/bold red]\n"
+        "[bold red]0. Volver al menú principal[/bold red]"
     )
 
     panel = Panel(
         texto_menu,
-        title="[bold blue] Gestión de Pilotos 🏎️[/bold blue]",
-        border_style="bold blue",
+        title="[bold red] Gestión de Pilotos 🏎️[/bold red]",
+        border_style="bold red",
         style="on white",
         padding=(1, 4),
         expand=True,
@@ -32,8 +32,8 @@ def mostrar_menu_pilotos():
 
 def agregar_piloto():
     """Solicita datos para un nuevo piloto, valida e inserta en el diccionario."""
-    console.print("[bold blue]Agregar Piloto:[/bold blue]\n")
-    sigla = console.input("[bold blue]Ingrese la sigla del piloto (3 letras): [/bold blue]").upper()
+    console.print("[bold red]Agregar Piloto:[/bold red]\n")
+    sigla = console.input("[bold red]Ingrese la sigla del piloto (3 letras): [/bold red]").upper()
     
     if not re.fullmatch(r"[A-Z]{3}", sigla):
         console.print("[bold red]Error: La sigla debe tener exactamente 3 letras.[/bold red]")
@@ -43,10 +43,10 @@ def agregar_piloto():
         console.print("[bold red]Error: Ya existe un piloto con esa sigla.[/bold red]")
         return
     
-    nombre = console.input("[bold blue]Ingrese el nombre del piloto: [/bold blue]")
-    pais = console.input("[bold blue]Ingrese el país del piloto: [/bold blue]")
+    nombre = console.input("[bold red]Ingrese el nombre del piloto: [/bold red]")
+    pais = console.input("[bold red]Ingrese el país del piloto: [/bold red]")
     
-    esc_sigla = console.input("[bold blue]Ingrese la sigla de la escudería (ej. RBR, FER): [/bold blue]").upper()
+    esc_sigla = console.input("[bold red]Ingrese la sigla de la escudería (ej. RBR, FER): [/bold red]").upper()
     
     if esc_sigla not in escuderias:
         console.print("[bold red]Error: La escudería ingresada no existe en el sistema.[/bold red]")
@@ -66,8 +66,8 @@ def agregar_piloto():
 
 def modificar_piloto():
     """Permite actualizar el nombre, país o escudería de un piloto existente."""
-    console.print("[bold blue]Modificar Piloto:[/bold blue]\n")
-    sigla = console.input("[bold blue]Ingrese la sigla del piloto a modificar: [/bold blue]").upper()
+    console.print("[bold red]Modificar Piloto:[/bold red]\n")
+    sigla = console.input("[bold red]Ingrese la sigla del piloto a modificar: [/bold red]").upper()
     
     if sigla not in pilotos:
         console.print("[bold red]Error: No se encontró ningún piloto con esa sigla.[/bold red]")
@@ -76,15 +76,15 @@ def modificar_piloto():
     piloto_actual = pilotos[sigla]
     console.print(f"Modificando a: [bold]{piloto_actual['datos_personales'][0]}[/bold]")
     
-    nuevo_nombre = console.input("[bold blue]Nuevo nombre (Deje en blanco para no modificar): [/bold blue]")
+    nuevo_nombre = console.input("[bold red]Nuevo nombre (Deje en blanco para no modificar): [/bold red]")
     if nuevo_nombre.strip() == "":
         nuevo_nombre = piloto_actual["datos_personales"][0]
         
-    nuevo_pais = console.input("[bold blue]Nuevo país (Deje en blanco para no modificar): [/bold blue]")
+    nuevo_pais = console.input("[bold red]Nuevo país (Deje en blanco para no modificar): [/bold red]")
     if nuevo_pais.strip() == "":
         nuevo_pais = piloto_actual["datos_personales"][1]
         
-    nueva_escuderia = console.input("[bold blue]Nueva escudería (Deje en blanco para no modificar): [/bold blue]").upper()
+    nueva_escuderia = console.input("[bold red]Nueva escudería (Deje en blanco para no modificar): [/bold red]").upper()
     if nueva_escuderia.strip() == "":
         nueva_escuderia = piloto_actual["escuderia"]
     elif nueva_escuderia not in escuderias:
@@ -105,8 +105,8 @@ def modificar_piloto():
 
 def eliminar_piloto():
     """Elimina a un piloto del sistema y rompe la relación con su escudería."""
-    console.print("[bold blue]Eliminar Piloto:[/bold blue]\n")
-    sigla = console.input("[bold blue]Ingrese la sigla del piloto a eliminar: [/bold blue]").upper()
+    console.print("[bold red]Eliminar Piloto:[/bold red]\n")
+    sigla = console.input("[bold red]Ingrese la sigla del piloto a eliminar: [/bold red]").upper()
     
     if sigla not in pilotos:
         console.print("[bold red]Error: No se encontró ningún piloto con esa sigla.[/bold red]")
@@ -125,8 +125,8 @@ def eliminar_piloto():
 
 def buscar_piloto():
     """Busca un piloto por su sigla y muestra sus datos en un panel."""
-    console.print("[bold blue]Buscar Piloto:[/bold blue]\n")
-    sigla = console.input("[bold blue]Ingrese la sigla del piloto: [/bold blue]").upper()
+    console.print("[bold red]Buscar Piloto:[/bold red]\n")
+    sigla = console.input("[bold red]Ingrese la sigla del piloto: [/bold red]").upper()
     
     if sigla not in pilotos:
         console.print("[bold red]Error: No se encontró ningún piloto con esa sigla.[/bold red]")
@@ -153,7 +153,7 @@ def listar_pilotos():
         return
 
     # Crear la tabla de Rich
-    tabla = Table(title="🏎️ Listado Oficial de Pilotos", border_style="bold blue")
+    tabla = Table(title="🏎️ Listado Oficial de Pilotos", border_style="bold red")
     
     # Definir las columnas
     tabla.add_column("Sigla", style="cyan", justify="center")
@@ -180,7 +180,7 @@ def menu_pilotos():
     while opcion != "0":
         console.clear()
         mostrar_menu_pilotos()
-        opcion = console.input("\n[bold blue]Seleccione una opción: [/bold blue]")
+        opcion = console.input("\n[bold red]Seleccione una opción: [/bold red]")
         print()
         match opcion:
             case "1":
@@ -199,9 +199,9 @@ def menu_pilotos():
                 console.clear()
                 listar_pilotos()
             case "0":
-                console.print("[bold blue]--> Volviendo al menú principal...[/bold blue]")
+                console.print("[bold red]--> Volviendo al menú principal...[/bold red]")
             case _:
                 console.print("[bold red]--> Opción no válida.[/bold red]")
 
         if opcion != "0":
-            console.input("\n[bold blue]Presione Enter para continuar...[/bold blue]")
+            console.input("\n[bold red]Presione Enter para continuar...[/bold red]")
