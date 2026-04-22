@@ -122,7 +122,7 @@ Diccionario de Escuderias:
     - Valor: Diccionario con nombre, pais, pilotos, puntos
 """
 
-escuderias_ = {
+escuderias = {
     "RBR": {
         "nombre": "Oracle Red Bull Racing",
         "pais": "Austria",
