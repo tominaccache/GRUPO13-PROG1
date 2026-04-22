@@ -2,7 +2,7 @@ import re
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
-from datos import pilotos, escuderias_ 
+from datos import pilotos, escuderias 
 
 console = Console()
 
@@ -48,7 +48,7 @@ def agregar_piloto():
     
     esc_sigla = console.input("[bold blue]Ingrese la sigla de la escudería (ej. RBR, FER): [/bold blue]").upper()
     
-    if esc_sigla not in escuderias_:
+    if esc_sigla not in escuderias:
         console.print("[bold red]Error: La escudería ingresada no existe en el sistema.[/bold red]")
         return
 
@@ -60,7 +60,7 @@ def agregar_piloto():
     }
     
     # Vincular al piloto dentro del diccionario de la escudería
-    escuderias_[esc_sigla]["pilotos"].append(sigla)
+    escuderias[esc_sigla]["pilotos"].append(sigla)
     
     console.print(f"\n[bold green]✅ Piloto {nombre} ({sigla}) agregado correctamente a la escudería {esc_sigla}.[/bold green]")
 
@@ -87,15 +87,15 @@ def modificar_piloto():
     nueva_escuderia = console.input("[bold blue]Nueva escudería (Deje en blanco para no modificar): [/bold blue]").upper()
     if nueva_escuderia.strip() == "":
         nueva_escuderia = piloto_actual["escuderia"]
-    elif nueva_escuderia not in escuderias_:
+    elif nueva_escuderia not in escuderias:
         console.print("[bold red]Error: La escudería ingresada no existe. Se mantendrá la escudería anterior.[/bold red]")
         nueva_escuderia = piloto_actual["escuderia"]
     else:
         # Si la escudería cambia, remover al piloto de la antigua y agregarlo a la nueva
         escuderia_antigua = piloto_actual["escuderia"]
-        if sigla in escuderias_[escuderia_antigua]["pilotos"]:
-            escuderias_[escuderia_antigua]["pilotos"].remove(sigla)
-        escuderias_[nueva_escuderia]["pilotos"].append(sigla)
+        if sigla in escuderias[escuderia_antigua]["pilotos"]:
+            escuderias[escuderia_antigua]["pilotos"].remove(sigla)
+        escuderias[nueva_escuderia]["pilotos"].append(sigla)
 
     # Actualizar datos en el diccionario
     pilotos[sigla]["datos_personales"] = [nuevo_nombre, nuevo_pais]
@@ -114,8 +114,8 @@ def eliminar_piloto():
     
     # Remover al piloto de la lista de su escudería
     escuderia_asignada = pilotos[sigla]["escuderia"]
-    if sigla in escuderias_[escuderia_asignada]["pilotos"]:
-        escuderias_[escuderia_asignada]["pilotos"].remove(sigla)
+    if sigla in escuderias[escuderia_asignada]["pilotos"]:
+        escuderias[escuderia_asignada]["pilotos"].remove(sigla)
     
     # Eliminar del diccionario principal
     nombre_eliminado = pilotos[sigla]["datos_personales"][0]
@@ -133,7 +133,7 @@ def buscar_piloto():
         return
     
     datos = pilotos[sigla]
-    nombre_escuderia = escuderias_[datos['escuderia']]['nombre']
+    nombre_escuderia = escuderias[datos['escuderia']]['nombre']
     
     info_piloto = (
         f"[bold]Sigla:[/bold] {sigla}\n"
