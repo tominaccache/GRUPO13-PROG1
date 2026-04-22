@@ -2,13 +2,15 @@ from rich.console import Console
 from rich.panel import Panel
 from subMenuGestionPiloto import menu_pilotos
 from menuEscuderias import menu_escuderias
+from Tabla_Posiciones import menu_tabla_posiciones
 
 # Inicializamos la consola
 console = Console()
 
-
 def limpiar_consola():
-    """Objetivo: Limpiar la consola para que quede más prolijo"""
+    """
+    Objetivo: Limpiar la consola para que quede más prolijo
+    """
     console.clear()
 
 
@@ -46,7 +48,9 @@ def mostrar_menu():
 
 
 def main():
-    """Objetivo: Funcion Principal que mantiene el ciclo de vida del proyecto"""
+    """
+    Objetivo: Funcion Principal que mantiene el ciclo de vida del proyecto
+    """
     opcion = "-1"
     while opcion != "0":
         limpiar_consola()
@@ -57,12 +61,10 @@ def main():
                 menu_pilotos()
             case "2":
                 menu_escuderias()
-                console.print("[bold red]--> Abriendo Modulo de Escuderias[/bold red]")
-                menu_escuderias()
             case "3":
                 console.print("[bold red]--> Abriendo Registro de Carreras[/bold red]")
             case "4":
-                console.print("[bold red]--> Abriendo Tablas de Posiciones[/bold red]")
+                menu_tabla_posiciones()
             case "5":
                 console.print("[bold red]--> Generando Estadisticas[/bold red]")
             case "6":
