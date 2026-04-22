@@ -53,7 +53,7 @@ def modificar_escuderia():
     Salida: No retorna nada, modifica el diccionario escuderias_ en memoria.
     """
     console.print("[bold red] Modificar Escuderia[/bold red]\n")
-    sigla = console.input("[bold red]Ingrese la sigla de la escuderia ")
+    sigla = console.input("[bold red]Ingrese la sigla de la escuderia: ").upper()
     if not validar_sigla(sigla):
         console.print(
             "[bold red] Error: La sigla debe tener exactamente 3 letras.[/bold red]\n"
@@ -80,7 +80,7 @@ def modificar_escuderia():
     )
 
 
-def ver_escderias():
+def ver_escuderias():
     """
     Objetivo: Mostrar todas las escuderias cargadas en una tabla.
     Entrada: No recibe parametros.
@@ -101,18 +101,44 @@ def ver_escderias():
             sigla,
             datos["nombre"],
             datos["pais"],
-            ",".join(datos["pilotos"]) if datos["pilotos"] else "Sin Pilotos",
+            ", ".join(datos["pilotos"]) if datos["pilotos"] else "Sin Pilotos",
             str(datos["puntos"]),
         )
     console.print(tabla)
 
 
 def eliminar_escuderia():
-    return
+    """
+    Objetivo: Eliminar una escuderia existente del diccionario de escuderias.
+    Entrada: No recibe parametros, los datos se ingresan por consola.
+    Salida: No retorna nada, modifica el diccionario escuderias en memoria.
+    """
+    console.print("[bold red]Eliminar escuderia[/bold red]\n")
+    sigla = console.input("[bold red]Ingrese la sigla de la escuderia ").upper()
+    if not validar_sigla(sigla):
+        console.print(
+            "[bold red] Error: La sigla debe tener exactamente 3 letras.[/bold red]\n"
+        )
+        return
 
+    if sigla not in escuderias:
+        console.print(
+            "[bold red]Error: No existe una escuderia con esa sigla[/bold red]\n"
+        )
+        return
 
-def ver_escuderias():
-    return
+    console.print(f"[bold red]Nombre: {escuderias[sigla]['nombre']}[/bold red]\n")
+    console.print(f"[bold red]Pais: {escuderias[sigla]['pais']}[/bold red]\n")
+    confirmacion = console.input(
+        "[bold red]¿Esta seguro que desea eliminar esta escuderia (S= si, N= no)?: "
+    )
+    if confirmacion == "S" or confirmacion == "s":
+        del escuderias[sigla]
+        console.print(
+            f"[bold red]Escuderia '{sigla}' eliminada exitosamente.[/bold red]\n"
+        )
+    else:
+        console.print("\n[bold red]Operacion cancelada.[/bold red]")
 
 
 def mostrar_menu_escuderias():
