@@ -33,7 +33,7 @@ Diccionario de Escuderias:
     - Valor: Diccionario con nombre, pais, pilotos, puntos
 """
 
-escuderias_ = {
+escuderias = {
     "RBR": {"nombre": "Oracle Red Bull Racing","pais":"Austria","pilotos":["VER","HAD"],"puntos":0},
     "MER": {"nombre":"Mercedes-AMG Petronas","pais":"Alemania","pilotos":["RUS","ANT"],"puntos":0},
     "FER": {"nombre": "Scuderia Ferrari", "pais": "Italia", "pilotos": ["HAM", "LEC"], "puntos": 0},
