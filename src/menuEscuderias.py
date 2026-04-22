@@ -3,8 +3,10 @@ from rich.panel import Panel
 from rich.table import Table
 from datos import escuderias
 import re
+
 # Inicializacion de la Consola
 console = Console()
+
 
 def validar_sigla(sigla):
     """
@@ -14,6 +16,7 @@ def validar_sigla(sigla):
     """
     return bool(re.fullmatch(r"[A-Z]{3}", sigla))
 
+
 def agregar_escuderia():
     """
     Objetivo: Agregar una nueva escuderia al diccionario de escuderias.
@@ -21,20 +24,27 @@ def agregar_escuderia():
     Salida: No retorna nada, modifica el diccionario escuderias_ en memoria.
     """
     console.print("[bold red]Agregar Escuderia: [/bold red]\n")
-    sigla = console.input("[bold red]Ingrese la sigla de la escuderia (3 letras): [/bold red]").upper()
-    
+    sigla = console.input(
+        "[bold red]Ingrese la sigla de la escuderia (3 letras): [/bold red]"
+    ).upper()
+
     if not validar_sigla(sigla):
-        console.print("[bold red]Error: La sigla debe tener exactamente 3 letras.[/bold red]")
+        console.print(
+            "[bold red]Error: La sigla debe tener exactamente 3 letras.[/bold red]"
+        )
         return
-    
+
     if sigla in escuderias:
-        console.print("[bold red]Error: Ya existe una escuderia con esa sigla.[/bold red]")
+        console.print(
+            "[bold red]Error: Ya existe una escuderia con esa sigla.[/bold red]"
+        )
         return
-    
+
     nombre = console.input("[bold red]Ingrese el nombre de la escuderia: [/bold red]")
     pais = console.input("[bold red]Ingrese el pais de la escuderia: [/bold red]")
     escuderias[sigla] = {"nombre": nombre, "pais": pais, "pilotos": [], "puntos": 0}
     console.print(f"[bold red]Escuderia {nombre} agregada correctamente.[/bold red]")
+
 
 def modificar_escuderia():
     """
@@ -69,6 +79,7 @@ def modificar_escuderia():
         f"[bold red]Escuderia '{sigla}' modificada correctamente.[/bold red]\n"
     )
 
+
 def ver_escderias():
     """
     Objetivo: Mostrar todas las escuderias cargadas en una tabla.
@@ -87,14 +98,13 @@ def ver_escderias():
 
     for sigla, datos in escuderias.items():
         tabla.add_row(
-                    sigla,
-                    datos["nombre"],
-                    datos["pais"],
-                    ",".join(datos["pilotos"]) if datos["pilotos"] else "Sin Pilotos",
-                    str(datos["puntos"]),
-                )
+            sigla,
+            datos["nombre"],
+            datos["pais"],
+            ",".join(datos["pilotos"]) if datos["pilotos"] else "Sin Pilotos",
+            str(datos["puntos"]),
+        )
     console.print(tabla)
-        
 
 
 def eliminar_escuderia():
@@ -103,6 +113,7 @@ def eliminar_escuderia():
 
 def ver_escuderias():
     return
+
 
 def mostrar_menu_escuderias():
     """
@@ -127,6 +138,7 @@ def mostrar_menu_escuderias():
         width=49,
     )
     console.print(panel)
+
 
 def menu_escuderias():
     opcion = "-1"
