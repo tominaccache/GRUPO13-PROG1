@@ -21,7 +21,7 @@ def mostrar_menu_pilotos():
 
     panel = Panel(
         texto_menu,
-        title="[bold red] Gestión de Pilotos 🏎️[/bold red]",
+        title="[bold red] Gestión de Pilotos[/bold red]",
         border_style="bold red",
         style="on white",
         padding=(1, 4),
@@ -91,9 +91,9 @@ def modificar_piloto():
         console.print("[bold red]Error: La escudería ingresada no existe. Se mantendrá la escudería anterior.[/bold red]")
         nueva_escuderia = piloto_actual["escuderia"]
     else:
-        # Si la escudería cambia, remover al piloto de la antigua y agregarlo a la nueva
+        # Si la escudería cambia, remover al piloto de la antigua (si existe) y agregarlo a la nueva
         escuderia_antigua = piloto_actual["escuderia"]
-        if sigla in escuderias[escuderia_antigua]["pilotos"]:
+        if escuderia_antigua in escuderias and sigla in escuderias[escuderia_antigua]["pilotos"]:
             escuderias[escuderia_antigua]["pilotos"].remove(sigla)
         escuderias[nueva_escuderia]["pilotos"].append(sigla)
 
@@ -112,11 +112,11 @@ def eliminar_piloto():
         console.print("[bold red]Error: No se encontró ningún piloto con esa sigla.[/bold red]")
         return
     
-    # Remover al piloto de la lista de su escudería
+   # Remover al piloto de la lista de su escudería verificando que la escudería aún exista
     escuderia_asignada = pilotos[sigla]["escuderia"]
-    if sigla in escuderias[escuderia_asignada]["pilotos"]:
+    if escuderia_asignada in escuderias and sigla in escuderias[escuderia_asignada]["pilotos"]:
         escuderias[escuderia_asignada]["pilotos"].remove(sigla)
-    
+        
     # Eliminar del diccionario principal
     nombre_eliminado = pilotos[sigla]["datos_personales"][0]
     del pilotos[sigla]
@@ -133,7 +133,11 @@ def buscar_piloto():
         return
     
     datos = pilotos[sigla]
-    nombre_escuderia = escuderias[datos['escuderia']]['nombre']
+    esc_sigla = datos['escuderia']
+    if esc_sigla in escuderias:
+        nombre_escuderia = escuderias[esc_sigla]['nombre']
+    else:
+        nombre_escuderia = "Escudería Eliminada/No existe"
     
     info_piloto = (
         f"[bold]Sigla:[/bold] {sigla}\n"
