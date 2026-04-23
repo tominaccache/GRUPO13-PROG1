@@ -82,9 +82,10 @@ def submenu_proyeccion():
         opcion = console.input("[bold red] Seleccione una opción: [/bold red]")
 
         if opcion == "1":
-            # analizar_piloto()
             console.print("[bold red]--> Posibilidades de alcanzar al lider (proximamente)[/bold red]")
         elif opcion == "0":
             console.print("[bold red]--> Volviendo al menú principal...[/bold red]")
         else:
             console.print("[bold red]Opcion invalida[/bold red]")
+        if opcion !="0":
+            console.input("[bold red]--> Presione enter para continuar.[/bold red]")

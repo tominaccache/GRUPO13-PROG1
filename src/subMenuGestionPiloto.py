@@ -147,7 +147,7 @@ def buscar_piloto():
         f"[bold red]Puntos Campeonato: {datos['puntos']}[/bold red]"
     )
     
-    panel = Panel(info_piloto, title="[bold red]Información del Piloto[/bold red]", border_style="red",style="on white", expand=False)
+    panel = Panel(info_piloto, title="[bold red]Información del Piloto[/bold red]", border_style="bold red",style="on white", expand=False)
     console.print(panel)
 
 def listar_pilotos():

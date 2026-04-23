@@ -79,7 +79,7 @@ def main():
                 menu_cargar()
             case "0":
                 console.print(
-                    "[bold red]--> ¡Gracias por utilizar la aplicacion! Nos vemos la proxima.[/bold red]"
+                    "[bold red]--> Gracias por utilizar la aplicacion. Nos vemos la proxima.[/bold red]"
                 )
             case _:
                 console.print(
