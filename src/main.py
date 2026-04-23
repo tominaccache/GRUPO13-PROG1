@@ -5,6 +5,7 @@ from menuEscuderias import menu_escuderias
 from Tabla_Posiciones import menu_tabla_posiciones
 from proyeccion import submenu_proyeccion
 from Registrar_Resultado import menu_resultados
+from subMenuEstadisticas import menu_estadisticas
 # Inicializamos la consola
 console = Console()
 
@@ -67,7 +68,7 @@ def main():
             case "4":
                 menu_tabla_posiciones()
             case "5":
-                console.print("[bold red]--> Generando Estadisticas[/bold red]")
+                menu_estadisticas()
             case "6":
                 submenu_proyeccion()
             case "7":
