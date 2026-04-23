@@ -7,6 +7,7 @@ from proyeccion import submenu_proyeccion
 from Registrar_Resultado import menu_resultados
 from subMenuEstadisticas import menu_estadisticas
 from subMenuEstadisticas import menu_estadisticas
+from manejoArchivos import menu_cargar, menu_guardar
 # Inicializamos la consola
 console = Console()
 
@@ -73,9 +74,9 @@ def main():
             case "6":
                 submenu_proyeccion()
             case "7":
-                console.print("[bold red]--> Guardando datos en Archivo[/bold red]")
+                menu_guardar()
             case "8":
-                console.print("[bold red]--> Cargando datos en Archivo[/bold red]")
+                menu_cargar()
             case "0":
                 console.print(
                     "[bold red]--> ¡Gracias por utilizar la aplicacion! Nos vemos la proxima.[/bold red]"
