@@ -21,7 +21,7 @@ def agregar_escuderia():
     """
     Objetivo: Agregar una nueva escuderia al diccionario de escuderias.
     Entrada: No recibe parametros, los datos se ingresan por consola.
-    Salida: No retorna nada, modifica el diccionario escuderias_ en memoria.
+    Salida: No retorna nada, modifica el diccionario escuderias en memoria.
     """
     console.print("[bold red]Agregar Escuderia: [/bold red]\n")
     sigla = console.input(
@@ -50,7 +50,7 @@ def modificar_escuderia():
     """
     Objetivo: Modificar el nombre y/o pais de una escuderia existente.
     Entrada: No recibe parametros, los datos se ingresan por consola.
-    Salida: No retorna nada, modifica el diccionario escuderias_ en memoria.
+    Salida: No retorna nada, modifica el diccionario escuderias en memoria.
     """
     console.print("[bold red] Modificar Escuderia[/bold red]")
     sigla = console.input("[bold red]Ingrese la sigla de la escuderia: [/bold red]").upper()
