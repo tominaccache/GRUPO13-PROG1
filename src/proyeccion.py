@@ -59,7 +59,7 @@ def mostrar_menu_proyeccion():
     Salida: Retorna la opcion ingresada por el usuario como un string
     """
     texto_menu = (
-        "[bold red]1. Analizar Piloto[/bold red]\n"
+        "[bold red]1. Puntos Maximos Posibles[/bold red]\n"
         "[bold red]0. Volver al menú principal[/bold red]\n"
     )
     panel = Panel(
@@ -82,7 +82,8 @@ def submenu_proyeccion():
         opcion = console.input("[bold red] Seleccione una opción: [/bold red]")
 
         if opcion == "1":
-            analizar_piloto()
+            # analizar_piloto()
+            console.print("[bold red]--> Posibilidades de alcanzar al lider (proximamente)[/bold red]")
         elif opcion == "0":
             console.print("[bold red]--> Volviendo al menú principal...[/bold red]")
         else:
