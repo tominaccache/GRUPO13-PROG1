@@ -52,31 +52,31 @@ def modificar_escuderia():
     Entrada: No recibe parametros, los datos se ingresan por consola.
     Salida: No retorna nada, modifica el diccionario escuderias_ en memoria.
     """
-    console.print("[bold red] Modificar Escuderia[/bold red]\n")
+    console.print("[bold red] Modificar Escuderia[/bold red]")
     sigla = console.input("[bold red]Ingrese la sigla de la escuderia: [/bold red]").upper()
     if not validar_sigla(sigla):
         console.print(
-            "[bold red] Error: La sigla debe tener exactamente 3 letras.[/bold red]\n"
+            "[bold red] Error: La sigla debe tener exactamente 3 letras.[/bold red]"
         )
         return
 
     if sigla not in escuderias:
         console.print(
-            "[bold red]Error: No existe una escuderia con esa sigla[/bold red]\n"
+            "[bold red]Error: No existe una escuderia con esa sigla[/bold red]"
         )
         return
     console.print(
-        f"[bold red]Nombre Actual: {escuderias[sigla]['nombre']}[/bold red]\n"
+        f"[bold red]Nombre Actual: {escuderias[sigla]['nombre']}[/bold red]"
     )
-    console.print(f"[bold red]Pais actual: {escuderias[sigla]['pais']}[/bold red]\n")
+    console.print(f"[bold red]Pais actual: {escuderias[sigla]['pais']}[/bold red]")
 
-    nombre = console.input("[bold red]Ingrese el nuevo nombre: [/bold red]\n")
+    nombre = console.input("[bold red]Ingrese el nuevo nombre: [/bold red]")
     pais = console.input("[bold red]Ingrese el nuevo pais: [/bold red]\n")
     escuderias[sigla]["nombre"] = nombre
     escuderias[sigla]["pais"] = pais
 
     console.print(
-        f"[bold red]Escuderia '{sigla}' modificada correctamente.[/bold red]\n"
+        f"[bold red]Escuderia '{sigla}' modificada correctamente.[/bold red]"
     )
 
 
