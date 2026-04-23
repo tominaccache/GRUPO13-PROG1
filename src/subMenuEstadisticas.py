@@ -10,7 +10,7 @@ def mostrar_menu_estadisticas():
         "[bold red]1. Pilotos con puntos[/bold red]\n"
         "[bold red]2. Promedio de tiempos[/bold red]\n"
         "[bold red]3. Mejor tiempo[/bold red]\n"
-        "[bold red]4. Cantidad de Victorias[bold red]\n"
+        "[bold red]4. Cantidad de Victorias[/bold red]\n"
         "[bold red]0. Volver al menú principal[/bold red]\n"
     )
     panel = Panel(
@@ -44,4 +44,4 @@ def menu_estadisticas():
             case _:
                 console.print("[bold red]--> Opción no válida.[/bold red]")
         if opcion != "0":
-            console.print("[bold red]--> Presione Enter para continuar. [/bold red]")
+            console.input("[bold red]--> Presione Enter para continuar. [/bold red]")
