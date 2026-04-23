@@ -4,6 +4,7 @@ from subMenuGestionPiloto import menu_pilotos
 from menuEscuderias import menu_escuderias
 from Tabla_Posiciones import menu_tabla_posiciones
 from proyeccion import submenu_proyeccion
+from Registrar_Resultado import menu_resultados
 # Inicializamos la consola
 console = Console()
 
@@ -62,7 +63,7 @@ def main():
             case "2":
                 menu_escuderias()
             case "3":
-                console.print("[bold red]--> Abriendo Registro de Carreras[/bold red]")
+                menu_resultados()
             case "4":
                 menu_tabla_posiciones()
             case "5":
