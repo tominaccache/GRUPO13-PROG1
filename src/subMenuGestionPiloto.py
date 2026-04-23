@@ -74,7 +74,7 @@ def modificar_piloto():
         return
     
     piloto_actual = pilotos[sigla]
-    console.print(f"Modificando a: [bold]{piloto_actual['datos_personales'][0]}[/bold]")
+    console.print(f"[bold red]Modificando a: {piloto_actual['datos_personales'][0]}[/bold red]")
     
     nuevo_nombre = console.input("[bold red]Nuevo nombre (Deje en blanco para no modificar): [/bold red]")
     if nuevo_nombre.strip() == "":
@@ -126,7 +126,7 @@ def eliminar_piloto():
 def buscar_piloto():
     """Busca un piloto por su sigla y muestra sus datos en un panel."""
     console.print("[bold red]Buscar Piloto:[/bold red]\n")
-    sigla = console.input("[bold red]Ingrese la sigla del piloto: [/bold red]").upper()
+    sigla = console.input("[bold red]Ingrese la sigla del piloto: [/bold red]\n").upper()
     
     if sigla not in pilotos:
         console.print("[bold red]Error: No se encontró ningún piloto con esa sigla.[/bold red]")
@@ -140,14 +140,14 @@ def buscar_piloto():
         nombre_escuderia = "Escudería Eliminada/No existe"
     
     info_piloto = (
-        f"[bold]Sigla:[/bold] {sigla}\n"
-        f"[bold]Nombre:[/bold] {datos['datos_personales'][0]}\n"
-        f"[bold]Nacionalidad:[/bold] {datos['datos_personales'][1]}\n"
-        f"[bold]Escudería:[/bold] {datos['escuderia']} - {nombre_escuderia}\n"
-        f"[bold]Puntos Campeonato:[/bold] {datos['puntos']}"
+        f"[bold red]Sigla: {sigla} [/bold red]\n"
+        f"[bold red]Nombre: {datos['datos_personales'][0]}[/bold red] \n"
+        f"[bold red]Nacionalidad: {datos['datos_personales'][1]}[/bold red]\n"
+        f"[bold red]Escudería: {datos['escuderia']} - {nombre_escuderia}[/bold red]\n"
+        f"[bold red]Puntos Campeonato: {datos['puntos']}[/bold red]"
     )
     
-    panel = Panel(info_piloto, title="[bold cyan]Información del Piloto[/bold cyan]", border_style="cyan", expand=False)
+    panel = Panel(info_piloto, title="[bold red]Información del Piloto[/bold red]", border_style="red",style="on white", expand=False)
     console.print(panel)
 
 def listar_pilotos():
@@ -157,7 +157,7 @@ def listar_pilotos():
         return
 
     # Crear la tabla de Rich
-    tabla = Table(title="🏎️ Listado Oficial de Pilotos", border_style="bold red")
+    tabla = Table(title=" Listado Oficial de Pilotos", border_style="bold red")
     
     # Definir las columnas
     tabla.add_column("Sigla", style="cyan", justify="center")
