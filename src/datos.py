@@ -231,5 +231,13 @@ matriz_resultados = []
 for fila in range(cantidad_pilotos):
     fila_vacia = []
     for columna in range(cantidad_carreras):
-        fila_vacia.append(0)
+        fila_vacia.append(None)
     matriz_resultados.append(fila_vacia)
+
+# Datos crudos separados de los puntos que es lo que se almacena 
+    """
+    Diccionario:
+        - Clave: Circuito 
+        - Valor: Diccionario con pilto y tiempo de carrera     
+    """
+tiempos_carreras= {}
