@@ -1,7 +1,7 @@
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
-from datos import escuderias
+from datos import escuderias,pilotos
 import re
 
 # Inicializacion de la Consola
@@ -132,7 +132,11 @@ def eliminar_escuderia():
     confirmacion = console.input(
         "[bold red]¿Esta seguro que desea eliminar esta escuderia (S= si, N= no)?: "
     )
-    if confirmacion == "S" or confirmacion == "s":
+    if confirmacion.upper() == "S":
+        for sigla_piloto in escuderias[sigla]['pilotos']:
+            if sigla_piloto in pilotos:
+                pilotos[sigla_piloto]['escuderia']= "SIN ESCUDERIA"
+                
         del escuderias[sigla]
         console.print(
             f"[bold red]Escuderia '{sigla}' eliminada exitosamente.[/bold red]\n"
