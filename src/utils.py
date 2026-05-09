@@ -18,7 +18,7 @@ def mostrar_menu_generico(titulo, opciones, ancho=49):
     # Recorremos la lista de opciones y le agregamos el color rojo a cada una
     opciones_formateadas = []
     for op in opciones:
-        opciones_formateadas.append(f"[#a61b1b ]{op}[/#a61b1b]")
+        opciones_formateadas.append(f"[#a61b1b]{op}[/#a61b1b]")
 
     texto_menu = "\n".join(opciones_formateadas)
 
