@@ -71,9 +71,3 @@ def mostrar_tabla_generica(titulo, columnas, filas, alineaciones=None):
 
     console.print(tabla)
 
-
-def limpiar_consola():
-    """
-    Objetivo: Limpiar la consola para que quede más prolijo
-    """
-    console.clear()
