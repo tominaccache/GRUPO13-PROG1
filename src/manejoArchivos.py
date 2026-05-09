@@ -1,5 +1,5 @@
 from rich.console import Console
-from utils import mostrar_menu_generico, limpiar_consola
+from utils import mostrar_menu_generico
 
 console = Console()
 

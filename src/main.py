@@ -6,7 +6,7 @@ from proyeccion import submenu_proyeccion
 from Registrar_Resultado import menu_resultados
 from subMenuEstadisticas import menu_estadisticas
 from manejoArchivos import menu_cargar, menu_guardar
-from utils import mostrar_menu_generico, limpiar_consola
+from utils import mostrar_menu_generico
 
 # Inicializamos la consola
 console = Console()
@@ -29,7 +29,7 @@ def main():
     ]
     opcion = "-1"
     while opcion != "0":
-        limpiar_consola()
+        console.clear()
         opcion = mostrar_menu_generico(
             "Administrador de Campeonato de F1", opciones_menu
         )

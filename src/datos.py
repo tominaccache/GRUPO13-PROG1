@@ -239,5 +239,5 @@ for fila in range(cantidad_pilotos):
     Diccionario:
         - Clave: Circuito 
         - Valor: Diccionario con pilto y tiempo de carrera     
-    """
-tiempos_carreras= {}
+"""
+tiempos_carreras = {}
