@@ -27,6 +27,8 @@ Sistema de gestión por consola para administrar los datos de telemetría y punt
 * Persistencia de datos mediante archivos JSON.
 
 ## Estructura del Proyecto
+
+```
 src/
 ├── main.py                  # Punto de entrada y menú principal
 ├── datos.py                 # Estructuras de datos globales
@@ -38,6 +40,7 @@ src/
 ├── subMenuEstadisticas.py   # Estadísticas del campeonato
 ├── proyeccion.py            # Proyección de campeonato
 └── manejoArchivos.py        # Guardar y cargar datos
+```
 
 Este proyecto utiliza la librería `rich` para mejorar la interfaz visual de la consola (autorizado por la profesora).
 
