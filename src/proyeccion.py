@@ -1,6 +1,7 @@
 from datos import pilotos, puntos_por_posicion
 from rich.console import Console
 from rich.panel import Panel
+from utils import mostrar_menu_generico
 
 # Inicializamos la consola
 console = Console()
@@ -53,39 +54,19 @@ def analizar_piloto():
     console.print(panel)
 
 
-def mostrar_menu_proyeccion():
-    """
-    Objetivo: Mostrar el submenu de Proyeccion del Campeonato
-    Salida: Retorna la opcion ingresada por el usuario como un string
-    """
-    texto_menu = (
-        "[bold red]1. Puntos Maximos Posibles[/bold red]\n"
-        "[bold red]0. Volver al menú principal[/bold red]\n"
-    )
-    panel = Panel(
-        texto_menu,
-        title="[bold red] Proyeccion del Campeonato[/bold red]",
-        border_style="bold red",
-        style="on white",
-        padding=(1, 4),
-        expand=True,
-        width=49,
-    )
-    console.print(panel)
-
-
 def submenu_proyeccion():
     opcion = "-1"
+    opciones_menu = ["1. Puntos Maximos Posibles", "0. Volver al Menú Principal"]
     while opcion != "0":
+
         console.clear()
-        mostrar_menu_proyeccion()
-        opcion = console.input("[bold red] Seleccione una opción: [/bold red]")
+        opcion = mostrar_menu_generico("Proyeccion del Campeonato", opciones_menu)
 
         if opcion == "1":
-            console.print("[bold red]--> Posibilidades de alcanzar al lider (proximamente)[/bold red]")
+            analizar_piloto()
         elif opcion == "0":
             console.print("[bold red]--> Volviendo al menú principal...[/bold red]")
         else:
             console.print("[bold red]Opcion invalida[/bold red]")
-        if opcion !="0":
+        if opcion != "0":
             console.input("[bold red]--> Presione enter para continuar.[/bold red]")

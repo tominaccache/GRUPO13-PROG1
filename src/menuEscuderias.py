@@ -1,8 +1,9 @@
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
-from datos import escuderias,pilotos
+from datos import escuderias, pilotos
 import re
+from utils import mostrar_menu_generico, mostrar_tabla_generica
 
 # Inicializacion de la Consola
 console = Console()
@@ -53,7 +54,9 @@ def modificar_escuderia():
     Salida: No retorna nada, modifica el diccionario escuderias en memoria.
     """
     console.print("[bold red] Modificar Escuderia[/bold red]")
-    sigla = console.input("[bold red]Ingrese la sigla de la escuderia: [/bold red]").upper()
+    sigla = console.input(
+        "[bold red]Ingrese la sigla de la escuderia: [/bold red]"
+    ).upper()
     if not validar_sigla(sigla):
         console.print(
             "[bold red] Error: La sigla debe tener exactamente 3 letras.[/bold red]"
@@ -65,9 +68,7 @@ def modificar_escuderia():
             "[bold red]Error: No existe una escuderia con esa sigla[/bold red]"
         )
         return
-    console.print(
-        f"[bold red]Nombre Actual: {escuderias[sigla]['nombre']}[/bold red]"
-    )
+    console.print(f"[bold red]Nombre Actual: {escuderias[sigla]['nombre']}[/bold red]")
     console.print(f"[bold red]Pais actual: {escuderias[sigla]['pais']}[/bold red]")
 
     nombre = console.input("[bold red]Ingrese el nuevo nombre: [/bold red]")
@@ -75,36 +76,41 @@ def modificar_escuderia():
     escuderias[sigla]["nombre"] = nombre
     escuderias[sigla]["pais"] = pais
 
-    console.print(
-        f"[bold red]Escuderia '{sigla}' modificada correctamente.[/bold red]"
-    )
+    console.print(f"[bold red]Escuderia '{sigla}' modificada correctamente.[/bold red]")
 
 
 def ver_escuderias():
     """
-    Objetivo: Mostrar todas las escuderias cargadas en una tabla.
-    Entrada: No recibe parametros.
-    Salida: No retorna nada, imprime la tabla por consola.
+    Objetivo: Mostrar todas las escuderias cargadas usando la tabla generica
     """
+    if not escuderias:
+        console.print(
+            "[bold red]No hay escuderías registradas en el sistema.[/bold red]"
+        )
+        return
 
-    tabla = Table(title="Escuderias", border_style="bold red", style="on white")
+    # Cabeceras de la tabla
+    cabeceras = ["Sigla", "Nombre", "Pais", "Pilotos", "Puntos"]
 
-    # Definimos las columnas de la tabla
-    tabla.add_column("Sigla", style="bold white", justify="center")
-    tabla.add_column("Nombre", style="bold white", justify="center")
-    tabla.add_column("Pais", style="bold white", justify="center")
-    tabla.add_column("Pilotos", style="bold white", justify="center")
-    tabla.add_column("Puntos", style="bold white", justify="center")
-
+    # Lista de filas
+    filas = []
     for sigla, datos in escuderias.items():
-        tabla.add_row(
+        # Formateamos la lista de pilotos para que sea un string separado por comas
+        pilotos_formateados = ", ".join(
+            datos["pilotos"] if datos["pilotos"] else "Sin Pilotos"
+        )
+
+        fila = [
             sigla,
             datos["nombre"],
             datos["pais"],
-            ", ".join(datos["pilotos"]) if datos["pilotos"] else "Sin Pilotos",
-            str(datos["puntos"]),
-        )
-    console.print(tabla)
+            pilotos_formateados,
+            datos["puntos"],
+        ]
+        filas.append(fila)
+
+    # Llamamos a la funcion generica
+    mostrar_tabla_generica("Escuderias Oficiales F1", cabeceras, filas)
 
 
 def eliminar_escuderia():
@@ -114,7 +120,9 @@ def eliminar_escuderia():
     Salida: No retorna nada, modifica el diccionario escuderias en memoria.
     """
     console.print("[bold red]Eliminar escuderia[/bold red]\n")
-    sigla = console.input("[bold red]Ingrese la sigla de la escuderia: [/bold red]").upper()
+    sigla = console.input(
+        "[bold red]Ingrese la sigla de la escuderia: [/bold red]"
+    ).upper()
     if not validar_sigla(sigla):
         console.print(
             "[bold red] Error: La sigla debe tener exactamente 3 letras.[/bold red]\n"
@@ -133,10 +141,10 @@ def eliminar_escuderia():
         "[bold red]¿Esta seguro que desea eliminar esta escuderia (S= si, N= no)?: "
     )
     if confirmacion.upper() == "S":
-        for sigla_piloto in escuderias[sigla]['pilotos']:
+        for sigla_piloto in escuderias[sigla]["pilotos"]:
             if sigla_piloto in pilotos:
-                pilotos[sigla_piloto]['escuderia']= "SIN ESCUDERIA"
-                
+                pilotos[sigla_piloto]["escuderia"] = "SIN ESCUDERIA"
+
         del escuderias[sigla]
         console.print(
             f"[bold red]Escuderia '{sigla}' eliminada exitosamente.[/bold red]\n"
@@ -145,37 +153,19 @@ def eliminar_escuderia():
         console.print("\n[bold red]Operacion cancelada.[/bold red]")
 
 
-def mostrar_menu_escuderias():
-    """
-    Objetivo: Mostrar el submenú de Gestión de Escuderías.
-    Salida: Retorna la opción ingresada por el usuario como un string.
-    """
-    texto_menu = (
-        "[bold red]1. Agregar escudería[/bold red]\n"
-        "[bold red]2. Modificar escudería[/bold red]\n"
-        "[bold red]3. Eliminar escudería[/bold red]\n"
-        "[bold red]4. Ver escuderías[/bold red]\n"
-        "[bold red]0. Volver al menú principal[/bold red]"
-    )
-
-    panel = Panel(
-        texto_menu,
-        title="[bold red] Gestión de Escuderías[/bold red]",
-        border_style="bold red",
-        style="on white",
-        padding=(1, 4),
-        expand=True,
-        width=49
-    )
-    console.print(panel)
-
-
 def menu_escuderias():
+    opciones_menu = [
+        "1. Agregar Escudería",
+        "2. Modificar Escudería",
+        "3. Eliminar Escudería",
+        "4. Ver Escuderías",
+        "0. Volver al menú principal",
+    ]
     opcion = "-1"
     while opcion != "0":
         console.clear()
-        mostrar_menu_escuderias()
-        opcion = console.input("\n[bold red]Seleccione una opción: [/bold red]")
+
+        opcion = mostrar_menu_generico("Gestion de Escuderías", opciones_menu)
         match opcion:
             case "1":
                 console.clear()

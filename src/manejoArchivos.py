@@ -1,36 +1,18 @@
 from rich.console import Console
-from rich.panel import Panel
+from utils import mostrar_menu_generico, limpiar_consola
 
 console = Console()
 
 
-def mostrar_menu_guardar():
-    """
-    Objetivo: Mostrar el submenú de Guardar Datos.
-    Salida: Retorna la opción ingresada por el usuario como un string.
-    """
-    texto_menu = (
-        "[bold red]1. Guardar estado del sistema[/bold red]\n"
-        "[bold red]2. Exportar reporte[/bold red]\n"
-        "[bold red]0. Volver al menú principal[/bold red]\n"
-    )
-    panel = Panel(
-        texto_menu,
-        title="[bold red] Guardar Datos[/bold red]",
-        border_style="bold red",
-        style="on white",
-        padding=(1, 4),
-        expand=False,
-        width=49,
-    )
-    console.print(panel)
-    return console.input("\n[bold red]Seleccione una opción: [/bold red]")
-
-
 def menu_guardar():
+    opciones_menu = [
+        "1. Guardar estado del sistema",
+        "2. Exportar reporte",
+        "0. Volver al menú principal",
+    ]
     while True:
         console.clear()
-        op = mostrar_menu_guardar()
+        op = mostrar_menu_generico("Guardar Datos", opciones_menu)
 
         match op:
             case "1":
@@ -50,32 +32,11 @@ def menu_guardar():
             console.input("\n[bold red]Presione Enter para continuar.[/bold red]")
 
 
-def mostrar_menu_cargar():
-    """
-    Objetivo: Mostrar el submenú de Cargar Datos.
-    Salida: Retorna la opción ingresada por el usuario como un string.
-    """
-    texto_menu = (
-        "[bold red]1. Restaurar sistema[/bold red]\n"
-        "[bold red]0. Volver al menú principal[/bold red]"
-    )
-    panel = Panel(
-        texto_menu,
-        title="[bold red] Cargar Datos[/bold red]",
-        border_style="bold red",
-        style="on white",
-        padding=(1, 4),
-        expand=False,
-        width=49,
-    )
-    console.print(panel)
-    return console.input("\n[bold red]Seleccione una opción: [/bold red]")
-
-
 def menu_cargar():
+    opciones_menu = ["1. Restaurar sistema", "0. Volver al menú principal"]
     while True:
         console.clear()
-        op = mostrar_menu_cargar()
+        op = mostrar_menu_generico("Cargar Datos", opciones_menu)
 
         match op:
             case "1":
