@@ -52,7 +52,8 @@ def main():
                 menu_cargar()
             case "0":
                 console.print(
-                    "[#a61b1b]--> Gracias por utilizar la aplicacion. Nos vemos la proxima.[/#a61b1b]"
+                    "[#a61b1b]--> Gracias por utilizar la aplicacion."
+                    "Nos vemos la proxima.[/#a61b1b]"
                 )
             case _:
                 console.print(
@@ -61,7 +62,7 @@ def main():
 
         if opcion != "0":
             print()
-            console.input("[#a61b1b]Presione Enter para continuar... [/#a61b1b]")
+            console.input("[#a61b1b]Presione Enter para continuar.[/#a61b1b]")
 
 
 if __name__ == "__main__":

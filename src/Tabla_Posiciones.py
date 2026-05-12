@@ -19,20 +19,21 @@ def menu_tabla_posiciones():
         match op:
             case "1":
                 console.print(
-                    "[bold red]--> Ver Tabla de Pilotos (próximamente)[/bold red]"
+                    "[#a61b1b]--> Ver Tabla de Pilotos (próximamente)[/#a61b1b]"
                 )
             case "2":
                 console.print(
-                    "[bold red]--> Ver Tabla de Escuderías (próximamente)[/bold red]"
+                    "[#a61b1b]--> Ver Tabla de Escuderías (próximamente)[/#a61b1b]"
                 )
             case "3":
                 console.print(
-                    "[bold red]--> Exportar Clasificación (proximamente)[/bold red]"
+                    "[#a61b1b]--> Exportar Clasificación (proximamente)[/#a61b1b]"
                 )
             case "0":
                 continuar_programa = False
             case _:
-                console.print("[bold red]--> Opcion no Válida.[/bold red]")
+                console.print("[#a61b1b]--> Opcion no Válida.[/#a61b1b]")
 
         if op != "0":
-            console.input("\n[bold red]Presione Enter para continuar.[/bold red]")
+            console.input(
+                "\n[#a61b1b]Presione Enter para continuar.[/#a61b1b]")

@@ -21,21 +21,24 @@ def menu_estadisticas():
         match opcion:
             case "1":
                 console.print(
-                    "[bold red]--> Pilotos con puntos (en producción)[/bold red]"
+                    "[#a61b1b]--> Pilotos con puntos (en producción)[/#a61b1b]"
                 )
             case "2":
                 console.print(
-                    "[bold red]--> Promedio de tiempos (en producción)[/bold red]"
+                    "[#a61b1b]--> Promedio de tiempos (en producción)[/#a61b1b]"
                 )
             case "3":
-                console.print("[bold red]--> Mejor tiempo (en producción)[/bold red]")
+                console.print(
+                    "[#a61b1b]--> Mejor tiempo (en producción)[/#a61b1b]")
             case "4":
                 console.print(
-                    "[bold red]--> Cantidad de victorias (en producción)[/bold red]"
+                    "[#a61b1b]--> Cantidad de victorias (en producción)[/#a61b1b]"
                 )
             case "0":
-                console.print("[bold red]--> Volviendo al menú principal. [/bold red]")
+                console.print(
+                    "[#a61b1b]--> Volviendo al menú principal. [/#a61b1b]")
             case _:
-                console.print("[bold red]--> Opción no válida.[/bold red]")
+                console.print("[#a61b1b]--> Opción no válida.[/#a61b1b]")
         if opcion != "0":
-            console.input("[bold red]--> Presione Enter para continuar. [/bold red]")
+            console.input(
+                "[#a61b1b]--> Presione Enter para continuar. [/#a61b1b]")

@@ -234,10 +234,10 @@ for fila in range(cantidad_pilotos):
         fila_vacia.append(None)
     matriz_resultados.append(fila_vacia)
 
-# Datos crudos separados de los puntos que es lo que se almacena 
+# Datos crudos separados de los puntos que es lo que se almacena
     """
     Diccionario:
-        - Clave: Circuito 
-        - Valor: Diccionario con pilto y tiempo de carrera     
+        - Clave: Circuito
+        - Valor: Diccionario con pilto y tiempo de carrera
 """
 tiempos_carreras = {}

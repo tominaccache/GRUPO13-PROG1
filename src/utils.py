@@ -24,10 +24,13 @@ def mostrar_menu_generico(titulo, opciones, ancho=49):
 
     panel = Panel(
         texto_menu,
-        title=f"[bold white on #a61b1b] {titulo.upper()} [/bold white on #a61b1b]",
+        title=f"[bold white on #a61b1b] {
+            titulo.upper()} [/bold white on #a61b1b]",
         box=box.DOUBLE,
         border_style="#a61b1b",
-        padding=(1, 4),
+        padding=(
+            1,
+            4),
         expand=False,
         width=ancho,
     )
@@ -57,10 +60,12 @@ def mostrar_tabla_generica(titulo, columnas, filas, alineaciones=None):
 
     # Agregamos las columnas dinamicamente
     for i in range(len(columnas)):
-        alig = alineaciones[i] if alineaciones and i < len(alineaciones) else "center"
+        alig = alineaciones[i] if alineaciones and i < len(
+            alineaciones) else "center"
         tabla.add_column(
-            columnas[i], justify=alig, style="bold cyan" if alig == "center" else "cyan"
-        )
+            columnas[i],
+            justify=alig,
+            style="bold cyan" if alig == "center" else "cyan")
 
     # Agregamos las filas
     for fila in filas:
@@ -70,4 +75,3 @@ def mostrar_tabla_generica(titulo, columnas, filas, alineaciones=None):
         tabla.add_row(*fila_str)
 
     console.print(tabla)
-

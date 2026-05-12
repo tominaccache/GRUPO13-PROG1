@@ -1,6 +1,4 @@
 from rich.console import Console
-from rich.panel import Panel
-from rich.table import Table
 from datos import escuderias, pilotos
 import re
 from utils import mostrar_menu_generico, mostrar_tabla_generica
@@ -24,27 +22,34 @@ def agregar_escuderia():
     Entrada: No recibe parametros, los datos se ingresan por consola.
     Salida: No retorna nada, modifica el diccionario escuderias en memoria.
     """
-    console.print("[bold red]Agregar Escuderia: [/bold red]\n")
+    console.print("[#a61b1b]Agregar Escuderia: [/#a61b1b]\n")
     sigla = console.input(
-        "[bold red]Ingrese la sigla de la escuderia (3 letras): [/bold red]"
+        "[#a61b1b]Ingrese la sigla de la escuderia (3 letras): [/#a61b1b]"
     ).upper()
 
     if not validar_sigla(sigla):
         console.print(
-            "[bold red]Error: La sigla debe tener exactamente 3 letras.[/bold red]"
+            "[#a61b1b]Error: La sigla debe tener exactamente 3 letras.[/#a61b1b]"
         )
         return
 
     if sigla in escuderias:
         console.print(
-            "[bold red]Error: Ya existe una escuderia con esa sigla.[/bold red]"
+            "[#a61b1b]Error: Ya existe una escuderia con esa sigla.[/#a61b1b]"
         )
         return
 
-    nombre = console.input("[bold red]Ingrese el nombre de la escuderia: [/bold red]")
-    pais = console.input("[bold red]Ingrese el pais de la escuderia: [/bold red]")
-    escuderias[sigla] = {"nombre": nombre, "pais": pais, "pilotos": [], "puntos": 0}
-    console.print(f"[bold red]Escuderia {nombre} agregada correctamente.[/bold red]")
+    nombre = console.input(
+        "[#a61b1b]Ingrese el nombre de la escuderia: [/#a61b1b]")
+    pais = console.input(
+        "[#a61b1b]Ingrese el pais de la escuderia: [/#a61b1b]")
+    escuderias[sigla] = {
+        "nombre": nombre,
+        "pais": pais,
+        "pilotos": [],
+        "puntos": 0}
+    console.print(
+        f"[#a61b1b]Escuderia {nombre} agregada correctamente.[/#a61b1b]")
 
 
 def modificar_escuderia():
@@ -53,30 +58,35 @@ def modificar_escuderia():
     Entrada: No recibe parametros, los datos se ingresan por consola.
     Salida: No retorna nada, modifica el diccionario escuderias en memoria.
     """
-    console.print("[bold red] Modificar Escuderia[/bold red]")
+    console.print("[#a61b1b] Modificar Escuderia[/#a61b1b]")
     sigla = console.input(
-        "[bold red]Ingrese la sigla de la escuderia: [/bold red]"
+        "[#a61b1b]Ingrese la sigla de la escuderia: [/#a61b1b]"
     ).upper()
     if not validar_sigla(sigla):
         console.print(
-            "[bold red] Error: La sigla debe tener exactamente 3 letras.[/bold red]"
+            "[#a61b1b] Error: La sigla debe tener exactamente 3 letras.[/#a61b1b]"
         )
         return
 
     if sigla not in escuderias:
         console.print(
-            "[bold red]Error: No existe una escuderia con esa sigla[/bold red]"
+            "[#a61b1b]Error: No existe una escuderia con esa sigla[/#a61b1b]"
         )
         return
-    console.print(f"[bold red]Nombre Actual: {escuderias[sigla]['nombre']}[/bold red]")
-    console.print(f"[bold red]Pais actual: {escuderias[sigla]['pais']}[/bold red]")
+    console.print(
+        f"[#a61b1b]Nombre Actual: {
+            escuderias[sigla]['nombre']}[/#a61b1b]")
+    console.print(
+        f"[#a61b1b]Pais actual: {
+            escuderias[sigla]['pais']}[/#a61b1b]")
 
-    nombre = console.input("[bold red]Ingrese el nuevo nombre: [/bold red]")
-    pais = console.input("[bold red]Ingrese el nuevo pais: [/bold red]\n")
+    nombre = console.input("[#a61b1b]Ingrese el nuevo nombre: [/#a61b1b]")
+    pais = console.input("[#a61b1b]Ingrese el nuevo pais: [/#a61b1b]\n")
     escuderias[sigla]["nombre"] = nombre
     escuderias[sigla]["pais"] = pais
 
-    console.print(f"[bold red]Escuderia '{sigla}' modificada correctamente.[/bold red]")
+    console.print(
+        f"[#a61b1b]Escuderia '{sigla}' modificada correctamente.[/#a61b1b]")
 
 
 def ver_escuderias():
@@ -85,7 +95,7 @@ def ver_escuderias():
     """
     if not escuderias:
         console.print(
-            "[bold red]No hay escuderías registradas en el sistema.[/bold red]"
+            "[#a61b1b]No hay escuderías registradas en el sistema.[/#a61b1b]"
         )
         return
 
@@ -95,7 +105,8 @@ def ver_escuderias():
     # Lista de filas
     filas = []
     for sigla, datos in escuderias.items():
-        # Formateamos la lista de pilotos para que sea un string separado por comas
+        # Formateamos la lista de pilotos para que sea un string separado por
+        # comas
         pilotos_formateados = ", ".join(
             datos["pilotos"] if datos["pilotos"] else "Sin Pilotos"
         )
@@ -119,26 +130,28 @@ def eliminar_escuderia():
     Entrada: No recibe parametros, los datos se ingresan por consola.
     Salida: No retorna nada, modifica el diccionario escuderias en memoria.
     """
-    console.print("[bold red]Eliminar escuderia[/bold red]\n")
+    console.print("[#a61b1b]Eliminar escuderia[/#a61b1b]\n")
     sigla = console.input(
-        "[bold red]Ingrese la sigla de la escuderia: [/bold red]"
+        "[#a61b1b]Ingrese la sigla de la escuderia: [/#a61b1b]"
     ).upper()
     if not validar_sigla(sigla):
         console.print(
-            "[bold red] Error: La sigla debe tener exactamente 3 letras.[/bold red]\n"
+            "[#a61b1b] Error: La sigla debe tener exactamente 3 letras.[/#a61b1b]\n"
         )
         return
 
     if sigla not in escuderias:
         console.print(
-            "[bold red]Error: No existe una escuderia con esa sigla[/bold red]\n"
+            "[#a61b1b]Error: No existe una escuderia con esa sigla[/#a61b1b]\n"
         )
         return
 
-    console.print(f"[bold red]Nombre: {escuderias[sigla]['nombre']}[/bold red]\n")
-    console.print(f"[bold red]Pais: {escuderias[sigla]['pais']}[/bold red]\n")
+    console.print(
+        f"[#a61b1b]Nombre: {
+            escuderias[sigla]['nombre']}[/#a61b1b]\n")
+    console.print(f"[#a61b1b]Pais: {escuderias[sigla]['pais']}[/#a61b1b]\n")
     confirmacion = console.input(
-        "[bold red]¿Esta seguro que desea eliminar esta escuderia (S= si, N= no)?: "
+        "[#a61b1b]¿Esta seguro que desea eliminar esta escuderia (S= si, N= no)?: "
     )
     if confirmacion.upper() == "S":
         for sigla_piloto in escuderias[sigla]["pilotos"]:
@@ -147,10 +160,10 @@ def eliminar_escuderia():
 
         del escuderias[sigla]
         console.print(
-            f"[bold red]Escuderia '{sigla}' eliminada exitosamente.[/bold red]\n"
+            f"[#a61b1b]Escuderia '{sigla}' eliminada exitosamente.[/#a61b1b]\n"
         )
     else:
-        console.print("\n[bold red]Operacion cancelada.[/bold red]")
+        console.print("\n[#a61b1b]Operacion cancelada.[/#a61b1b]")
 
 
 def menu_escuderias():
@@ -180,9 +193,11 @@ def menu_escuderias():
                 console.clear()
                 ver_escuderias()
             case "0":
-                console.print("[bold red]--> Volviendo al menú principal...[/bold red]")
+                console.print(
+                    "[#a61b1b]--> Volviendo al menú principal...[/#a61b1b]")
             case _:
-                console.print("[bold red]--> Opción no válida.[/bold red]")
+                console.print("[#a61b1b]--> Opción no válida.[/#a61b1b]")
 
         if opcion != "0":
-            console.input("\n[bold red]Presione Enter para continuar...[/bold red]")
+            console.input(
+                "\n[#a61b1b]Presione Enter para continuar...[/#a61b1b]")

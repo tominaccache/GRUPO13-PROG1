@@ -35,17 +35,17 @@ def analizar_piloto():
 
     maximo_posible = puntos_piloto + (carreras_restantes * max_por_carrera)
     resultado = (
-        f"[bold red]Lider: [/bold red]{lider} ({puntos_lider} pts)\n"
-        f"[bold red]{sigla}:[/bold red] {puntos_piloto} pts\n"
+        f"[#a61b1b]Lider: {lider} ({puntos_lider} pts)[/#a61b1b]\n",
+        f"[#a61b1b]{sigla}: {puntos_piloto} pts [/#a61b1b]\n"
     )
     if maximo_posible >= puntos_lider:
         resultado += "[bold green]Sigue en competencia[/bold green]"
     else:
-        resultado += "[bold red]Ya no puede alcanzar al piloto lider[/bold red]"
+        resultado += "[#a61b1b]Ya no puede alcanzar al piloto lider[/#a61b1b]"
     panel = Panel(
         resultado,
-        title="[bold red]Resultado Proyección[/bold red]",
-        border_style="bold red",
+        title="[#a61b1b]Resultado Proyección[/#a61b1b]",
+        border_style="#a61b1b",
         style="on white",
         padding=(1, 4),
         expand=False,
@@ -56,17 +56,22 @@ def analizar_piloto():
 
 def submenu_proyeccion():
     opcion = "-1"
-    opciones_menu = ["1. Puntos Maximos Posibles", "0. Volver al Menú Principal"]
+    opciones_menu = [
+        "1. Puntos Maximos Posibles",
+        "0. Volver al Menú Principal"]
     while opcion != "0":
 
         console.clear()
-        opcion = mostrar_menu_generico("Proyeccion del Campeonato", opciones_menu)
+        opcion = mostrar_menu_generico(
+            "Proyeccion del Campeonato", opciones_menu)
 
         if opcion == "1":
             analizar_piloto()
         elif opcion == "0":
-            console.print("[bold red]--> Volviendo al menú principal...[/bold red]")
+            console.print(
+                "[#a61b1b]--> Volviendo al menú principal...[/#a61b1b]")
         else:
-            console.print("[bold red]Opcion invalida[/bold red]")
+            console.print("[#a61b1b]Opcion invalida[/#a61b1b]")
         if opcion != "0":
-            console.input("[bold red]--> Presione enter para continuar.[/bold red]")
+            console.input(
+                "[#a61b1b]--> Presione enter para continuar.[/#a61b1b]")

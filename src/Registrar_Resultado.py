@@ -79,7 +79,8 @@ def revertir_resultados_carrera(carrera_seleccionada):
         if pos < len(puntos_por_posicion) and validar_tiempo(tiempo):
             puntos_a_restar = puntos_por_posicion[pos]
             pilotos[sigla]["puntos"] -= puntos_a_restar
-            escuderias[pilotos[sigla]["escuderia"]]["puntos"] -= puntos_a_restar
+            escuderias[pilotos[sigla]["escuderia"]
+                       ]["puntos"] -= puntos_a_restar
 
         # Vaciar el tiempo de la matriz
         indice_piloto = siglas_pilotos.index(sigla)
@@ -98,7 +99,9 @@ def asignar_puntos_y_guardar(carrera_seleccionada, tiempos_carrera_actual):
     """
     siglas_pilotos = list(pilotos.keys())
     indice_carrera = carreras.index(carrera_seleccionada)
-    resultados_ordenados = sorted(tiempos_carrera_actual.items(), key=clave_orden)
+    resultados_ordenados = sorted(
+        tiempos_carrera_actual.items(),
+        key=clave_orden)
 
     pos = 0
     for item in resultados_ordenados:
@@ -159,7 +162,8 @@ def registrar_tiempos():
     carreras_disponibles = [c for c in carreras if c not in tiempos_carreras]
 
     if not carreras_disponibles:
-        console.print("[#a61b1b]No hay carreras disponibles para registrar[/#a61b1b]")
+        console.print(
+            "[#a61b1b]No hay carreras disponibles para registrar[/#a61b1b]")
         return
 
     i = 1
@@ -170,7 +174,8 @@ def registrar_tiempos():
 
     # Seleccionar carrera
     try:
-        opcion = int(console.input("\n[#a61b1b]Seleccione una carrera: [/#a61b1b]"))
+        opcion = int(
+            console.input("\n[#a61b1b]Seleccione una carrera: [/#a61b1b]"))
         if opcion < 1 or opcion > len(carreras_disponibles):
             console.print("[#a61b1b]Error: Opción no válida.[/#a61b1b]")
             return
@@ -182,7 +187,7 @@ def registrar_tiempos():
 
     # Seleccionar el modo de carga
     opciones_menu = ["1. Carga Manul", "2. Cargar desde Archivo"]
-    modo = mostrar_menu_generico("Modo de Carga",opciones_menu)
+    modo = mostrar_menu_generico("Modo de Carga", opciones_menu)
 
     # Pedir los tiempos para cada piloto
     siglas_pilotos = list(pilotos.keys())
@@ -221,7 +226,9 @@ def ver_resultados():
     # Listar carreras que ya tienen tiempos cargados
     carreras_disponibles = [c for c in carreras if c in tiempos_carreras]
 
-    opcion = mostrar_menu_generico("Seleccione una Carrera", carreras_disponibles)
+    opcion = mostrar_menu_generico(
+        "Seleccione una Carrera",
+        carreras_disponibles)
 
     # Seleccionar carrera
     try:
@@ -237,7 +244,9 @@ def ver_resultados():
     resultados_desordenados = tiempos_carreras[carrera_seleccionada]
 
     # Ordenar el Diccionario
-    resultados_ordenados = sorted(resultados_desordenados.items(), key=clave_orden)
+    resultados_ordenados = sorted(
+        resultados_desordenados.items(),
+        key=clave_orden)
 
     # Definimos cabeceras y alineacion para la tabla generica
     cabeceras = ["Pos", "Piloto", "Tiempo/Estado", "Pts"]
@@ -262,8 +271,10 @@ def ver_resultados():
         pos += 1
 
     mostrar_tabla_generica(
-        f"Resultados Oficiales - {carrera_seleccionada}", cabeceras, filas, aliniaciones
-    )
+        f"Resultados Oficiales - {carrera_seleccionada}",
+        cabeceras,
+        filas,
+        aliniaciones)
 
 
 def modificar_resultados():
@@ -271,7 +282,8 @@ def modificar_resultados():
     Objetivo: Corregir tiempos de una carrera, reasignando puntos correctamente
     """
     if not tiempos_carreras:
-        console.print("[#a61b1b]No hay resultados registrados para modificar[/#a61b1b]")
+        console.print(
+            "[#a61b1b]No hay resultados registrados para modificar[/#a61b1b]")
         return
 
     carreras_disponibles = [c for c in carreras if c in tiempos_carreras]
@@ -304,7 +316,8 @@ def eliminar_resultados():
     console.print("[#a61b1b]Eliminar Resultados de Carrera[/#a61b1b]")
 
     if not tiempos_carreras:
-        console.print("[#a61b1b]No hay resultados registrados para eliminar.[/#a61b1b]")
+        console.print(
+            "[#a61b1b]No hay resultados registrados para eliminar.[/#a61b1b]")
         return
     carreras_disponibles = [c for c in carreras if c in tiempos_carreras]
     opcion = mostrar_menu_generico(
@@ -361,9 +374,11 @@ def menu_resultados():
             case "4":
                 eliminar_resultados()
             case "0":
-                console.print("[#a61b1b]--> Volviendo al menú principal...[/#a61b1b]")
+                console.print(
+                    "[#a61b1b]--> Volviendo al menú principal...[/#a61b1b]")
                 continuar_programa = False
             case _:
                 console.print("[#a61b1b]--> Opción no válida.[/#a61b1b]")
         if opcion != "0":
-            console.input("\n[#a61b1b]Presione enter para continuar.[/#a61b1b]")
+            console.input(
+                "\n[#a61b1b]Presione enter para continuar.[/#a61b1b]")
