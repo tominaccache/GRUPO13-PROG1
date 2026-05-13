@@ -24,7 +24,7 @@ def analizar_piloto():
         "[#a61b1b]Ingrese sigla del piloto: [/#a61b1b]").upper()
 
     if sigla not in pilotos:
-        console.print("[#a61b1b]Error: Piloto no encontrado.[/#a61b1b]")
+        console.print("[#a61b1b]Error: Piloto no encontrado.[/#a61b1bñ]")
         return
 
     try:
