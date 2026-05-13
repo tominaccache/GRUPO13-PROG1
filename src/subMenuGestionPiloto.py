@@ -56,7 +56,8 @@ def agregar_piloto():
 
     # Agregar una fila vaciá a la matriz para el nuevo piloto
     # (Tantas columnas vacías como carreras existan)
-    matriz_resultados.append([""] * len(carreras))
+    # La columna 0 es la sigla del piloto (identidad)
+    matriz_resultados.append([sigla] + [""] * len(carreras))
     console.print(
         f"\n[bold green]✅ Piloto {nombre} ({sigla}) agregado correctamente a la escudería {esc_sigla}.[/bold green]")
 
@@ -142,8 +143,11 @@ def eliminar_piloto():
 
     # Guardamos el nombre antes de eliminar y borramos la fila de la matriz
     nombre_eliminado = pilotos[sigla]["datos_personales"][0]
-    indice_piloto = list(pilotos.keys()).index(sigla)
-    del matriz_resultados[indice_piloto]
+
+    for i in range(len(matriz_resultados)):
+        if matriz_resultados[i][0] == sigla:
+            del matriz_resultados[i]
+            break
 
     # Eliminamos del diccionario principal
     del pilotos[sigla]
