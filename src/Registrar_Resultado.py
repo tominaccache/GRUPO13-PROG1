@@ -98,9 +98,11 @@ def asignar_puntos_y_guardar(carrera_seleccionada, tiempos_carrera_actual):
     Objetivo: Ordenar tiempos, asignar puntos a pilotos y escuderías,
               actualizar la matriz y guardar en tiempos_carreras.
     Entrada: carrera_seleccionada (string), tiempos_carrera_actual (dict)
+    Retorno: None. Modifica pilotos, escuderias, matriz_resultados y tiempos_carreras.
     """
-    siglas_pilotos = list(pilotos.keys())
     indice_carrera = carreras.index(carrera_seleccionada)
+    # +1 Porque la columna 0 es la sigla del piloto
+    indice_carrera_matriz = indice_carrera + 1
     resultados_ordenados = sorted(
         tiempos_carrera_actual.items(),
         key=clave_orden)
@@ -109,16 +111,26 @@ def asignar_puntos_y_guardar(carrera_seleccionada, tiempos_carrera_actual):
     for item in resultados_ordenados:
         sigla = item[0]
         tiempo = item[1]
-        indice_piloto = siglas_pilotos.index(sigla)
-        matriz_resultados[indice_piloto][indice_carrera] = tiempo
+
+        # Guardado seguro en matriz: buscamos la fila por sigla
+        for fila in matriz_resultados:
+            if fila[0] == sigla:
+                fila[indice_carrera_matriz] = tiempo
+                break
 
         if pos < len(puntos_por_posicion) and validar_tiempo(tiempo):
             puntos = puntos_por_posicion[pos]
         else:
             puntos = 0
 
+        # Sumamos puntos al piloto
         pilotos[sigla]["puntos"] += puntos
-        escuderias[pilotos[sigla]["escuderia"]]["puntos"] += puntos
+
+        # Sumamos a la escuderia solo si existe en el sistema
+        escuderia_actual = pilotos[sigla]["escuderia"]
+        if escuderia_actual in escuderias:
+            escuderias[escuderia_actual]["puntos"] += puntos
+
         pos += 1
 
     tiempos_carreras[carrera_seleccionada] = tiempos_carrera_actual
