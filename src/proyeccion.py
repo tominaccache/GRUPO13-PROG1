@@ -20,13 +20,18 @@ def obtener_lider(pilotos):
 
 
 def analizar_piloto():
-    sigla = input("Ingrese sigla del piloto: ").upper()
+    sigla = console.input(
+        "[#a61b1b]Ingrese sigla del piloto: [/#a61b1b]").upper()
 
     if sigla not in pilotos:
-        print("Piloto no encontrado")
+        console.print("[#a61b1b]Error: Piloto no encontrado.[/#a61b1b]")
         return
 
-    carreras_restantes = int(input("Carreras restantes: "))
+    try:
+        carreras_restantes = int(input("Carreras restantes: "))
+    except ValueError:
+        console.print("[#a61b1b]Error: Ingrese un número válido.[/#a61b1b]")
+        return
 
     lider, puntos_lider = obtener_lider(pilotos)
     puntos_piloto = pilotos[sigla]["puntos"]
@@ -35,7 +40,7 @@ def analizar_piloto():
 
     maximo_posible = puntos_piloto + (carreras_restantes * max_por_carrera)
     resultado = (
-        f"[#a61b1b]Lider: {lider} ({puntos_lider} pts)[/#a61b1b]\n",
+        f"[#a61b1b]Lider: {lider} ({puntos_lider} pts)[/#a61b1b]\n"
         f"[#a61b1b]{sigla}: {puntos_piloto} pts [/#a61b1b]\n"
     )
     if maximo_posible >= puntos_lider:

@@ -84,12 +84,12 @@ def modificar_piloto():
 
     nuevo_nombre = console.input(
         "[#a61b1b]Nuevo nombre (Deje en blanco para no modificar): [/#a61b1b]").strip()
-    if nuevo_nombre.strip() == "":
+    if nuevo_nombre == "":
         nuevo_nombre = piloto_actual["datos_personales"][0]
 
     nuevo_pais = console.input(
         "[#a61b1b]Nuevo país (Deje en blanco para no modificar): [/#a61b1b]").strip()
-    if nuevo_pais.strip() == "":
+    if nuevo_pais == "":
         nuevo_pais = piloto_actual["datos_personales"][1]
 
     nueva_escuderia = console.input(
@@ -140,14 +140,12 @@ def eliminar_piloto():
     if escuderia_asignada in escuderias and sigla in escuderias[escuderia_asignada]["pilotos"]:
         escuderias[escuderia_asignada]["pilotos"].remove(sigla)
 
-    # Eliminar del diccionario principal
+    # Guardamos el nombre antes de eliminar y borramos la fila de la matriz
     nombre_eliminado = pilotos[sigla]["datos_personales"][0]
-    # Eliminamos la fila correspondiente en la matriz antes de borrar al piloto
     indice_piloto = list(pilotos.keys()).index(sigla)
     del matriz_resultados[indice_piloto]
 
-    # Eliminamos del Diccionario
-    nombre_eliminado = pilotos[sigla]["datos_personales"][0]
+    # Eliminamos del diccionario principal
     del pilotos[sigla]
 
     console.print(
@@ -180,7 +178,7 @@ def buscar_piloto():
         nombre_escuderia = "Escudería Eliminada/No existe"
 
     info_piloto = (
-        f"[#a61b1b]Sigla: {sigla} [/ #a61b1b]\n"
+        f"[#a61b1b]Sigla: {sigla} [/#a61b1b]\n"
         f"[#a61b1b]Nombre: {datos['datos_personales'][0]}[/#a61b1b] \n"
         f"[#a61b1b]Nacionalidad: {datos['datos_personales'][1]}[/#a61b1b]\n"
         f"[#a61b1b]Escudería: {datos['escuderia']} - {nombre_escuderia}[/#a61b1b]\n"

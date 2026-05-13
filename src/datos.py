@@ -119,11 +119,10 @@ pilotos = {
         "puntos": 0,
     },
 }
-"""
-Diccionario de Escuderias:
-    - Clave: Sigla de la escuderia (3 letras)
-    - Valor: Diccionario con nombre, pais, pilotos, puntos
-"""
+
+# Diccionario de Escuderias:
+#    - Clave: Sigla de la escuderia (3 letras)
+#   - Valor: Diccionario con nombre, pais, pilotos, puntos
 
 escuderias = {
     "RBR": {
@@ -231,13 +230,11 @@ matriz_resultados = []
 for fila in range(cantidad_pilotos):
     fila_vacia = []
     for columna in range(cantidad_carreras):
-        fila_vacia.append(None)
+        fila_vacia.append("")
     matriz_resultados.append(fila_vacia)
 
 # Datos crudos separados de los puntos que es lo que se almacena
-    """
-    Diccionario:
-        - Clave: Circuito
-        - Valor: Diccionario con pilto y tiempo de carrera
-"""
+# Diccionario:
+#       - Clave: Circuito
+#       - Valor: Diccionario con pilto y tiempo de carrera
 tiempos_carreras = {}

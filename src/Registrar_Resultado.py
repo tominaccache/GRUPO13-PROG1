@@ -75,16 +75,18 @@ def revertir_resultados_carrera(carrera_seleccionada):
         sigla = item[0]
         tiempo = item[1]
 
-        # Descontar puntos (si sumo puntos en la carrera)
-        if pos < len(puntos_por_posicion) and validar_tiempo(tiempo):
-            puntos_a_restar = puntos_por_posicion[pos]
-            pilotos[sigla]["puntos"] -= puntos_a_restar
-            escuderias[pilotos[sigla]["escuderia"]
-                       ]["puntos"] -= puntos_a_restar
+        # Solo funciona si el piloto aún existe en el sistema
+        if sigla in pilotos:
+            # Descontar puntos (si sumo puntos en la carrera)
+            if pos < len(puntos_por_posicion) and validar_tiempo(tiempo):
+                puntos_a_restar = puntos_por_posicion[pos]
+                pilotos[sigla]["puntos"] -= puntos_a_restar
+                escuderias[pilotos[sigla]["escuderia"]
+                           ]["puntos"] -= puntos_a_restar
 
-        # Vaciar el tiempo de la matriz
-        indice_piloto = siglas_pilotos.index(sigla)
-        matriz_resultados[indice_piloto][indice_carrera] = ""
+            # Vaciar el tiempo de la matriz
+            indice_piloto = siglas_pilotos.index(sigla)
+            matriz_resultados[indice_piloto][indice_carrera] = ""
 
         pos += 1
     # Eliminar el registro principal
@@ -226,9 +228,13 @@ def ver_resultados():
     # Listar carreras que ya tienen tiempos cargados
     carreras_disponibles = [c for c in carreras if c in tiempos_carreras]
 
+    opciones_numeradas = []
+    for i in range(len(carreras_disponibles)):
+        opciones_numeradas.append(f"{i+1}. {carreras_disponibles[i]}")
+
     opcion = mostrar_menu_generico(
         "Seleccione una Carrera",
-        carreras_disponibles)
+        opciones_numeradas)
 
     # Seleccionar carrera
     try:
@@ -287,8 +293,13 @@ def modificar_resultados():
         return
 
     carreras_disponibles = [c for c in carreras if c in tiempos_carreras]
+
+    opciones_numeradas = []
+
+    for i in range(len(carreras_disponibles)):
+        opciones_numeradas.append(f"{i+1}. {carreras_disponibles[i]}")
     opcion = mostrar_menu_generico(
-        "Seleccione la carrera a modificar", carreras_disponibles
+        "Seleccione la carrera a modificar", opciones_numeradas
     )
 
     try:

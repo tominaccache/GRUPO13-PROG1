@@ -74,14 +74,18 @@ def modificar_escuderia():
         )
         return
     console.print(
-        f"[#a61b1b]Nombre Actual: {
-            escuderias[sigla]['nombre']}[/#a61b1b]")
+        f"[#a61b1b]Nombre Actual: {escuderias[sigla]['nombre']}[/#a61b1b]")
     console.print(
-        f"[#a61b1b]Pais actual: {
-            escuderias[sigla]['pais']}[/#a61b1b]")
+        f"[#a61b1b]Pais actual: {escuderias[sigla]['pais']}[/#a61b1b]")
 
-    nombre = console.input("[#a61b1b]Ingrese el nuevo nombre: [/#a61b1b]")
-    pais = console.input("[#a61b1b]Ingrese el nuevo pais: [/#a61b1b]\n")
+    nombre = console.input(
+        "[#a61b1b]Nuevo nombre (deje en blanco para no modificar): [/#a61b1b]")
+    if nombre == "":
+        nombre = escuderias[sigla]["nombre"]
+    pais = console.input(
+        "[#a61b1b]Nuevo pais (deje en blanco para no modificar): [/#a61b1b]\n")
+    if pais == "":
+        pais = escuderias[sigla]["pais"]
     escuderias[sigla]["nombre"] = nombre
     escuderias[sigla]["pais"] = pais
 
@@ -107,10 +111,11 @@ def ver_escuderias():
     for sigla, datos in escuderias.items():
         # Formateamos la lista de pilotos para que sea un string separado por
         # comas
-        pilotos_formateados = ", ".join(
-            datos["pilotos"] if datos["pilotos"] else "Sin Pilotos"
-        )
 
+        if datos[pilotos]:
+            pilotos_formateados = ", ".join(datos["pilotos"])
+        else:
+            pilotos_formateados = "Sin Pilotos"
         fila = [
             sigla,
             datos["nombre"],
