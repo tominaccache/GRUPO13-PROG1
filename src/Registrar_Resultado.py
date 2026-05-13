@@ -68,7 +68,7 @@ def revertir_resultados_carrera(carrera_seleccionada):
         tiempos_carreras[carrera_seleccionada].items(), key=clave_orden
     )
     indice_carrera = carreras.index(carrera_seleccionada)
-    siglas_pilotos = list(pilotos.keys())
+    indice_carrera_matriz = indice_carrera + 1
 
     pos = 0
     for item in resultados_viejos:
@@ -81,14 +81,19 @@ def revertir_resultados_carrera(carrera_seleccionada):
             if pos < len(puntos_por_posicion) and validar_tiempo(tiempo):
                 puntos_a_restar = puntos_por_posicion[pos]
                 pilotos[sigla]["puntos"] -= puntos_a_restar
-                escuderias[pilotos[sigla]["escuderia"]
-                           ]["puntos"] -= puntos_a_restar
+
+                escuderia_actual = pilotos[sigla]["escuderia"]
+                if escuderia_actual in escuderias:
+                    escuderias[escuderia_actual]["puntos"] -= puntos_a_restar
 
             # Vaciar el tiempo de la matriz
-            indice_piloto = siglas_pilotos.index(sigla)
-            matriz_resultados[indice_piloto][indice_carrera] = ""
+            for fila in matriz_resultados:
+                if fila[0] == sigla:
+                    fila[indice_carrera_matriz] = ""
+                    break
 
         pos += 1
+
     # Eliminar el registro principal
     del tiempos_carreras[carrera_seleccionada]
 
