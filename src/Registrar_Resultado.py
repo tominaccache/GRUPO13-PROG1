@@ -376,14 +376,50 @@ def eliminar_resultados():
     )
 
 
+def agregar_carrera():
+    """
+    Objetivo: Agregar un nuevo Gran Premio al calendario de la temporada,
+              garantizando que no existan circuitos duplicados mediante conjuntos,
+              y extendiendo la matriz de resultados con una nueva columna vacía.
+    Parámetros: Ninguno (los datos se ingresan por consola).
+    Retorno: None. Modifica las listas globales 'carreras' y 'matriz_resultados'.
+    """
+    console.print("[#a61b1b]Agregar Nueva Carrera al Calendario[#a61b1b]\n")
+
+    nueva_carrera = console.input(
+        "[#a61b1b]Ingrese el Nombre del Nuevo Gran Premio: [/#a61b1b]\n").strip().title()
+
+    conjunto_carreras = set(carreras)
+
+    if nueva_carrera in conjunto_carreras:
+        console.print(
+            f"[#a61b1b]Error: El Gran Premio '{nueva_carrera}' "
+            f"ya existe en el calendario[/#a61b1b]"
+        )
+        return
+
+    # Agregar la nueva carrera al calendario oficial
+    carreras.append(nueva_carrera)
+
+    # Extender cada fila de la matriz con una celda vacia para la nueva
+    # carrera
+    for fila in matriz_resultados:
+        fila.append("")
+
+    console.print(f"[bold green] Gran Premio '{nueva_carrera}' agregada"
+                  f"correctamente. Total de carreras: {len(carreras)}. [/bold green]"
+                  )
+
+
 def menu_resultados():
     continuar_programa = True
 
     opciones_submenu = [
         "1. Registrar tiempos de carrera",
         "2. Ver resultados",
-        "3. Modificar Resultados",
+        "3. Modificar resultados",
         "4. Eliminar resultados",
+        "5. Agregar carrera nueva",
         "0. Volver al menú principal",
     ]
 
