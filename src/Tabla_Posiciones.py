@@ -2,6 +2,8 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 
+import datos
+
 console = Console()
 
 
@@ -35,6 +37,11 @@ def menu_tabla_posiciones():
             mostrar_tabla_ejemplo()
             console.input("\nPresione Enter para volver...")
 
+        elif op == "2":
+            limpiar_consola()
+            mostrar_tabla_escuderias()
+            console.input("\nPresione Enter para volver...")
+
         elif op == "0":
             break
 
@@ -52,5 +59,38 @@ def mostrar_tabla_ejemplo():
     tabla.add_row("1", "Max Verstappen", "Red Bull", "350")
     tabla.add_row("2", "Lando Norris", "McLaren", "280")
     tabla.add_row("3", "Charles Leclerc", "Ferrari", "275")
+
+    console.print(tabla)
+
+
+def mostrar_tabla_escuderias():
+    tabla = Table(
+        title="Clasificación de Escuderías", header_style="bold red", border_style="red"
+    )
+
+    tabla.add_column("Sigla", justify="center")
+    tabla.add_column("Escudería")
+    tabla.add_column("País")
+    tabla.add_column("Puntos", justify="right")
+    tabla.add_column("Pilotos")
+
+    escuderias = sorted(
+        datos.escuderias_.items(),
+        key=lambda item: item[1].get("puntos", 0),
+        reverse=True,
+    )
+
+    for sigla, info in escuderias:
+        nombres_pilotos = ", ".join(
+            datos.pilotos[p]["datos_personales"][0] if p in datos.pilotos else p
+            for p in info.get("pilotos", [])
+        )
+        tabla.add_row(
+            sigla,
+            info.get("nombre", "N/A"),
+            info.get("pais", "N/A"),
+            str(info.get("puntos", 0)),
+            nombres_pilotos,
+        )
 
     console.print(tabla)
