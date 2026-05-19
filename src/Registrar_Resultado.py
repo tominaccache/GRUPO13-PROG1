@@ -1,3 +1,5 @@
+import os
+
 from rich.console import Console
 import re
 from utils import mostrar_menu_generico, mostrar_tabla_generica
@@ -170,8 +172,86 @@ def cargar_tiempos_manual(siglas_pilotos):
 
 
 def cargar_tiempos_archivo():
-    console.print("[#a61b1b] En produccion[/#a61b1b]")
-    return {}
+    """
+    Objetivo: Leer los tiempos de carrera desde un archivo de texto plano (.txt)
+              siguiendo el formato 'SIGLA:TIEMPO', validando que estén todos
+              los pilotos del sistema y que los formatos sean correctos.
+    Entrada: Ninguna (Solicita el nombre del archivo por consola).
+    Salida: Diccionario con {sigla:tiempo} si es valido, o diccionario vacio {} si es invalido
+    """
+    console.print("\n[#a61b1b]Cargar Tiempos desde Archivo .txt[/#a61b1b]")
+    nombre_archivo = console.input(
+        "[#a61b1b]Ingrese el nombre del archivo (ej: tiempos_gp.txt): [/#a61b1b]")
+
+    # Verficamos si el archivo existe antes de abrirlo
+    if not os.path.exists(nombre_archivo):
+        console.print(
+            f"[bold red]Error: El archivo '{nombre_archivo}' no existe.[/bold red]")
+        return {}
+
+    tiempos_carrera_archivo = {}
+    siglas_sistema = list(pilotos.keys())
+
+    try:
+        with open(nombre_archivo, "r", encoding="utf-8") as file:
+            for linea in file:
+                linea = linea.strip()
+
+                if not linea:
+                    continue
+
+                # Descomponemos la linea usando el separador ':'
+                partes = linea.split(":", 1)
+
+                if len(partes) != 2:
+                    console.print(
+                        f"[#a61b1b]Error en el formato de línea: '{linea}'. Debe ser SIGLA:TIEMPO [/#a61b1b]")
+                    return
+
+                sigla = partes[0].strip().upper()
+                tiempo = partes[1].strip().upper()
+
+                if sigla not in siglas_sistema:
+                    console.print(
+                        f"[bold red]Error: La sigla '{sigla}' en el archivo no corresponde a un piloto registrado.[/bold red]")
+                    return {}
+
+                if not (validar_tiempo(tiempo) or validar_vuelta_perdida(tiempo) or tiempo == "DNF"):
+                    console.print(
+                        f"[bold red]Error: El tiempo '{tiempo}' para '{sigla}' tiene un formato invalido [/bold red]")
+                    return {}
+
+                if sigla in tiempos_carrera_archivo:
+                    console.print(
+                        f"[bold red]Error: El piloto '{sigla}' aparece mas de una vez en el archivo.[/bold red]")
+                    return {}
+
+                tiempos_carrera_archivo[sigla] = tiempo
+
+        # Validación 4: ¿Están TODOS los pilotos del sistema incluidos en el archivo?,
+        # verificamos que la longitud coincida (ya validamos que no hay externos ni duplicados)
+        if len(tiempos_carrera_archivo) != len(siglas_sistema):
+            console.print(
+                "[bold red]Error: La cantidad de pilotos en el archivo no coincide con los del sistema.[/bold red]")
+            # Opcional: Mostrar cuáles faltan recorriendo la lista clásica
+            for s in siglas_sistema:
+                if s not in tiempos_carrera_archivo:
+                    console.print(
+                        f"[yellow]Falta cargar el tiempo del piloto: {s}[/yellow]")
+            return {}
+
+        console.print(
+            "[bold green]Archivo procesado y validado con éxito.[/bold green]")
+        return tiempos_carrera_archivo
+
+    except IOError:
+        console.print(
+            "[bold red]Error crítico de E/S: No se pudo leer el archivo.[/bold red]")
+        return {}
+    except Exception as e:
+        console.print(
+            f"[bold red]Error inesperado al procesar archivo: {e}[/bold red]")
+        return {}
 
 
 def registrar_tiempos():
@@ -216,6 +296,8 @@ def registrar_tiempos():
 
     elif modo == "2":
         tiempos_carrera_actual = cargar_tiempos_archivo()
+        if not tiempos_carrera_actual:
+            return
     else:
         console.print("[#a61b1b]Opcion Inválida[/#a61b1b]")
         return
@@ -315,6 +397,7 @@ def modificar_resultados():
 
     for i in range(len(carreras_disponibles)):
         opciones_numeradas.append(f"{i+1}. {carreras_disponibles[i]}")
+
     opcion = mostrar_menu_generico(
         "Seleccione la carrera a modificar", opciones_numeradas
     )
@@ -348,6 +431,10 @@ def eliminar_resultados():
             "[#a61b1b]No hay resultados registrados para eliminar.[/#a61b1b]")
         return
     carreras_disponibles = [c for c in carreras if c in tiempos_carreras]
+    opciones_numericas = []
+    for i in range(len(carreras_disponibles)):
+        opciones_numericas.append(f"{i+1}. {carrera_seleccionada[i]}")
+
     opcion = mostrar_menu_generico(
         "Seleccione la carrera a eliminar", carreras_disponibles
     )
@@ -384,7 +471,7 @@ def agregar_carrera():
     Parámetros: Ninguno (los datos se ingresan por consola).
     Retorno: None. Modifica las listas globales 'carreras' y 'matriz_resultados'.
     """
-    console.print("[#a61b1b]Agregar Nueva Carrera al Calendario[#a61b1b]\n")
+    console.print("[#a61b1b]Agregar Nueva Carrera al Calendario[/#a61b1b]")
 
     nueva_carrera = console.input(
         "[#a61b1b]Ingrese el Nombre del Nuevo Gran Premio: [/#a61b1b]\n").strip().title()
@@ -437,6 +524,8 @@ def menu_resultados():
                 modificar_resultados()
             case "4":
                 eliminar_resultados()
+            case "5":
+                agregar_carrera()
             case "0":
                 console.print(
                     "[#a61b1b]--> Volviendo al menú principal...[/#a61b1b]")
