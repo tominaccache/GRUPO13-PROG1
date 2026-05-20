@@ -1,6 +1,9 @@
 from rich.console import Console
-from rich.panel import Panel
 from Tabla_Posiciones import menu_tabla_posiciones
+
+# Importamos la función genérica para los menús
+from utils import mostrar_menu_generico
+
 # Inicializamos la consola
 console = Console()
 
@@ -17,31 +20,23 @@ def mostrar_menu():
     Objetivo: Mostrar el menú principal del sistema usando la libreria rich.
     Salida: Retorna la opción ingresada por el usuario como un string.
     """
-    # Armamos el texto del menú con etiquetas de colores
-    texto_menu = (
-    "[bold red]1. Gestionar Pilotos[/bold red]\n"
-    "[bold red]2. Gestionar Escuderías[/bold red]\n"
-    "[bold red]3. Registrar Resultados de Gran Premio[/bold red]\n"
-    "[bold red]4. Ver Tabla de Posiciones[/bold red]\n"
-    "[bold red]5. Ver Estadísticas[/bold red]\n"
-    "[bold red]6. Proyección de Campeonato[/bold red]\n"
-    "[bold red]7. Guardar Datos[/bold red]\n"
-    "[bold red]8. Cargar Datos[/bold red]\n"
-    "[bold red]0. Salir[/bold red]"
-    )
+    # Pasamos las opciones a una lista simple, sin las etiquetas de color
+    # ya que la función genérica se encarga de darles formato.
+    opciones = [
+        "1. Gestionar Pilotos",
+        "2. Gestionar Escuderías",
+        "3. Registrar Resultados de Gran Premio",
+        "4. Ver Tabla de Posiciones",
+        "5. Ver Estadísticas",
+        "6. Proyección de Campeonato",
+        "7. Guardar Datos",
+        "8. Cargar Datos",
+        "0. Salir"
+    ]
 
-    # Imprimimos el menú dentro de un recuadro
-    panel = Panel(
-    texto_menu,
-    title="[bold red] Administrador de Campeonato F1 🏆[/bold red]",
-    border_style="bold red",
-    style="on white",
-    padding=(1, 4),
-    expand=False,
-    )
-    console.print(panel)
-
-    return console.input("\n[bold red]Seleccione una opción: [/bold red]")
+    # Usamos la función genérica. Le pasamos un ancho un poco mayor
+    # para que los textos largos entren cómodos.
+    return mostrar_menu_generico("Administrador de Campeonato F1 🏆", opciones, ancho=55)
 
 
 def main():
@@ -53,37 +48,32 @@ def main():
         limpiar_consola()
         opcion = mostrar_menu()
         print()
+        
         match opcion:
             case "1":
-                console.print("[bold red]--> Abriendo Modulo de Pilotos[/bold red]")
+                console.print("[#a61b1b]--> Abriendo Modulo de Pilotos[/#a61b1b]")
             case "2":
-                console.print("[bold red]--> Abriendo Modulo de Escuderias[/bold red]")
+                console.print("[#a61b1b]--> Abriendo Modulo de Escuderias[/#a61b1b]")
             case "3":
-                console.print("[bold red]--> Abriendo Registro de Carreras[/bold red]")
+                console.print("[#a61b1b]--> Abriendo Registro de Carreras[/#a61b1b]")
             case "4":
                 menu_tabla_posiciones()
             case "5":
-                console.print("[bold red]--> Generando Estadisticas[/bold red]")
+                console.print("[#a61b1b]--> Generando Estadisticas[/#a61b1b]")
             case "6":
-                console.print(
-            "[bold red]--> Generando Proyeccion del Campeonato[/bold red]"
-            )
+                console.print("[#a61b1b]--> Generando Proyeccion del Campeonato[/#a61b1b]")
             case "7":
-                console.print("[bold red]--> Guardando datos en Archivo[/bold red]")
+                console.print("[#a61b1b]--> Guardando datos en Archivo[/#a61b1b]")
             case "8":
-                console.print("[bold red]--> Cargando datos en Archivo[/bold red]")
+                console.print("[#a61b1b]--> Cargando datos en Archivo[/#a61b1b]")
             case "0":
-                console.print(
-            "[bold red]--> ¡Gracias por utilizar la aplicacion! Nos vemos la proxima.[/bold red]"
-            )
+                console.print("[#a61b1b]--> ¡Gracias por utilizar la aplicacion! Nos vemos la proxima.[/#a61b1b]")
             case _:
-                console.print(
-            "[bold red]--> Error: Opción no válida. Ingrese un número del 0 al 8.[/bold red]"
-            )
+                console.print("[#a61b1b]--> Error: Opción no válida. Ingrese un número del 0 al 8.[/#a61b1b]")
 
         if opcion != "0":
             print()
-            console.input("[bold red]Presione Enter para continuar... [/bold red]")
+            console.input("[#a61b1b]Presione Enter para continuar... [/#a61b1b]")
 
 if __name__ == "__main__":
     main()
