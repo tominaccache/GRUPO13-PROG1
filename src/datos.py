@@ -1,7 +1,10 @@
 """
 Diccionario de Pilotos:
 - Clave: Sigla de piloto(3 letras)
-- Valor: Diccionario con tupla inmutable (Nombre, Nacionalidad), escuderia, puntos
+- Valor: Diccionario con:
+    - datos_personales:lista [Nombre, Nacionalidad]
+    - escuderia: sigla de la escuderia
+    - puntos: puntos acumulados
 """
 
 pilotos = {
@@ -116,11 +119,10 @@ pilotos = {
         "puntos": 0,
     },
 }
-"""
-Diccionario de Escuderias:
-    - Clave: Sigla de la escuderia (3 letras)
-    - Valor: Diccionario con nombre, pais, pilotos, puntos
-"""
+
+# Diccionario de Escuderias:
+#    - Clave: Sigla de la escuderia (3 letras)
+#   - Valor: Diccionario con nombre, pais, pilotos, puntos
 
 escuderias = {
     "RBR": {
@@ -217,16 +219,19 @@ carreras = [
     "Abu Dhabi"
 ]
 
-puntos = [25, 18, 15, 12, 10, 8, 6, 4, 2, 1]
+puntos_por_posicion = [25, 18, 15, 12, 10, 8, 6, 4, 2, 1]
 
-# Matriz de resultados:
-
+# Inicializacion segura de la matriz
+# La columna 0 de cada fila guarda la sigla del piloto (identidad)
 cantidad_carreras = len(carreras)
-cantidad_pilotos = len(pilotos)
 
 matriz_resultados = []
-for fila in range(cantidad_pilotos):
-    fila_vacia = []
-    for columna in range(cantidad_carreras):
-        fila_vacia.append(0)
-    matriz_resultados.append(fila_vacia)
+for sigla in pilotos.keys():
+    fila = [sigla]+[""] * cantidad_carreras
+    matriz_resultados.append(fila)
+
+# Datos crudos separados de los puntos que es lo que se almacena
+# Diccionario:
+#       - Clave: Circuito
+#       - Valor: Diccionario con pilto y tiempo de carrera
+tiempos_carreras = {}
