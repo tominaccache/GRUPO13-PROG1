@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.vscode
+campeonato_f1.json
+reporte_campeonato.txt
+tiempos_gp_test.txt
