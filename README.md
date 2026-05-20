@@ -67,4 +67,4 @@ python main.py
 | Tabla de Posiciones      | 🔄 En desarrollo |
 | Estadísticas             | 🔄 En desarrollo |
 | Proyección de Campeonato | 🔄 En desarrollo |
-| Guardar/Cargar Datos     | ✅ En desarrollo |
+| Guardar/Cargar Datos     | ✅ Completo      |
