@@ -57,7 +57,8 @@ def main():
                 )
             case _:
                 console.print(
-                    "[#a61b1b]--> Error: Opción no válida. Ingrese un número del 0 al 8.[/#a61b1b]"
+                    "[#a61b1b]--> Error: Opción no válida. "
+                    "Ingrese un número del 0 al 8.[/#a61b1b]"
                 )
 
         if opcion != "0":

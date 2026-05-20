@@ -11,8 +11,9 @@ console = Console()
 
 def agregar_piloto():
     """
-    Objetivo: Solicita datos por consola para un nuevo piloto, valida el formato
-              y los inserta en el diccionario principal y en el de su escudería.
+    Objetivo:
+        Solicita datos por consola para un nuevo piloto, valida el formato
+        y los inserta en el diccionario principal y en el de su escudería.
     Parámetros: Ninguno (los datos se ingresan via input)
     Retorno: None (modifica los diccionarios globales en mermoria)
     """
@@ -22,7 +23,9 @@ def agregar_piloto():
 
     if not re.fullmatch(r"[A-Z]{3}", sigla):
         console.print(
-            "[#a61b1b]Error: La sigla debe tener exactamente 3 letras.[/#a61b1b]")
+            "[#a61b1b]Error: La sigla debe "
+            "tener exactamente 3 letras.[/#a61b1b]"
+        )
         return
 
     if sigla in pilotos:
@@ -36,11 +39,15 @@ def agregar_piloto():
         "[#a61b1b]Ingrese el país del piloto: [/#a61b1b]").strip()
 
     esc_sigla = console.input(
-        "[#a61b1b]Ingrese la sigla de la escudería (ej. RBR, FER): [/#a61b1b]").upper()
+        "[#a61b1b]Ingrese la sigla de la escudería (ej. RBR, FER): "
+        "[/#a61b1b]"
+    ).upper()
 
     if esc_sigla not in escuderias:
         console.print(
-            "[#a61b1b]Error: La escudería ingresada no existe en el sistema.[/#a61b1b]")
+            "[#a61b1b]Error: "
+            "La escudería ingresada no existe en el sistema.[/#a61b1b]"
+        )
         return
 
     # Agregar al diccionario de pilotos
@@ -59,55 +66,76 @@ def agregar_piloto():
     # La columna 0 es la sigla del piloto (identidad)
     matriz_resultados.append([sigla] + [""] * len(carreras))
     console.print(
-        f"\n[bold green]✅ Piloto {nombre} ({sigla}) agregado correctamente a la escudería {esc_sigla}.[/bold green]")
+        f"\n[bold green]✅ Piloto {nombre} ({sigla}) "
+        f"agregado correctamente a la escudería {esc_sigla}.[/bold green]"
+    )
 
 
 def modificar_piloto():
     """
-    Objetivo: Permite actualizar el nombre, país o escuderia de un piloto existente.
-              Si el usuario deja el campo en blanco, se conserva el valor anterior.
+    Objetivo:
+        Permite actualizar el nombre, país o escuderia de un piloto existente.
+        Si el usuario deja el campo en blanco, se conserva el valor anterior.
     Parámetros: Ninguno (interaccion por consola).
     Retorno: None (modifica el estado global).
     """
     console.print("[#a61b1b]Modificar Piloto:[/#a61b1b]\n")
     sigla = console.input(
-        "[#a61b1b]Ingrese la sigla del piloto a modificar: [/#a61b1b]").upper()
+        "[#a61b1b]Ingrese la sigla del piloto a modificar: [/#a61b1b]"
+    ).upper()
 
     if sigla not in pilotos:
         console.print(
-            "[#a61b1b]Error: No se encontró ningún piloto con esa sigla.[/#a61b1b]")
+            "[#a61b1b]Error: No se encontró "
+            "ningún piloto con esa sigla.[/#a61b1b]"
+        )
         return
 
     piloto_actual = pilotos[sigla]
     console.print(
-        f"[#a61b1b]Modificando a: {
-            piloto_actual['datos_personales'][0]}[/#a61b1b]")
+        f"[#a61b1b]Modificando a: "
+        f"{piloto_actual['datos_personales'][0]}[/#a61b1b]"
+    )
 
     nuevo_nombre = console.input(
-        "[#a61b1b]Nuevo nombre (Deje en blanco para no modificar): [/#a61b1b]").strip()
+        "[#a61b1b]Nuevo nombre (Deje en blanco para no modificar): "
+        "[/#a61b1b]"
+    ).strip()
+
     if nuevo_nombre == "":
         nuevo_nombre = piloto_actual["datos_personales"][0]
 
     nuevo_pais = console.input(
-        "[#a61b1b]Nuevo país (Deje en blanco para no modificar): [/#a61b1b]").strip()
+        "[#a61b1b]Nuevo país (Deje en blanco para no modificar): "
+        "[/#a61b1b]"
+    ).strip()
+
     if nuevo_pais == "":
         nuevo_pais = piloto_actual["datos_personales"][1]
 
     nueva_escuderia = console.input(
-        "[#a61b1b]Nueva escudería (Deje en blanco para no modificar): [/#a61b1b]").upper()
+        "[#a61b1b]Nueva escudería (Deje en blanco para no modificar): "
+        "[/#a61b1b]"
+    ).upper()
+
     if nueva_escuderia.strip() == "":
         nueva_escuderia = piloto_actual["escuderia"]
     elif nueva_escuderia not in escuderias:
         console.print(
-            "[#a61b1b]Error: La escudería ingresada no existe. Se mantendrá la escudería anterior.[/#a61b1b]")
+            "[#a61b1b]Error: La escudería ingresada no existe. "
+            "Se mantendrá la escudería anterior.[/#a61b1b]"
+        )
         nueva_escuderia = piloto_actual["escuderia"]
     else:
-        # Descisión de diseño: Asegurar que el piloto se desvincule de su escuderia anterior
-        # solo si la escudería vieja aún existe en el sistema
+        # Descisión de diseño: Asegurar que el piloto se desvincule
+        # de su escuderia anterio solo si la escudería vieja aún
+        # existe en el sistema
         escuderia_antigua = piloto_actual["escuderia"]
         if nueva_escuderia != escuderia_antigua:
 
-            if escuderia_antigua in escuderias and sigla in escuderias[escuderia_antigua]["pilotos"]:
+            if (escuderia_antigua in escuderias
+                    and sigla in escuderias[escuderia_antigua]["pilotos"]
+                ):
                 escuderias[escuderia_antigua]["pilotos"].remove(sigla)
 
             escuderias[nueva_escuderia]["pilotos"].append(sigla)
@@ -117,12 +145,14 @@ def modificar_piloto():
     pilotos[sigla]["escuderia"] = nueva_escuderia
 
     console.print(
-        f"\n[bold green]✅ Datos del piloto {sigla} actualizados correctamente.[/bold green]")
+        f"\n[bold green]✅ Datos del piloto {sigla} "
+        f"actualizados correctamente.[/bold green]")
 
 
 def eliminar_piloto():
     """
-    Objetivo: Elimina a un piloto del sistema y rompe la relación con su escudería.
+    Objetivo:
+        Elimina a un piloto del sistema y rompe la relación con su escudería.
     Parametros: Ninguno
     Retorno: None
     """
@@ -132,13 +162,17 @@ def eliminar_piloto():
 
     if sigla not in pilotos:
         console.print(
-            "[#a61b1b]Error: No se encontró ningún piloto con esa sigla.[/#a61b1b]")
+            "[#a61b1b]Error: "
+            "No se encontró ningún piloto con esa sigla.[/#a61b1b]"
+        )
         return
 
    # Remover al piloto de la lista de su escudería verificando que la
    # escudería aún exista
     escuderia_asignada = pilotos[sigla]["escuderia"]
-    if escuderia_asignada in escuderias and sigla in escuderias[escuderia_asignada]["pilotos"]:
+    if (escuderia_asignada in escuderias
+            and sigla in escuderias[escuderia_asignada]["pilotos"]
+        ):
         escuderias[escuderia_asignada]["pilotos"].remove(sigla)
 
     # Guardamos el nombre antes de eliminar y borramos la fila de la matriz
@@ -153,12 +187,15 @@ def eliminar_piloto():
     del pilotos[sigla]
 
     console.print(
-        f"\n[bold green]✅ El piloto {nombre_eliminado} ({sigla}) ha sido eliminado del sistema.[/bold green]")
+        f"\n[bold green]✅ El piloto {nombre_eliminado} ({sigla}) "
+        f"ha sido eliminado del sistema.[/bold green]")
 
 
 def buscar_piloto():
     """
-    Objetivo: Busca un piloto especifico por su sigla y renderiza sus datos en un Panel.
+    Objetivo:
+        Busca un piloto especifico por su sigla y
+        renderiza sus datos en un Panel.
     Parametros: Ninguno
     Retrono: None (imprime un Panel de la libreria Rich)
     """
@@ -168,7 +205,9 @@ def buscar_piloto():
     print()
     if sigla not in pilotos:
         console.print(
-            "[#a61b1b]Error: No se encontró ningún piloto con esa sigla.[/#a61b1b]")
+            "[#a61b1b]Error: "
+            "No se encontró ningún piloto con esa sigla.[/#a61b1b]"
+        )
         return
 
     datos = pilotos[sigla]
@@ -185,7 +224,8 @@ def buscar_piloto():
         f"[#a61b1b]Sigla: {sigla} [/#a61b1b]\n"
         f"[#a61b1b]Nombre: {datos['datos_personales'][0]}[/#a61b1b] \n"
         f"[#a61b1b]Nacionalidad: {datos['datos_personales'][1]}[/#a61b1b]\n"
-        f"[#a61b1b]Escudería: {datos['escuderia']} - {nombre_escuderia}[/#a61b1b]\n"
+        f"[#a61b1b]Escudería: {datos['escuderia']} "
+        f"- {nombre_escuderia}[/#a61b1b]\n"
         f"[#a61b1b]Puntos Campeonato: {datos['puntos']}[/#a61b1b]"
     )
 
@@ -201,14 +241,16 @@ def buscar_piloto():
 
 def listar_pilotos():
     """
-    Objetivo: Recolecta los datos de todos los pilotos registrados y los envía
-              a la función generica para renderizarlos en formato tabla.
+    Objetivo:
+        Recolecta los datos de todos los pilotos registrados y los envía
+        a la función generica para renderizarlos en formato tabla.
     Parámetros: Ninguno
     Retorno: None.
     """
     if not pilotos:
         console.print(
-            "[#a61b1b]No hay pilotos registrados en el sistema actualmente.[/#a61b1b]")
+            "[#a61b1b]No hay pilotos registrados "
+            "en el sistema actualmente.[/#a61b1b]")
         return
 
     # Crear la tabla de Rich
@@ -234,8 +276,10 @@ def listar_pilotos():
 
 def menu_pilotos():
     """
-    Objetivo: Controlador pricnipal del flujo del submenú de gestion de pilotos.
-              Mantiene al usuario en un bucle hasta que decida volver al menú principal.
+    Objetivo:
+        Controlador pricnipal del flujo del submenú de gestion de pilotos.
+        Mantiene al usuario en un bucle hasta que decida
+        volver al menú principal.
     Parámetros: Ninguno.
     Retorna: None.
     """

@@ -37,7 +37,8 @@ def validar_tiempo(tiempo):
 
 def validar_vuelta_perdida(tiempo):
     """
-    Objetivo: Validar que el indicador de vuelta perdida tenga el formato correcto.
+    Objetivo: Validar que el indicador de vuelta perdida
+              tenga el formato correcto.
     Entrada: tiempo (string)
     Salida: True si es válido, False si no lo es
     """
@@ -105,7 +106,8 @@ def asignar_puntos_y_guardar(carrera_seleccionada, tiempos_carrera_actual):
     Objetivo: Ordenar tiempos, asignar puntos a pilotos y escuderías,
               actualizar la matriz y guardar en tiempos_carreras.
     Entrada: carrera_seleccionada (string), tiempos_carrera_actual (dict)
-    Retorno: None. Modifica pilotos, escuderias, matriz_resultados y tiempos_carreras.
+    Retorno: None. Modifica pilotos, escuderias,
+             matriz_resultados y tiempos_carreras.
     """
     indice_carrera = carreras.index(carrera_seleccionada)
     # +1 Porque la columna 0 es la sigla del piloto
@@ -166,27 +168,34 @@ def cargar_tiempos_manual(siglas_pilotos):
                 break
             else:
                 console.print(
-                    "[#a61b1b]Error: Formato inválido. Use HH:MM:SS.mmm, +N, DNF[/#a61b1b]"
+                    "[#a61b1b]Error: Formato inválido. "
+                    "Use HH:MM:SS.mmm, +N, DNF[/#a61b1b]"
                 )
     return tiempos_carrera
 
 
 def cargar_tiempos_archivo():
     """
-    Objetivo: Leer los tiempos de carrera desde un archivo de texto plano (.txt)
-              siguiendo el formato 'SIGLA:TIEMPO', validando que estén todos
-              los pilotos del sistema y que los formatos sean correctos.
+    Objetivo:
+        Leer los tiempos de carrera desde un archivo de texto plano (.txt)
+        siguiendo el formato 'SIGLA:TIEMPO', validando que estén todos
+        los pilotos del sistema y que los formatos sean correctos.
     Entrada: Ninguna (Solicita el nombre del archivo por consola).
-    Salida: Diccionario con {sigla:tiempo} si es valido, o diccionario vacio {} si es invalido
+    Salida: Diccionario con {sigla:tiempo} si es valido,
+            o diccionario vacio {} si es invalido
     """
     console.print("\n[#a61b1b]Cargar Tiempos desde Archivo .txt[/#a61b1b]")
     nombre_archivo = console.input(
-        "[#a61b1b]Ingrese el nombre del archivo (ej: tiempos_gp.txt): [/#a61b1b]")
+        "[#a61b1b]Ingrese el nombre del archivo "
+        "(ej: tiempos_gp.txt): [/#a61b1b]"
+    )
 
     # Verficamos si el archivo existe antes de abrirlo
     if not os.path.exists(nombre_archivo):
         console.print(
-            f"[bold red]Error: El archivo '{nombre_archivo}' no existe.[/bold red]")
+            f"[bold red]Error: "
+            f"El archivo '{nombre_archivo}' no existe.[/bold red]"
+        )
         return {}
 
     tiempos_carrera_archivo = {}
@@ -205,7 +214,8 @@ def cargar_tiempos_archivo():
 
                 if len(partes) != 2:
                     console.print(
-                        f"[#a61b1b]Error en el formato de línea: '{linea}'. Debe ser SIGLA:TIEMPO [/#a61b1b]")
+                        f"[#a61b1b]Error en el formato de línea: "
+                        f"'{linea}'. Debe ser SIGLA:TIEMPO [/#a61b1b]")
                     return
 
                 sigla = partes[0].strip().upper()
@@ -213,31 +223,39 @@ def cargar_tiempos_archivo():
 
                 if sigla not in siglas_sistema:
                     console.print(
-                        f"[bold red]Error: La sigla '{sigla}' en el archivo no corresponde a un piloto registrado.[/bold red]")
+                        f"[bold red]Error: La sigla '{sigla}' en el archivo "
+                        f"no corresponde a un piloto registrado.[/bold red]"
+                    )
                     return {}
 
-                if not (validar_tiempo(tiempo) or validar_vuelta_perdida(tiempo) or tiempo == "DNF"):
+                if not (validar_tiempo(tiempo) or
+                        validar_vuelta_perdida(tiempo) or tiempo == "DNF"):
                     console.print(
-                        f"[bold red]Error: El tiempo '{tiempo}' para '{sigla}' tiene un formato invalido [/bold red]")
+                        f"[bold red]Error: El tiempo '{tiempo}' para "
+                        f"'{sigla}' tiene un formato invalido [/bold red]")
                     return {}
 
                 if sigla in tiempos_carrera_archivo:
                     console.print(
-                        f"[bold red]Error: El piloto '{sigla}' aparece mas de una vez en el archivo.[/bold red]")
+                        f"[bold red]Error: El piloto '{sigla}' "
+                        "aparece mas de una vez en el archivo.[/bold red]")
                     return {}
 
                 tiempos_carrera_archivo[sigla] = tiempo
 
-        # Validación 4: ¿Están TODOS los pilotos del sistema incluidos en el archivo?,
-        # verificamos que la longitud coincida (ya validamos que no hay externos ni duplicados)
+        # verificamos  si a todos los pilotos les quedo un tiempo cargado
         if len(tiempos_carrera_archivo) != len(siglas_sistema):
             console.print(
-                "[bold red]Error: La cantidad de pilotos en el archivo no coincide con los del sistema.[/bold red]")
+                "[bold red]Error: La cantidad de pilotos en el archivo "
+                "no coincide con los del sistema.[/bold red]"
+            )
             # Opcional: Mostrar cuáles faltan recorriendo la lista clásica
             for s in siglas_sistema:
                 if s not in tiempos_carrera_archivo:
                     console.print(
-                        f"[yellow]Falta cargar el tiempo del piloto: {s}[/yellow]")
+                        f"[yellow]Falta cargar "
+                        f" el tiempo del piloto: {s}[/yellow]"
+                    )
             return {}
 
         console.print(
@@ -246,7 +264,9 @@ def cargar_tiempos_archivo():
 
     except IOError:
         console.print(
-            "[bold red]Error crítico de E/S: No se pudo leer el archivo.[/bold red]")
+            "[bold red]Error crítico de E/S: "
+            "No se pudo leer el archivo.[/bold red]"
+        )
         return {}
     except Exception as e:
         console.print(
@@ -309,18 +329,21 @@ def registrar_tiempos():
 
     asignar_puntos_y_guardar(carrera_seleccionada, tiempos_carrera_actual)
     console.print(
-        f"\n[#a61b1b]Tiempos de {carrera_seleccionada} registrados correctamente.[/#a61b1b]"
+        f"\n[#a61b1b]Tiempos de {carrera_seleccionada}"
+        f" registrados correctamente.[/#a61b1b]"
     )
 
 
 def ver_resultados():
     """
-    Objetivo: Mostrar la tabla de resultados finales de un Gran Premio específico.
+    Objetivo: Mostrar la tabla de resultados
+             finales de un Gran Premio específico.
     """
     console.print("[#a61b1b]Ver resultados de Carrera[/#a61b1b] ")
     if not tiempos_carreras:
         console.print(
-            "[#a61b1b]No hay resultados registrados en el sistema actual.[/#a61b1b]"
+            "[#a61b1b]No hay resultados "
+            "registrados en el sistema actual.[/#a61b1b]"
         )
         return
 
@@ -384,7 +407,8 @@ def ver_resultados():
 
 def modificar_resultados():
     """
-    Objetivo: Corregir tiempos de una carrera, reasignando puntos correctamente
+    Objetivo: Corregir tiempos de una carrera,
+              reasignando puntos correctamente
     """
     if not tiempos_carreras:
         console.print(
@@ -418,7 +442,8 @@ def modificar_resultados():
     tiempos_carrera_actual = cargar_tiempos_manual(list(pilotos.keys()))
     asignar_puntos_y_guardar(carrera_seleccionada, tiempos_carrera_actual)
     console.print(
-        f"[#a61b1b]Resultados de {carrera_seleccionada} modificados correctamente.[/#a61b1b]"
+        f"[#a61b1b]Resultados de {carrera_seleccionada} "
+        f"modificados correctamente.[/#a61b1b]"
     )
 
 
@@ -433,7 +458,7 @@ def eliminar_resultados():
     carreras_disponibles = [c for c in carreras if c in tiempos_carreras]
     opciones_numericas = []
     for i in range(len(carreras_disponibles)):
-        opciones_numericas.append(f"{i+1}. {carrera_seleccionada[i]}")
+        opciones_numericas.append(f"{i+1}. {carreras_disponibles[i]}")
 
     opcion = mostrar_menu_generico(
         "Seleccione la carrera a eliminar", carreras_disponibles
@@ -451,7 +476,8 @@ def eliminar_resultados():
 
     # Confirmacion de seguridad
     confirmacion = console.input(
-        f"[#a61b1b]¿Está seguro que desea eliminar {carrera_seleccionada}? (S/N): [/#a61b1b]"
+        f"[#a61b1b]¿Está seguro que desea eliminar {carrera_seleccionada}?"
+        f" (S/N): [/#a61b1b]"
     ).upper()
     if confirmacion != "S":
         console.print("[#a61b1b]Operacion cancelada.[/#a61b1b]")
@@ -459,22 +485,26 @@ def eliminar_resultados():
 
     revertir_resultados_carrera(carrera_seleccionada)
     console.print(
-        f"[bold green] Resultados de {carrera_seleccionada} eliminados exitosamente.[/bold green]"
+        f"[bold green] Resultados de {carrera_seleccionada} "
+        f"eliminados exitosamente.[/bold green]"
     )
 
 
 def agregar_carrera():
     """
-    Objetivo: Agregar un nuevo Gran Premio al calendario de la temporada,
-              garantizando que no existan circuitos duplicados mediante conjuntos,
-              y extendiendo la matriz de resultados con una nueva columna vacía.
+    Objetivo:
+        Agregar un nuevo Gran Premio al calendario de la temporada,
+        garantizando que no existan circuitos duplicados mediante conjuntos,
+        y extendiendo la matriz de resultados con una nueva columna vacía.
     Parámetros: Ninguno (los datos se ingresan por consola).
-    Retorno: None. Modifica las listas globales 'carreras' y 'matriz_resultados'.
+    Retorno: None. Modifica las listas globales
+            'carreras' y 'matriz_resultados'.
     """
     console.print("[#a61b1b]Agregar Nueva Carrera al Calendario[/#a61b1b]")
 
     nueva_carrera = console.input(
-        "[#a61b1b]Ingrese el Nombre del Nuevo Gran Premio: [/#a61b1b]\n").strip().title()
+        "[#a61b1b]Ingrese el Nombre del Nuevo Gran Premio:"
+        " [/#a61b1b]\n").strip().title()
 
     conjunto_carreras = set(carreras)
 
@@ -493,9 +523,10 @@ def agregar_carrera():
     for fila in matriz_resultados:
         fila.append("")
 
-    console.print(f"[bold green] Gran Premio '{nueva_carrera}' agregada"
-                  f"correctamente. Total de carreras: {len(carreras)}. [/bold green]"
-                  )
+    console.print(
+        f"[bold green] Gran Premio '{nueva_carrera}' agregada"
+        f"correctamente. Total de carreras: {len(carreras)}. [/bold green]"
+    )
 
 
 def menu_resultados():

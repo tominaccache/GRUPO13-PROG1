@@ -29,7 +29,8 @@ def agregar_escuderia():
 
     if not validar_sigla(sigla):
         console.print(
-            "[#a61b1b]Error: La sigla debe tener exactamente 3 letras.[/#a61b1b]"
+            "[#a61b1b]Error: "
+            "La sigla debe tener exactamente 3 letras.[/#a61b1b]"
         )
         return
 
@@ -63,9 +64,9 @@ def modificar_escuderia():
         "[#a61b1b]Ingrese la sigla de la escuderia: [/#a61b1b]"
     ).upper()
     if not validar_sigla(sigla):
-        console.print(
-            "[#a61b1b] Error: La sigla debe tener exactamente 3 letras.[/#a61b1b]"
-        )
+        console.print("[#a61b1b] Error: "
+                      "La sigla debe tener exactamente 3 letras.[/#a61b1b]"
+                      )
         return
 
     if sigla not in escuderias:
@@ -141,7 +142,8 @@ def eliminar_escuderia():
     ).upper()
     if not validar_sigla(sigla):
         console.print(
-            "[#a61b1b] Error: La sigla debe tener exactamente 3 letras.[/#a61b1b]\n"
+            "[#a61b1b] Error: "
+            "La sigla debe tener exactamente 3 letras.[/#a61b1b]\n"
         )
         return
 
@@ -156,7 +158,8 @@ def eliminar_escuderia():
             escuderias[sigla]['nombre']}[/#a61b1b]\n")
     console.print(f"[#a61b1b]Pais: {escuderias[sigla]['pais']}[/#a61b1b]\n")
     confirmacion = console.input(
-        "[#a61b1b]¿Esta seguro que desea eliminar esta escuderia (S= si, N= no)?: "
+        "[#a61b1b]¿Esta seguro "
+        "que desea eliminar esta escuderia (S= si, N= no)?: "
     )
     if confirmacion.upper() == "S":
         for sigla_piloto in escuderias[sigla]["pilotos"]:

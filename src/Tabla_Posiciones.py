@@ -19,15 +19,15 @@ def menu_tabla_posiciones():
         match op:
             case "1":
                 console.print(
-                    "[#a61b1b]--> Ver Tabla de Pilotos (próximamente)[/#a61b1b]"
+                    "[#a61b1b]--> Ver Tabla de Pilotos [/#a61b1b]"
                 )
             case "2":
                 console.print(
-                    "[#a61b1b]--> Ver Tabla de Escuderías (próximamente)[/#a61b1b]"
+                    "[#a61b1b]--> Ver Tabla de Escuderías [/#a61b1b]"
                 )
             case "3":
                 console.print(
-                    "[#a61b1b]--> Exportar Clasificación (proximamente)[/#a61b1b]"
+                    "[#a61b1b]--> Exportar Clasificación [/#a61b1b]"
                 )
             case "0":
                 continuar_programa = False
