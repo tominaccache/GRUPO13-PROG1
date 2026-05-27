@@ -504,7 +504,7 @@ def agregar_carrera():
 
     nueva_carrera = console.input(
         "[#a61b1b]Ingrese el Nombre del Nuevo Gran Premio:"
-        " [/#a61b1b]\n").strip().title()
+        " [/#a61b1b]").strip().title()
 
     conjunto_carreras = set(carreras)
 

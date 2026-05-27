@@ -169,11 +169,20 @@ def restaurar_sistema_json():
 
         # Mutamos el contenido de las estructuras
         # globales apuntando al modulo 'datos'
-        datos.pilotos = estado["pilotos"]
-        datos.escuderias = estado["escuderias"]
-        datos.carreras = estado["carreras"]
-        datos.matriz_resultados = estado["matriz_resultados"]
-        datos.tiempos_carreras = estado["tiempos_carreras"]
+        datos.pilotos.clear()
+        datos.pilotos.update(estado["pilotos"])
+
+        datos.escuderias.clear()
+        datos.escuderias.update(estado["escuderias"])
+
+        datos.carreras.clear()
+        datos.carreras.extend(estado["carreras"])
+
+        datos.matriz_resultados.clear()
+        datos.matriz_resultados.extend(estado["matriz_resultado"])
+
+        datos.tiempos_carreras.clear()
+        datos.tiempos_carreras.update(estado["tiempos_carreras"])
 
         console.print(
             "[bold green]Sistema restaurado "
