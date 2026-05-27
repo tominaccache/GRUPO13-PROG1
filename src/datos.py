@@ -219,7 +219,7 @@ carreras = [
     "Abu Dhabi"
 ]
 
-puntos_por_posicion = [25, 18, 15, 12, 10, 8, 6, 4, 2, 1]
+puntos_por_posicion = (25, 18, 15, 12, 10, 8, 6, 4, 2, 1)
 
 # Inicializacion segura de la matriz
 # La columna 0 de cada fila guarda la sigla del piloto (identidad)
