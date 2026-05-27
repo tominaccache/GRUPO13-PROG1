@@ -7,8 +7,8 @@ import datos
 console = Console()
 
 # Nombres de archivos por defecto
-ARCHIVO_JSON = "campeonato_f1.json"
-ARCHIVO_REPORTE = "reporte_campeonato.txt"
+ARCHIVO_JSON = "/data/campeonato_f1.json"
+ARCHIVO_REPORTE = "/out/reporte_campeonato.txt"
 
 
 def guardar_estado_sistema():
