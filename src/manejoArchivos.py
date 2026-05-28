@@ -7,8 +7,8 @@ import datos
 console = Console()
 
 # Nombres de archivos por defecto
-ARCHIVO_JSON = "/data/campeonato_f1.json"
-ARCHIVO_REPORTE = "/out/reporte_campeonato.txt"
+ARCHIVO_JSON = "data/campeonato_f1.json"
+ARCHIVO_REPORTE = "out/reporte_campeonato.txt"
 
 
 def guardar_estado_sistema():
@@ -84,8 +84,8 @@ def exportar_reporte_txt():
                        "-------------\n"
                        )
             file.write(
-                f"{'pos':<4} | {'sigla': <5} | "
-                " {'nombre':<25} | {'puntos':<6}\n"
+                f"{'Pos':<4} | {'Sigla': <5} | "
+                f" {'Nombre':<25} | {'Puntos':<6}\n"
             )
             file.write("-"*50 + "\n")
 
@@ -95,7 +95,7 @@ def exportar_reporte_txt():
                 puntos = info["puntos"]
                 file.write(
                     f"{pos_piloto:<4} | {sigla:<5} | "
-                    " {nombre:<25} | {puntos:<6}\n"
+                    f" {nombre:<25} | {puntos:<6}\n"
                 )
                 pos_piloto += 1
 
@@ -104,7 +104,7 @@ def exportar_reporte_txt():
             file.write("--- CLASIFICACION DE CONSTRUCTORES (ESCUDERÍAS) ---\n")
             file.write(
                 f"{'Pos':<4} | {'Sigla':<5} | "
-                " {'Nombre Escudería':<30} | {'Puntos':<6}\n"
+                f" {'Nombre Escudería':<30} | {'Puntos':<6}\n"
             )
             file.write("-" * 55 + "\n")
 
@@ -124,8 +124,8 @@ def exportar_reporte_txt():
             )
 
             console.print(
-                F"[bold green]Reporte '{ARCHIVO_REPORTE}' "
-                "exportado correctamente.[/bold green]"
+                f"[bold green]Reporte '{ARCHIVO_REPORTE}' "
+                f"exportado correctamente.[/bold green]"
             )
     except IOError:
         console.print(
