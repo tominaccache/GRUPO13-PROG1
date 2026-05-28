@@ -113,7 +113,7 @@ def ver_escuderias():
         # Formateamos la lista de pilotos para que sea un string separado por
         # comas
 
-        if datos[pilotos]:
+        if datos["pilotos"]:
             pilotos_formateados = ", ".join(datos["pilotos"])
         else:
             pilotos_formateados = "Sin Pilotos"
