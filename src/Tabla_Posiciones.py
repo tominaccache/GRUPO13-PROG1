@@ -1,6 +1,6 @@
 from rich.console import Console
-from rich.panel import Panel
-from rich.table import Table
+import datos
+from utils import mostrar_menu_generico, mostrar_tabla_generica
 
 console = Console()
 
@@ -10,47 +10,70 @@ def limpiar_consola():
 
 
 def menu_tabla_posiciones():
+    opciones = [
+        "1. Ver Tabla de Pilotos",
+        "2. Ver Tabla de Escuderías",
+        "3. Exportar Clasificación",
+        "0. Volver al menú principal"
+    ]
+
     while True:
         limpiar_consola()
-        texto_menu = (
-            "[bold red]1. Ver Tabla de Pilotos[/bold red]\n"
-            "[bold red]2. Ver Tabla de Escuderías[/bold red]\n"
-            "[bold red]3. Exportar Clasificación[/bold red]\n"
-            "[bold red]0. Volver al menú principal[/bold red]"
-        )
 
-        panel = Panel(
-            texto_menu,
-            title="[bold red] Tabla de Posiciones 📊 [/bold red]",
-            border_style="bold red",
-            style="on white",
-            padding=(1, 4),
-            expand=False,
-        )
-        console.print(panel)
+        op = mostrar_menu_generico("Tabla de Posiciones 📊", opciones)
 
-        op = console.input("\n[bold red]Seleccione una opción: [/bold red]")
         if op == "1":
             limpiar_consola()
             mostrar_tabla_ejemplo()
-            console.input("\nPresione Enter para volver...")
+            console.input("\n[#a61b1b]Presione Enter para volver...[/#a61b1b]")
+
+        elif op == "2":
+            limpiar_consola()
+            mostrar_tabla_escuderias()
+            console.input("\n[#a61b1b]Presione Enter para volver...[/#a61b1b]")
 
         elif op == "0":
             break
 
 
 def mostrar_tabla_ejemplo():
-    tabla = Table(
-        title="Clasificación Actual F1", header_style="bold red", border_style="red"
+    titulo = "Clasificación Actual F1"
+    columnas = ["Pos", "Piloto", "Escudería", "Puntos"]
+    alineaciones = ["center", "left", "left", "right"]
+
+    filas = [
+        ["1", "Max Verstappen", "Red Bull", "350"],
+        ["2", "Lando Norris", "McLaren", "280"],
+        ["3", "Charles Leclerc", "Ferrari", "275"]
+    ]
+
+    mostrar_tabla_generica(titulo, columnas, filas, alineaciones)
+
+
+def mostrar_tabla_escuderias():
+    titulo = "Clasificación de Escuderías"
+    columnas = ["Sigla", "Escudería", "País", "Puntos", "Pilotos"]
+    alineaciones = ["center", "left", "left", "right", "left"]
+
+    escuderias = sorted(
+        datos.escuderias.items(),
+        key=lambda item: item[1].get("puntos", 0),
+        reverse=True,
     )
 
-    tabla.add_column("Pos", justify="center")
-    tabla.add_column("Piloto")
-    tabla.add_column("Escudería")
-    tabla.add_column("Puntos", justify="right")
+    filas = []
+    for sigla, info in escuderias:
+        nombres_pilotos = ", ".join(
+            datos.pilotos[p]["datos_personales"][0] if p in datos.pilotos else p
+            for p in info.get("pilotos", [])
+        )
 
-    tabla.add_row("1", "Max Verstappen", "Red Bull", "350")
-    tabla.add_row("2", "Lando Norris", "McLaren", "280")
-    tabla.add_row("3", "Charles Leclerc", "Ferrari", "275")
+        filas.append([
+            sigla,
+            info.get("nombre", "N/A"),
+            info.get("pais", "N/A"),
+            info.get("puntos", 0),
+            nombres_pilotos
+        ])
 
-    console.print(tabla)
+    mostrar_tabla_generica(titulo, columnas, filas, alineaciones)
