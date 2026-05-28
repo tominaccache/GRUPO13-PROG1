@@ -6,3 +6,4 @@ campeonato_f1.json
 reporte_campeonato.txt
 .pytest_cache
 pytest.ini
+.coverage
