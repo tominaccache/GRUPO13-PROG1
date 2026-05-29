@@ -15,7 +15,7 @@ def menu_tabla_posiciones():
     continuar_programa = True
     while continuar_programa:
         console.clear()
-        op = mostrar_menu_generico("Tabla de Posiciones", opciones_menu)
+        op = mostrar_menu_generico("Tabla de Posiciones", opciones)
         match op:
             case "1":
                 console.print(
