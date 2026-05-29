@@ -11,9 +11,10 @@ def mostrar_menu_generico(titulo, opciones, ancho=49):
     Entradas:
         - titulo (str): El título que aparecerá en el borde del panel.
         - opciones (list): Lista de strings con las opciones a mostrar.
-        - ancho (int): Ancho del panel.
+        - ancho (int): Ancho del panel (por defecto 49, como usabas).
     Salida: Retorna la opción ingresada por el usuario como string.
     """
+    # Recorremos la lista de opciones y le agregamos el color rojo a cada una
     opciones_formateadas = []
     for op in opciones:
         opciones_formateadas.append(f"[#a61b1b]{op}[/#a61b1b]")

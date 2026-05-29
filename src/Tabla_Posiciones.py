@@ -1,12 +1,8 @@
 from rich.console import Console
-import datos
+from rich.panel import Panel
 from utils import mostrar_menu_generico, mostrar_tabla_generica
-
+import datos
 console = Console()
-
-
-def limpiar_consola():
-    console.clear()
 
 
 def menu_tabla_posiciones():
@@ -18,16 +14,16 @@ def menu_tabla_posiciones():
     ]
 
     while True:
-        limpiar_consola()
+        console.clear()
 
         op = mostrar_menu_generico("Tabla de Posiciones 📊", opciones)
 
         if op == "1":
-            limpiar_consola()
+            console.clear()
             console.input("\n[#a61b1b]Presione Enter para volver...[/#a61b1b]")
 
         elif op == "2":
-            limpiar_consola()
+            console.clear()
             mostrar_tabla_escuderias()
             console.input("\n[#a61b1b]Presione Enter para volver...[/#a61b1b]")
 
