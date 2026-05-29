@@ -6,7 +6,7 @@ console = Console()
 
 
 def menu_tabla_posiciones():
-    opciones_menu = [
+    opciones = [
         "1. Ver Tabla de Pilotos",
         "2. Ver Tabla de Escuderías",
         "3. Exportar Clasificación",
