@@ -24,7 +24,6 @@ def menu_tabla_posiciones():
 
         if op == "1":
             limpiar_consola()
-            mostrar_tabla_ejemplo()
             console.input("\n[#a61b1b]Presione Enter para volver...[/#a61b1b]")
 
         elif op == "2":
@@ -34,20 +33,6 @@ def menu_tabla_posiciones():
 
         elif op == "0":
             break
-
-
-def mostrar_tabla_ejemplo():
-    titulo = "Clasificación Actual F1"
-    columnas = ["Pos", "Piloto", "Escudería", "Puntos"]
-    alineaciones = ["center", "left", "left", "right"]
-
-    filas = [
-        ["1", "Max Verstappen", "Red Bull", "350"],
-        ["2", "Lando Norris", "McLaren", "280"],
-        ["3", "Charles Leclerc", "Ferrari", "275"]
-    ]
-
-    mostrar_tabla_generica(titulo, columnas, filas, alineaciones)
 
 
 def mostrar_tabla_escuderias():

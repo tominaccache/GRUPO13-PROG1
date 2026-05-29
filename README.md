@@ -26,7 +26,7 @@ Sistema de gestión por consola para administrar los datos de telemetría y punt
 
 # Requisitos Previos e Instalación
 
-Este proyecto utiliza la librería `rich` para mejorar la interfaz visual de la consola (autorizado previamente por la profesora). 
+Este proyecto utiliza la librería `rich` para mejorar la interfaz visual de la consola (autorizado previamente por la profesora).
 
 Para instalar las dependencias necesarias, ejecutar en la terminal:
  ```bash
