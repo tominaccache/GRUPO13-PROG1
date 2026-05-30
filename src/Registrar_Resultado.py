@@ -391,7 +391,10 @@ def ver_resultados():
         else:
             puntos = 0
 
-        nombre = pilotos[sigla]["datos_personales"][0]
+        if sigla in pilotos:
+            nombre = pilotos[sigla]["datos_personales"][0]
+        else:
+            nombre = "Piloto Eliminado"
 
         # Guardamos la fila en la lista
         fila = [pos, f"{nombre} ({sigla})", tiempo, puntos]
@@ -411,6 +414,7 @@ def modificar_resultados():
     Objetivo: Corregir tiempos de una carrera,
               reasignando puntos correctamente
     """
+    console.print("[#a61b1b]Modificar Resultados de Carrera[/#a61b1b]")
     if not tiempos_carreras:
         console.print(
             "[#a61b1b]No hay resultados registrados para modificar[/#a61b1b]")
@@ -437,6 +441,23 @@ def modificar_resultados():
         return
 
     carrera_seleccionada = carreras_disponibles[opcion_int - 1]
+
+    opciones_carga = ["1. Carga Manual", "2. Cargar desde Archivo"]
+    modo = mostrar_menu_generico("Modo de Nueva Carga", opciones_carga)
+    siglas_pilotos = list(pilotos.keys())
+
+    if modo == "1":
+        tiempos_carrera_actual = cargar_tiempos_manual(siglas_pilotos)
+    elif modo == "2":
+        tiempos_carrera_actual = cargar_tiempos_archivo()
+        if not tiempos_carrera_actual:
+            return
+    else:
+        console.print("[#a61b1b] Opción Inválida[/#a61b1b]")
+
+    if len(tiempos_carrera_actual) != len(pilotos):
+        console.print("[#a61b1b]Cancelado: Faltan pilotos cargados.[/#a61b1b]")
+        return
 
     # Borrar los DATOS VIEJOS usando la función auxiliar
     revertir_resultados_carrera(carrera_seleccionada)

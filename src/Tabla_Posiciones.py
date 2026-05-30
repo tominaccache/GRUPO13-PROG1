@@ -32,6 +32,10 @@ def menu_tabla_posiciones():
 
 
 def mostrar_tabla_escuderias():
+    if not datos.pilotos:
+        console.print(
+            "[yellow]Aún no hay datos registrados en el sistema para mostrar[/yellow]"
+        )
     titulo = "Clasificación de Escuderías"
     columnas = ["Sigla", "Escudería", "País", "Puntos", "Pilotos"]
     alineaciones = ["center", "left", "left", "right", "left"]
