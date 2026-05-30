@@ -62,7 +62,7 @@ def analizar_piloto():
 def submenu_proyeccion():
     opcion = "-1"
     opciones_menu = [
-        "1. Puntos Maximos Posibles",
+        "1. Calcular Proyección de Campeonato",
         "0. Volver al Menú Principal"]
     while opcion != "0":
 

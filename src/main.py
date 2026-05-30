@@ -62,11 +62,9 @@ def main():
                     "Ingrese un número del 0 al 8.[/#a61b1b]"
                 )
 
-        # Pausa solo para las opciones que aún no tienen su propio menú implementado o errores
-        if opcion in ["1", "2", "3", "5", "6"] or (opcion != "0" and opcion not in [str(i) for i in range(1, 9)]):
-            print()
+        if opcion != "0":
             console.input(
-                "[#a61b1b]Presione Enter para continuar.[/#a61b1b]"
+                "\n[#a61b1b]Presione Enter para continuar.[/#a61b1b]"
             )
 
 

@@ -14,8 +14,14 @@ ARCHIVO_REPORTE = "out/reporte_campeonato.txt"
 def guardar_estado_sistema():
     """
     Objetivo: Serializar y guardar el estado actual de todas las estructuras
-              del campeonato
+              del campeonato en formato JSON.
+    Parámetros: Ninguno.
+    Retorno: None. Escribe el archivo en disco.
     """
+    directorio = os.path.dirname(ARCHIVO_JSON)
+    if directorio and not os.path.exists(directorio):
+        os.makedirs(directorio)
+
     console.print(
         f"\n[bold yellow]Guardando estado en '{ARCHIVO_JSON}' ..."
         "[/bold yellow]"
@@ -37,11 +43,14 @@ def guardar_estado_sistema():
             "[bold green]Estado del sistema guardado "
             " exitosamente.[/bold green]"
         )
-    except IOError:
+
+    except OSError as e:
         console.print(
-            "[bold red] Error critico de E/S: "
-            " No se pudo escribir el archivo.[/bold red]"
+            f"[bold red] Error critico de E/S: "
+            f" No se pudo escribir el archivo."
+            f" Detalle: {e}[/bold red]"
         )
+
     except Exception as e:
         console.print(
             f"[bold red]Ocurrio un error inesperado al guardar: "
@@ -49,10 +58,32 @@ def guardar_estado_sistema():
         )
 
 
+def calcular_ancho_nombre_pilotos():
+    ancho = len("Nombre")
+
+    for info in datos.pilotos.values():
+        nombre = info["datos_personales"][0]
+        ancho = max(ancho, len(nombre))
+
+    return ancho
+
+
+def calcular_ancho_nombre_escuderias():
+    ancho = len("Nombre Escuderia")
+
+    for info in datos.escuderias.values():
+        nombre = info["nombre"]
+        ancho = max(ancho, len(nombre))
+
+    return ancho
+
+
 def exportar_reporte_txt():
     """
-    Objetivo: Generar un reporte en texto plano (.txt) con el estado actual
-              del campeonato (Clasificacion rapida de pilotos y escuderias).
+    Objetivo: Generar un reporte en texto plano (.txt) con la clasificación
+              actual de pilotos y escuderías, ordenada por puntos.
+    Parámetros: Ninguno.
+    Retorno: None. Escribe el archivo en disco.
     """
     console.print(
         f"\n[bold yellow]Generando reporte en "
@@ -72,65 +103,121 @@ def exportar_reporte_txt():
             reverse=True
         )
 
-        with open(ARCHIVO_REPORTE, "w", encoding="utf-8") as file:
-            file.write(
-                "=====================================================\n")
-            file.write(
-                "       REPORTE OFICIAL - CAMPEONATO DE FÓRMULA 1     \n")
-            file.write(
-                "=====================================================\n\n")
+        ANCHO_POS = 4
+        ANCHO_SIGLA = 5
+        ANCHO_PUNTOS = 6
 
-            file.write("------------- CLASIFICACIÓN DE PILOTOS "
-                       "-------------\n"
-                       )
+        ANCHO_NOMBRE_PILOTO = calcular_ancho_nombre_pilotos()
+        ANCHO_NOMBRE_ESCUDERIA = calcular_ancho_nombre_escuderias()
+
+        separador_pilotos = (
+            f"+{'-' * (ANCHO_POS + 2)}"
+            f"+{'-' * (ANCHO_SIGLA + 2)}"
+            f"+{'-' * (ANCHO_NOMBRE_PILOTO + 2)}"
+            f"+{'-' * (ANCHO_PUNTOS + 2)}+\n"
+        )
+
+        separador_escuderias = (
+            f"+{'-' * (ANCHO_POS + 2)}"
+            f"+{'-' * (ANCHO_SIGLA + 2)}"
+            f"+{'-' * (ANCHO_NOMBRE_ESCUDERIA + 2)}"
+            f"+{'-' * (ANCHO_PUNTOS + 2)}+\n"
+        )
+
+        ancho_total = max(
+            len(separador_pilotos.rstrip()),
+            len(separador_escuderias.rstrip())
+        )
+
+        with open(ARCHIVO_REPORTE, "w", encoding="utf-8") as file:
+            # ENCABEZADO
+            file.write("=" * ancho_total + "\n")
             file.write(
-                f"{'Pos':<4} | {'Sigla': <5} | "
-                f" {'Nombre':<25} | {'Puntos':<6}\n"
+                "REPORTE OFICIAL - CAMPEONATO DE FÓRMULA 1"
+                .center(ancho_total) + "\n"
             )
-            file.write("-"*50 + "\n")
+            file.write("=" * ancho_total + "\n\n")
+
+            # PILOTOS
+            file.write("CLASIFICACIÓN DE PILOTOS\n\n")
+
+            file.write(separador_pilotos)
+
+            file.write(
+                f"| {'Pos':^{ANCHO_POS}} "
+                f"| {'Sigla':^{ANCHO_SIGLA}} "
+                f"| {'Nombre':<{ANCHO_NOMBRE_PILOTO}} "
+                f"| {'Puntos':^{ANCHO_PUNTOS}} |\n"
+            )
+
+            file.write(separador_pilotos)
 
             pos_piloto = 1
             for sigla, info in pilotos_ordenados:
+
                 nombre = info["datos_personales"][0]
                 puntos = info["puntos"]
+
                 file.write(
-                    f"{pos_piloto:<4} | {sigla:<5} | "
-                    f" {nombre:<25} | {puntos:<6}\n"
+                    f"| {pos_piloto:>{ANCHO_POS}} "
+                    f"| {sigla:^{ANCHO_SIGLA}} "
+                    f"| {nombre:<{ANCHO_NOMBRE_PILOTO}} "
+                    f"| {puntos:>{ANCHO_PUNTOS}} |\n"
                 )
+
                 pos_piloto += 1
 
-            file.write("\n"+"="*50+"\n\n")
+            file.write(separador_pilotos)
 
-            file.write("--- CLASIFICACION DE CONSTRUCTORES (ESCUDERÍAS) ---\n")
+            # CONSTRUCTORES
+            file.write("\n")
+            file.write("CLASIFICACION DE CONSTRUCTORES\n\n")
+
+            file.write(separador_escuderias)
+
             file.write(
-                f"{'Pos':<4} | {'Sigla':<5} | "
-                f" {'Nombre Escudería':<30} | {'Puntos':<6}\n"
+                f"| {'Pos':^{ANCHO_POS}} "
+                f"| {'Sigla':^{ANCHO_SIGLA}} "
+                f"| {'Nombre Escudería':<{ANCHO_NOMBRE_ESCUDERIA}} "
+                f"| {'Puntos':^{ANCHO_PUNTOS}} |\n"
             )
-            file.write("-" * 55 + "\n")
+
+            file.write(separador_escuderias)
 
             pos_escuderia = 1
             for sigla, info in escuderias_ordenadas:
+
                 nombre = info["nombre"]
                 puntos = info["puntos"]
+
                 file.write(
-                    f"{pos_escuderia:<4} | {sigla:<5} | "
-                    f" {nombre:<30} | {puntos:<6}\n"
+                    f"| {pos_escuderia:>{ANCHO_POS}} "
+                    f"| {sigla:^{ANCHO_SIGLA}} "
+                    f"| {nombre:<{ANCHO_NOMBRE_ESCUDERIA}} "
+                    f"| {puntos:>{ANCHO_PUNTOS}} |\n"
                 )
+
                 pos_escuderia += 1
 
+            file.write(separador_escuderias)
+
+            # PIE
+            file.write("\n")
+            file.write("=" * ancho_total + "\n")
             file.write(
-                "\n\nReporte generado automaticamente "
-                " por el sistema de Gestión F1.\n"
+                "Reporte generado automaticamente "
+                "por el sistema de Gestión F1.\n"
             )
 
-            console.print(
-                f"[bold green]Reporte '{ARCHIVO_REPORTE}' "
-                f"exportado correctamente.[/bold green]"
-            )
-    except IOError:
         console.print(
-            "[bold red]Error de E/S: "
-            " No se pudo escribir el reporte de texto.[/bold red]"
+            f"[bold green]Reporte '{ARCHIVO_REPORTE}' "
+            f"exportado correctamente.[/bold green]"
+        )
+
+    except OSError as e:
+        console.print(
+            f"[bold red]Error de E/S: "
+            f" No se pudo escribir el reporte: {e}[/bold red]"
         )
 
 

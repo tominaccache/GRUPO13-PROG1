@@ -350,9 +350,10 @@ def ver_resultados():
     # Listar carreras que ya tienen tiempos cargados
     carreras_disponibles = [c for c in carreras if c in tiempos_carreras]
 
-    opciones_numeradas = []
-    for i in range(len(carreras_disponibles)):
-        opciones_numeradas.append(f"{i+1}. {carreras_disponibles[i]}")
+    opciones_numeradas = [
+        f"{i+1}. {carreras_disponibles[i]}"
+        for i in range(len(carreras_disponibles))
+    ]
 
     opcion = mostrar_menu_generico(
         "Seleccione una Carrera",
@@ -417,10 +418,10 @@ def modificar_resultados():
 
     carreras_disponibles = [c for c in carreras if c in tiempos_carreras]
 
-    opciones_numeradas = []
-
-    for i in range(len(carreras_disponibles)):
-        opciones_numeradas.append(f"{i+1}. {carreras_disponibles[i]}")
+    opciones_numeradas = [
+        f"{i+1}. {carreras_disponibles[i]}"
+        for i in range(len(carreras_disponibles))
+    ]
 
     opcion = mostrar_menu_generico(
         "Seleccione la carrera a modificar", opciones_numeradas
@@ -456,12 +457,11 @@ def eliminar_resultados():
             "[#a61b1b]No hay resultados registrados para eliminar.[/#a61b1b]")
         return
     carreras_disponibles = [c for c in carreras if c in tiempos_carreras]
-    opciones_numericas = []
-    for i in range(len(carreras_disponibles)):
-        opciones_numericas.append(f"{i+1}. {carreras_disponibles[i]}")
+    opciones_numericas = [
+        f"{i+1}. {carreras_disponibles[i]}" for i in range(len(carreras_disponibles))]
 
     opcion = mostrar_menu_generico(
-        "Seleccione la carrera a eliminar", carreras_disponibles
+        "Seleccione la carrera a eliminar", opciones_numericas
     )
     try:
         opcion_int = int(opcion)
