@@ -36,6 +36,7 @@ def mostrar_tabla_escuderias():
         console.print(
             "[yellow]Aún no hay datos registrados en el sistema para mostrar[/yellow]"
         )
+        return
     titulo = "Clasificación de Escuderías"
     columnas = ["Sigla", "Escudería", "País", "Puntos", "Pilotos"]
     alineaciones = ["center", "left", "left", "right", "left"]
