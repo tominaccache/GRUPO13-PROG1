@@ -1,11 +1,11 @@
 
-from Registrar_Resultado import (
+from registrar_resultado import (
     tiempo_a_segundos,
     validar_tiempo,
     validar_vuelta_perdida,
     clave_orden
 )
-from menuEscuderias import validar_sigla
+from menu_escuderias import validar_sigla
 import pytest
 
 # Importamos las funciones puras
