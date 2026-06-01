@@ -1,7 +1,8 @@
+from functools import reduce
 from rich.console import Console
 from rich.panel import Panel
 from utils import mostrar_tabla_generica  
-from datos import pilotos
+from datos import pilotos, matriz_resultados
 
 console = Console()
 
@@ -18,9 +19,6 @@ def mostrar_menu_estadisticas():
 
 
 def obtener_pilotos_con_puntos():
-    """
-    Objetivo: Filtrar y ordenar de mayor a menor los pilotos con unidades sumadas.
-    """
     filtrados = filter(lambda item: item[1]["puntos"] > 0, pilotos.items())
     lista_con_puntos = []
     for sigla, info in filtrados:
@@ -28,9 +26,34 @@ def obtener_pilotos_con_puntos():
         escuderia = info["escuderia"]
         puntos = info["puntos"]
         lista_con_puntos.append([sigla, nombre, escuderia, puntos])
-            
     lista_con_puntos.sort(key=lambda x: x[3], reverse=True)
     return lista_con_puntos
+
+
+def obtener_promedio_tiempos():
+    """
+    Objetivo: Calcular promedios de tiempo reduciendo las filas de la matriz con control de errores.
+    """
+    siglas = list(pilotos.keys())
+    promedios = []
+
+    for fila in range(len(matriz_resultados)):
+        tiempos_validos = list(filter(lambda t: t > 0, matriz_resultados[fila]))
+        try:
+            suma_tiempos = reduce(lambda a, b: a + b, tiempos_validos)
+            promedio = suma_tiempos / len(tiempos_validos)
+        except ZeroDivisionError:
+            promedio = 0.0
+        
+        sigla = siglas[fila]
+        nombre = pilotos[sigla]["datos_personales"][0]
+        escuderia = pilotos[sigla]["escuderia"]
+        
+        if promedio > 0:
+            promedios.append([sigla, nombre, escuderia, round(promedio, 3)])
+            
+    promedios.sort(key=lambda x: x[3])
+    return promedios
 
 
 def menu_estadisticas():
@@ -49,7 +72,13 @@ def menu_estadisticas():
                 else:
                     console.print("[bold yellow]--> Actualmente ningún piloto ha sumado puntos.[/bold yellow]")
             case "2":
-                console.print("[bold yellow]--> Opción 2: Promedio de tiempos (En desarrollo)...[/bold yellow]")
+                promedios = obtener_promedio_tiempos()
+                if len(promedios) > 0:
+                    columnas = ["Pos", "Sigla", "Piloto", "Escudería", "Tiempo Promedio"]
+                    filas_tabla = [[pos] + dato for pos, dato in enumerate(promedios, start=1)]
+                    mostrar_tabla_generica("Promedio de Tiempos", columnas, filas_tabla, ["center", "center", "left", "center", "center"])
+                else:
+                    console.print("[bold yellow]--> No hay tiempos registrados en el campeonato aún.[/bold yellow]")
             case "3":
                 console.print("[bold yellow]--> Opción 3: Mejor tiempo (En desarrollo)...[/bold yellow]")
             case "4":
