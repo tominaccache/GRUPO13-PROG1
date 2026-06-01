@@ -2,9 +2,9 @@ from rich.console import Console
 from rich.panel import Panel
 from gestion_piloto import menu_pilotos
 from menu_escuderias import menu_escuderias
-from tabla_posiciones import menu_tabla_posiciones
+from Tabla_Posiciones import menu_tabla_posiciones
 from proyeccion import submenu_proyeccion
-from registrar_resultado import menu_resultados
+from Registrar_Resultado import menu_resultados
 from menu_estadisticas import menu_estadisticas
 from manejo_archivos import menu_cargar, menu_guardar
 from utils import mostrar_menu_generico

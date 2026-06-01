@@ -461,7 +461,6 @@ def modificar_resultados():
 
     # Borrar los DATOS VIEJOS usando la función auxiliar
     revertir_resultados_carrera(carrera_seleccionada)
-    tiempos_carrera_actual = cargar_tiempos_manual(list(pilotos.keys()))
     asignar_puntos_y_guardar(carrera_seleccionada, tiempos_carrera_actual)
     console.print(
         f"[#a61b1b]Resultados de {carrera_seleccionada} "
