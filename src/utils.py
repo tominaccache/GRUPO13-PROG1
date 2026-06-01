@@ -68,3 +68,26 @@ def mostrar_tabla_generica(titulo, columnas, filas, alineaciones=None):
         tabla.add_row(*fila_str)
 
     console.print(tabla)
+
+
+def mostrar_panel_generico(titulo, contenido, ancho=None):
+    """
+    Objetivo: Renderizar cualquier recuadro
+              de información (Panel) de forma dinámica.
+    Entradas:
+        - titulo (str): El titulo superior del panel.
+        - contenido (str): El texto formateado que irá dentro.
+        - ancho (int, opcional): Fija un ancho específico si se necesita.
+    Salida: Imprime el panel por consola.
+    """
+    panel = Panel(
+        contenido,
+        title=f"[bold white on #a61b1b]{titulo.upper()} [/bold white on #a61b1b]",
+        box=box.DOUBLE,
+        border_style="#a61b1b",
+        padding=(1, 4),
+        expand=False,
+        width=ancho
+    )
+
+    console.print(panel)

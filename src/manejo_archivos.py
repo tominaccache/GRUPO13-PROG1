@@ -244,7 +244,7 @@ def restaurar_sistema_json():
             "pilotos",
             "escuderias",
             "carreras",
-            "matriz_resultado",
+            "matriz_resultados",
             "tiempos_carreras"
         ]
         if not all(llave in estado for llave in llaves_requeridas):
@@ -266,7 +266,7 @@ def restaurar_sistema_json():
         datos.carreras.extend(estado["carreras"])
 
         datos.matriz_resultados.clear()
-        datos.matriz_resultados.extend(estado["matriz_resultado"])
+        datos.matriz_resultados.extend(estado["matriz_resultados"])
 
         datos.tiempos_carreras.clear()
         datos.tiempos_carreras.update(estado["tiempos_carreras"])

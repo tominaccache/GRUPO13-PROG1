@@ -81,7 +81,7 @@ def revertir_resultados_carrera(carrera_seleccionada):
         # Solo funciona si el piloto aún existe en el sistema
         if sigla in pilotos:
             # Descontar puntos (si sumo puntos en la carrera)
-            if pos < len(puntos_por_posicion) and validar_tiempo(tiempo):
+            if pos < len(puntos_por_posicion) and tiempo != "DNF":
                 puntos_a_restar = puntos_por_posicion[pos]
                 pilotos[sigla]["puntos"] -= puntos_a_restar
 
@@ -127,7 +127,7 @@ def asignar_puntos_y_guardar(carrera_seleccionada, tiempos_carrera_actual):
                 fila[indice_carrera_matriz] = tiempo
                 break
 
-        if pos < len(puntos_por_posicion) and validar_tiempo(tiempo):
+        if pos < len(puntos_por_posicion) and tiempo != "DNF":
             puntos = puntos_por_posicion[pos]
         else:
             puntos = 0

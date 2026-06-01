@@ -1,5 +1,6 @@
 from rich.console import Console
-from utils import mostrar_menu_generico, mostrar_tabla_generica
+from utils import mostrar_menu_generico, mostrar_tabla_generica, mostrar_panel_generico
+from registrar_resultado import tiempo_a_segundos, validar_tiempo, clave_orden
 import datos
 
 console = Console()
@@ -26,11 +27,11 @@ def pilotos_con_puntos():
     for pos, (sigla, info) in enumerate(pilotos_ordenados, 1):
         filas.append([pos, sigla, info["datos_personales"][0], info["puntos"]])
 
-    mostrar_tabla_generica("Pilotos con Puntos", cabeceras, filas, alineaciones)
+    mostrar_tabla_generica("Pilotos con Puntos",
+                           cabeceras, filas, alineaciones)
 
 
 def promedio_tiempos():
-    from Registrar_Resultado import tiempo_a_segundos, validar_tiempo
 
     if not datos.tiempos_carreras:
         console.print("[#a61b1b]No hay carreras registradas aún.[/#a61b1b]")
@@ -68,7 +69,6 @@ def promedio_tiempos():
 
 
 def mejor_tiempo():
-    from Registrar_Resultado import tiempo_a_segundos, validar_tiempo
 
     if not datos.tiempos_carreras:
         console.print("[#a61b1b]No hay carreras registradas aún.[/#a61b1b]")
@@ -92,19 +92,23 @@ def mejor_tiempo():
         console.print("[#a61b1b]No hay tiempos válidos registrados.[/#a61b1b]")
         return
 
-    nombre = datos.pilotos[mejor_sigla]["datos_personales"][0]
-    console.print(f"\n[#a61b1b]Mejor tiempo del campeonato:[/#a61b1b]")
-    console.print(f"[#a61b1b]Piloto:  {nombre} ({mejor_sigla})[/#a61b1b]")
-    console.print(f"[#a61b1b]Carrera: {mejor_carrera}[/#a61b1b]")
-    console.print(f"[#a61b1b]Tiempo:  {mejor_tiempo_str}[/#a61b1b]")
+    if mejor_sigla and mejor_sigla in datos.pilotos:
+        nombre = datos.pilotos[mejor_sigla]["datos_personales"][0]
+    else:
+        nombre = "Piloto Eliminado"
+
+    info_mejor = (
+        f"[#a61b1b]Piloto: {nombre} ({mejor_sigla})[/#a61b1b]"
+        f"[#a61b1b]Carrera: {mejor_carrera}[/#a61b1b]"
+        f"[#a61b1b]Tiempo: {mejor_tiempo_str}[/#a61b1b]"
+    )
+    mostrar_panel_generico("MEJOR TIEMPO DEL CAMPEONATO", info_mejor)
 
 
 def cantidad_victorias():
     if not datos.tiempos_carreras:
         console.print("[#a61b1b]No hay carreras registradas aún.[/#a61b1b]")
         return
-
-    from Registrar_Resultado import clave_orden
 
     victorias = {}
     for sigla in datos.pilotos:

@@ -3,7 +3,11 @@ from rich.console import Console
 from rich.panel import Panel
 from datos import pilotos, escuderias, matriz_resultados, carreras
 from rich import box
-from utils import mostrar_menu_generico, mostrar_tabla_generica
+from utils import (
+    mostrar_menu_generico,
+    mostrar_tabla_generica,
+    mostrar_panel_generico
+)
 
 # inicializamos la consola
 console = Console()
@@ -134,8 +138,8 @@ def modificar_piloto():
         if nueva_escuderia != escuderia_antigua:
 
             if (escuderia_antigua in escuderias
-                    and sigla in escuderias[escuderia_antigua]["pilotos"]
-                ):
+                        and sigla in escuderias[escuderia_antigua]["pilotos"]
+                    ):
                 escuderias[escuderia_antigua]["pilotos"].remove(sigla)
 
             escuderias[nueva_escuderia]["pilotos"].append(sigla)
@@ -171,8 +175,8 @@ def eliminar_piloto():
    # escudería aún exista
     escuderia_asignada = pilotos[sigla]["escuderia"]
     if (escuderia_asignada in escuderias
-            and sigla in escuderias[escuderia_asignada]["pilotos"]
-        ):
+                and sigla in escuderias[escuderia_asignada]["pilotos"]
+            ):
         escuderias[escuderia_asignada]["pilotos"].remove(sigla)
 
     # Guardamos el nombre antes de eliminar y borramos la fila de la matriz
@@ -229,14 +233,7 @@ def buscar_piloto():
         f"[#a61b1b]Puntos Campeonato: {datos['puntos']}[/#a61b1b]"
     )
 
-    panel = Panel(
-        info_piloto,
-        title="[white on #a61b1b]Información del Piloto[/white on #a61b1b]",
-        box=box.DOUBLE,
-        border_style="#a61b1b",
-        expand=False
-    )
-    console.print(panel)
+    mostrar_panel_generico("INFORMACIÓN DEL PILOTO", info_piloto)
 
 
 def listar_pilotos():

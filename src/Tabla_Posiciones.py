@@ -6,6 +6,7 @@ from manejo_archivos import exportar_reporte_txt
 
 console = Console()
 
+
 def mostrar_tabla_pilotos():
     if not datos.pilotos:
         console.print(
@@ -14,7 +15,8 @@ def mostrar_tabla_pilotos():
         return
 
     titulo = "Clasificación de Pilotos"
-    columnas = ["Pos", "Sigla", "Piloto", "Nacionalidad", "Escudería", "Puntos"]
+    columnas = ["Pos", "Sigla", "Piloto",
+                "Nacionalidad", "Escudería", "Puntos"]
     alineaciones = ["center", "center", "left", "left", "center", "right"]
 
     pilotos_ordenados = sorted(
@@ -35,6 +37,7 @@ def mostrar_tabla_pilotos():
         ])
 
     mostrar_tabla_generica(titulo, columnas, filas, alineaciones)
+
 
 def menu_tabla_posiciones():
     opciones = [
@@ -58,8 +61,8 @@ def menu_tabla_posiciones():
             console.clear()
             mostrar_tabla_escuderias()
             console.input("\n[#a61b1b]Presione Enter para volver...[/#a61b1b]")
-        
-        elif op=="3":
+
+        elif op == "3":
             console.clear()
             exportar_reporte_txt()
             console.input("\n[#a61b1b]Presione Enter para volver...[/#a61b1b]")
@@ -69,7 +72,7 @@ def menu_tabla_posiciones():
 
 
 def mostrar_tabla_escuderias():
-    if not datos.pilotos:
+    if not datos.escuderias:
         console.print(
             "[yellow]Aún no hay datos registrados en el sistema para mostrar[/yellow]"
         )
