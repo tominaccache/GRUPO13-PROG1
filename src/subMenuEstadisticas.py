@@ -2,7 +2,7 @@ from functools import reduce
 from rich.console import Console
 from rich.panel import Panel
 from utils import mostrar_tabla_generica  
-from datos import pilotos, matriz_resultados
+from datos import pilotos, matriz_resultados, carreras
 
 console = Console()
 
@@ -10,9 +10,9 @@ def mostrar_menu_estadisticas():
     texto_menu = (
         "[bold red]1. Piloto con puntos[/bold red]\n"
         "[bold red]2. Promedio de tiempos[/bold red]\n"
-        "[bold red]3. Mejor Tiempo[/bold red]\n"
+        "[bold red]3. Mejor tiempo[/bold red]\n"
         "[bold red]4. Cantidad de Victorias[/bold red]\n"
-        "[bold red]0. Salir[/bold red]\n"
+        "[bold red]0. Volver al menú principal[/bold red]\n"
     )
     panel = Panel(texto_menu, title="[bold red]Estadísticas[/bold red]", border_style="bold red", style="on white", padding=(1, 4), expand=False, width=49)
     console.print(panel)
@@ -31,12 +31,8 @@ def obtener_pilotos_con_puntos():
 
 
 def obtener_promedio_tiempos():
-    """
-    Objetivo: Calcular promedios de tiempo reduciendo las filas de la matriz con control de errores.
-    """
     siglas = list(pilotos.keys())
     promedios = []
-
     for fila in range(len(matriz_resultados)):
         tiempos_validos = list(filter(lambda t: t > 0, matriz_resultados[fila]))
         try:
@@ -48,12 +44,63 @@ def obtener_promedio_tiempos():
         sigla = siglas[fila]
         nombre = pilotos[sigla]["datos_personales"][0]
         escuderia = pilotos[sigla]["escuderia"]
-        
         if promedio > 0:
             promedios.append([sigla, nombre, escuderia, round(promedio, 3)])
             
     promedios.sort(key=lambda x: x[3])
     return promedios
+
+
+def obtener_mejor_tiempo():
+    """
+    Objetivo: Buscar el valor mínimo absoluto mayor a 0 recorriendo la matriz completa. Retorna una Tupla.
+    """
+    siglas = list(pilotos.keys())
+    mejor_tiempo = float('inf')
+    tupla_mejor_resultado = ()
+
+    for fila in range(len(matriz_resultados)):
+        for col in range(len(matriz_resultados[fila])):
+            tiempo = matriz_resultados[fila][col]
+            if 0 < tiempo < mejor_tiempo:
+                mejor_tiempo = tiempo
+                piloto_nombre = pilotos[siglas[fila]]["datos_personales"][0]
+                carrera_nombre = carreras[col]
+                tupla_mejor_resultado = (piloto_nombre, carrera_nombre, mejor_tiempo)
+                
+    return tupla_mejor_resultado
+
+
+def obtener_victorias():
+    """
+    Objetivo: Iterar sobre las columnas de la matriz para determinar ganadores de carreras individuales.
+    """
+    siglas = list(pilotos.keys())
+    victorias_dict = {sigla: 0 for sigla in siglas}
+
+    if len(matriz_resultados) > 0:
+        for col in range(len(matriz_resultados[0])):
+            mejor_tiempo_carrera = float('inf')
+            indice_ganador = -1
+            
+            for fila in range(len(matriz_resultados)):
+                tiempo = matriz_resultados[fila][col]
+                if 0 < tiempo < mejor_tiempo_carrera:
+                    mejor_tiempo_carrera = tiempo
+                    indice_ganador = fila
+            
+            if indice_ganador != -1:
+                sigla_ganadora = siglas[indice_ganador]
+                victorias_dict[sigla_ganadora] += 1
+
+    ganadores = list(filter(lambda item: item[1] > 0, victorias_dict.items()))
+    lista_final = []
+    for sigla, cant_victorias in ganadores:
+        nombre = pilotos[sigla]["datos_personales"][0]
+        lista_final.append([sigla, nombre, cant_victorias])
+        
+    lista_final.sort(key=lambda x: x[2], reverse=True)
+    return lista_final
 
 
 def menu_estadisticas():
@@ -80,9 +127,21 @@ def menu_estadisticas():
                 else:
                     console.print("[bold yellow]--> No hay tiempos registrados en el campeonato aún.[/bold yellow]")
             case "3":
-                console.print("[bold yellow]--> Opción 3: Mejor tiempo (En desarrollo)...[/bold yellow]")
+                resultado = obtener_mejor_tiempo()
+                if len(resultado) > 0:
+                    piloto, carrera, tiempo = resultado
+                    filas = [[piloto, carrera, f"{tiempo} seg"]]
+                    mostrar_tabla_generica("Mejor Tiempo del Campeonato", ["Piloto", "Gran Premio", "Tiempo"], filas, ["left", "center", "center"])
+                else:
+                    console.print("[bold yellow]--> No hay tiempos registrados en la matriz.[/bold yellow]")
             case "4":
-                console.print("[bold yellow]--> Opción 4: Cantidad de victorias (En desarrollo)...[/bold yellow]")
+                victorias = obtener_victorias()
+                if len(victorias) > 0:
+                    columnas = ["Pos", "Sigla", "Piloto", "Victorias"]
+                    filas_tabla = [[pos] + dato for pos, dato in enumerate(victorias, start=1)]
+                    mostrar_tabla_generica("Cantidad de Victorias", columnas, filas_tabla, ["center", "center", "left", "center"])
+                else:
+                    console.print("[bold yellow]--> No hay victorias registradas.[/bold yellow]")
             case "0":
                 console.print("[bold red]--> Volviendo al menú principal. [/bold red]")
             case _:
