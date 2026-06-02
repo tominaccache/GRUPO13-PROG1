@@ -146,6 +146,14 @@ def asignar_puntos_y_guardar(carrera_seleccionada, tiempos_carrera_actual):
 
 
 def cargar_tiempos_manual(siglas_pilotos):
+    """
+    Objetivo: Solicitar al usuario la carga manual iterativa de los tiempos de
+              carrera para cada piloto activo en el sistema, validando formatos.
+    Entrada:
+        - siglas_pilotos (list): Lista de strings con las siglas de los pilotos.
+    Salida:
+        - tiempos_carrera (dict): Diccionario transaccional con {sigla: tiempo}.
+    """
     tiempos_carrera = {}
     console.print("\n[#a61b1b]Ingrese los tiempos:[/#a61b1b]")
 
@@ -275,6 +283,14 @@ def cargar_tiempos_archivo():
 
 
 def registrar_tiempos():
+    """
+    Objetivo: Orquestar el flujo de selección de una carrera disponible y elegir
+              el modo de carga (manual o archivo) para procesar sus tiempos.
+    Entrada:
+        - Ninguna (Interacción por consola).
+    Salida:
+        - None.
+    """
     console.print("[#a61b1b]Registrar tiempos de carrera[/#a61b1b]\n")
 
     # Filtrar carreras sin resultados
@@ -550,6 +566,13 @@ def agregar_carrera():
 
 
 def menu_resultados():
+    """
+    Objetivo: Controlador del submenú para la gestión integral de carreras y tiempos.
+    Entrada:
+        - Ninguna (Interacción por consola).
+    Salida:
+        - None.
+    """
     continuar_programa = True
 
     opciones_submenu = [

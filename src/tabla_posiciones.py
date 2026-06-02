@@ -8,6 +8,14 @@ console = Console()
 
 
 def mostrar_tabla_pilotos():
+    """
+    Objetivo: Generar y renderizar la clasificación actual del Campeonato
+              Mundial de Pilotos, ordenada por puntaje de mayor a menor.
+    Entrada:
+        - Ninguna.
+    Salida:
+        - None (Imprime la tabla dinámica por consola).
+    """
     if not datos.pilotos:
         console.print(
             "[yellow]Aún no hay datos registrados.[/yellow]"
@@ -40,6 +48,14 @@ def mostrar_tabla_pilotos():
 
 
 def menu_tabla_posiciones():
+    """
+    Objetivo: Generar y renderizar la clasificación del Campeonato Mundial
+              de Constructores, sumando los puntos de sus pilotos.
+    Entrada:
+        - Ninguna.
+    Salida:
+        - None (Imprime la tabla dinámica por consola).
+    """
     opciones = [
         "1. Ver Tabla de Pilotos",
         "2. Ver Tabla de Escuderías",
@@ -72,6 +88,13 @@ def menu_tabla_posiciones():
 
 
 def mostrar_tabla_escuderias():
+    """
+    Objetivo: Controlador del submenú para visualizar clasificaciones y reportes.
+    Entrada:
+        - Ninguna (Interacción por consola).
+    Salida:
+        - None (Retorna al menú principal al seleccionar '0').
+    """
     if not datos.escuderias:
         console.print(
             "[yellow]Aún no hay datos registrados en el sistema para mostrar[/yellow]"

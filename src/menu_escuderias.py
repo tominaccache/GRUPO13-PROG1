@@ -175,6 +175,13 @@ def eliminar_escuderia():
 
 
 def menu_escuderias():
+    """
+    Objetivo: Controlador principal del flujo del submenú del ABM de Escuderías.
+    Entrada:
+        - Ninguna (Interacción por consola).
+    Salida:
+        - None (Retorna al menú principal al seleccionar '0').
+    """
     opciones_menu = [
         "1. Agregar Escudería",
         "2. Modificar Escudería",

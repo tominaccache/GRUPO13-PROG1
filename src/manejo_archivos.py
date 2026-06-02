@@ -59,6 +59,14 @@ def guardar_estado_sistema():
 
 
 def calcular_ancho_nombre_pilotos():
+    """
+    Objetivo: Función auxiliar que calcula la longitud del nombre de piloto
+              más largo para asegurar un espaciado perfecto en el reporte .txt.
+    Entrada:
+        - Ninguna.
+    Salida:
+        - ancho (int): Cantidad máxima de caracteres encontrada.
+    """
     ancho = len("Nombre")
 
     for info in datos.pilotos.values():
@@ -69,6 +77,14 @@ def calcular_ancho_nombre_pilotos():
 
 
 def calcular_ancho_nombre_escuderias():
+    """
+    Objetivo: Función auxiliar que calcula la longitud del nombre de escudería
+              más largo para asegurar un alineamiento preciso en el reporte.
+    Entrada:
+        - Ninguna.
+    Salida:
+        - ancho (int): Cantidad máxima de caracteres encontrada.
+    """
     ancho = len("Nombre Escuderia")
 
     for info in datos.escuderias.values():
@@ -292,6 +308,13 @@ def restaurar_sistema_json():
 
 
 def menu_guardar():
+    """
+    Objetivo: Controlador del submenú para la exportación y persistencia de datos.
+    Entrada:
+        - Ninguna (Interacción por consola).
+    Salida:
+        - None.
+    """
     opciones_menu = [
         "1. Guardar estado del sistema",
         "2. Exportar reporte",
@@ -317,6 +340,13 @@ def menu_guardar():
 
 
 def menu_cargar():
+    """
+    Objetivo: Controlador del submenú para la restauración del sistema desde JSON.
+    Entrada:
+        - Ninguna (Interacción por consola).
+    Salida:
+        - None.
+    """
     opciones_menu = ["1. Restaurar sistema", "0. Volver al menú principal"]
     while True:
         console.clear()

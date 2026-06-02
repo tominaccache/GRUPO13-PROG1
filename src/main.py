@@ -16,7 +16,12 @@ console = Console()
 
 def main():
     """
-    Objetivo: Funcion Principal que mantiene el ciclo de vida del proyecto
+    Objetivo: Función principal que mantiene el ciclo de vida del programa y
+              gestiona el enrutamiento del Menú Principal.
+    Entrada:
+        - Ninguna (Interacción por consola).
+    Salida:
+        - None (Finaliza la ejecución al seleccionar la opción '0').
     """
     opciones_menu = [
         "1. Gestionar Pilotos",
