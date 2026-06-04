@@ -2,8 +2,10 @@ __pycache__/
 *.pyc
 *.pyo
 .vscode/
-campeonato_f1.json
-reporte_campeonato.txt
+data/*.json
+out/*.txt
 .pytest_cache
-pytest.ini
+*.ini
 .coverage
+.ruff_cache
+out/*.csv

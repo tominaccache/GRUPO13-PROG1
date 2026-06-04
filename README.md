@@ -64,7 +64,7 @@ python main.py
 | ABM Pilotos              | ✅ Completo      |
 | ABM Escuderías           | ✅ Completo      |
 | Registrar Resultados     | ✅ Completo      |
-| Tabla de Posiciones      | 🔄 En desarrollo |
-| Estadísticas             | 🔄 En desarrollo |
+| Tabla de Posiciones      | ✅ En desarrollo |
+| Estadísticas             | ✅ En desarrollo |
 | Proyección de Campeonato | 🔄 En desarrollo |
 | Guardar/Cargar Datos     | ✅ Completo      |
