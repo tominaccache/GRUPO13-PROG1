@@ -198,11 +198,13 @@ def cargar_tiempos_archivo():
         "(ej: tiempos_gp.txt): [/#a61b1b]"
     )
 
+    ruta_archivo = os.path.join("data", nombre_archivo)
+
     # Verficamos si el archivo existe antes de abrirlo
-    if not os.path.exists(nombre_archivo):
+    if not os.path.exists(ruta_archivo):
         console.print(
             f"[bold red]Error: "
-            f"El archivo '{nombre_archivo}' no existe.[/bold red]"
+            f"El archivo '{ruta_archivo}' no existe.[/bold red]"
         )
         return {}
 
@@ -210,7 +212,7 @@ def cargar_tiempos_archivo():
     siglas_sistema = list(pilotos.keys())
 
     try:
-        with open(nombre_archivo, "r", encoding="utf-8") as file:
+        with open(ruta_archivo, "r", encoding="utf-8") as file:
             for linea in file:
                 linea = linea.strip()
 

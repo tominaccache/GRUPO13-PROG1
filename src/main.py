@@ -1,5 +1,4 @@
 from rich.console import Console
-from rich.panel import Panel
 
 from gestion_piloto import menu_pilotos
 from menu_escuderias import menu_escuderias
@@ -7,7 +6,7 @@ from tabla_posiciones import menu_tabla_posiciones
 from proyeccion import submenu_proyeccion
 from registrar_resultado import menu_resultados
 from menu_estadisticas import menu_estadisticas
-from manejo_archivos import menu_cargar, menu_guardar
+from manejo_archivos import menu_cargar, menu_guardar, restaurar_sistema_json
 from utils import mostrar_menu_generico
 
 # Inicializamos la consola
@@ -23,6 +22,18 @@ def main():
     Salida:
         - None (Finaliza la ejecución al seleccionar la opción '0').
     """
+
+    # --- PROCESO DE CARGA AUTOMÁTICA AL INICIAR ---
+    console.clear()
+    console.print(
+        "[bold #a61b1b]=== Inicializando Administrador F1 ===[/bold #a61b1b]\n"
+    )
+    # Invocación inicial silenciosa/amigable
+    restaurar_sistema_json(es_inicio=True)
+    console.input(
+        "\n[#a61b1b]Presione Enter para continuar hacia el Menú Principal...[/#a61b1b]"
+    )
+
     opciones_menu = [
         "1. Gestionar Pilotos",
         "2. Gestionar Escuderías",

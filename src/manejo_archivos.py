@@ -3,12 +3,14 @@ import os
 from rich.console import Console
 from utils import mostrar_menu_generico
 import datos
+import csv
 
 console = Console()
 
 # Nombres de archivos por defecto
 ARCHIVO_JSON = "data/campeonato_f1.json"
 ARCHIVO_REPORTE = "out/reporte_campeonato.txt"
+ARCHIVO_CSV = "out/reporte_campeonato.csv"
 
 
 def guardar_estado_sistema():
@@ -23,8 +25,7 @@ def guardar_estado_sistema():
         os.makedirs(directorio)
 
     console.print(
-        f"\n[bold yellow]Guardando estado en '{ARCHIVO_JSON}' ..."
-        "[/bold yellow]"
+        f"\n[bold yellow]Guardando estado en '{ARCHIVO_JSON}' ...[/bold yellow]"
     )
 
     # Empaquetamos todas las estructuras globales en un unico diccionario
@@ -32,16 +33,15 @@ def guardar_estado_sistema():
         "pilotos": datos.pilotos,
         "escuderias": datos.escuderias,
         "carreras": datos.carreras,
-        "matriz_resultado": datos.matriz_resultados,
-        "tiempos_carreras": datos.tiempos_carreras
+        "matriz_resultados": datos.matriz_resultados,
+        "tiempos_carreras": datos.tiempos_carreras,
     }
 
     try:
         with open(ARCHIVO_JSON, "w", encoding="utf-8") as file:
             json.dump(estado, file, ensure_ascii=False, indent=4)
         console.print(
-            "[bold green]Estado del sistema guardado "
-            " exitosamente.[/bold green]"
+            "[bold green]Estado del sistema guardado  exitosamente.[/bold green]"
         )
 
     except OSError as e:
@@ -53,8 +53,7 @@ def guardar_estado_sistema():
 
     except Exception as e:
         console.print(
-            f"[bold red]Ocurrio un error inesperado al guardar: "
-            f" {e}[/bold red]"
+            f"[bold red]Ocurrio un error inesperado al guardar:  {e}[/bold red]"
         )
 
 
@@ -102,21 +101,18 @@ def exportar_reporte_txt():
     Retorno: None. Escribe el archivo en disco.
     """
     console.print(
-        f"\n[bold yellow]Generando reporte en "
-        f"'{ARCHIVO_REPORTE}...[/bold yellow]'")
+        f"\n[bold yellow]Generando reporte en '{ARCHIVO_REPORTE}...[/bold yellow]'"
+    )
 
     try:
         # Ordenamos pilotos de mayor a menor puntaje para el report
         pilotos_ordenados = sorted(
-            datos.pilotos.items(),
-            key=lambda item: item[1]["puntos"],
-            reverse=True)
+            datos.pilotos.items(), key=lambda item: item[1]["puntos"], reverse=True
+        )
 
         # Ordenamos escuderias de mayor a menor puntaje
         escuderias_ordenadas = sorted(
-            datos.escuderias.items(),
-            key=lambda item: item[1]["puntos"],
-            reverse=True
+            datos.escuderias.items(), key=lambda item: item[1]["puntos"], reverse=True
         )
 
         ANCHO_POS = 4
@@ -141,16 +137,15 @@ def exportar_reporte_txt():
         )
 
         ancho_total = max(
-            len(separador_pilotos.rstrip()),
-            len(separador_escuderias.rstrip())
+            len(separador_pilotos.rstrip()), len(separador_escuderias.rstrip())
         )
 
         with open(ARCHIVO_REPORTE, "w", encoding="utf-8") as file:
             # ENCABEZADO
             file.write("=" * ancho_total + "\n")
             file.write(
-                "REPORTE OFICIAL - CAMPEONATO DE FÓRMULA 1"
-                .center(ancho_total) + "\n"
+                "REPORTE OFICIAL - CAMPEONATO DE FÓRMULA 1".center(
+                    ancho_total) + "\n"
             )
             file.write("=" * ancho_total + "\n\n")
 
@@ -170,7 +165,6 @@ def exportar_reporte_txt():
 
             pos_piloto = 1
             for sigla, info in pilotos_ordenados:
-
                 nombre = info["datos_personales"][0]
                 puntos = info["puntos"]
 
@@ -202,7 +196,6 @@ def exportar_reporte_txt():
 
             pos_escuderia = 1
             for sigla, info in escuderias_ordenadas:
-
                 nombre = info["nombre"]
                 puntos = info["puntos"]
 
@@ -221,8 +214,7 @@ def exportar_reporte_txt():
             file.write("\n")
             file.write("=" * ancho_total + "\n")
             file.write(
-                "Reporte generado automaticamente "
-                "por el sistema de Gestión F1.\n"
+                "Reporte generado automaticamente por el sistema de Gestión F1.\n"
             )
 
         console.print(
@@ -232,24 +224,90 @@ def exportar_reporte_txt():
 
     except OSError as e:
         console.print(
-            f"[bold red]Error de E/S: "
-            f" No se pudo escribir el reporte: {e}[/bold red]"
+            f"[bold red]Error de E/S:  No se pudo escribir el reporte: {e}[/bold red]"
         )
 
 
-def restaurar_sistema_json():
+def exportar_reporte_csv():
+    """
+    Objetivo: Exportar la clasificación actual del campeonato de pilotos
+              a un archivo CSV puro para su análisis en Excel o Pandas.
+    """
+    console.print(
+        f"\n[bold yellow]Generando reporte CSV en '{ARCHIVO_CSV}'...[/bold yellow]")
+
+    try:
+        # 1. Asegurar que el directorio 'out/' exista
+        directorio = os.path.dirname(ARCHIVO_CSV)
+        if directorio and not os.path.exists(directorio):
+            os.makedirs(directorio)
+
+        # 2. Ordenar pilotos por puntaje
+        pilotos_ordenados = sorted(
+            datos.pilotos.items(),
+            key=lambda item: item[1]["puntos"],
+            reverse=True
+        )
+
+        # 3. Escribir el archivo
+        # Se usa newline='' para evitar saltos de línea dobles en Windows
+        with open(ARCHIVO_CSV, "w", encoding="utf-8", newline='') as file:
+            writer = csv.writer(file)
+
+            # Escribir la cabecera (Header)
+            writer.writerow(["Posicion", "Sigla", "Piloto",
+                            "Nacionalidad", "Escuderia", "Puntos"])
+
+            # Escribir los datos de cada piloto
+            pos_piloto = 1
+            for sigla, info in pilotos_ordenados:
+                writer.writerow([
+                    pos_piloto,
+                    sigla,
+                    info["datos_personales"][0],
+                    info["datos_personales"][1],
+                    info["escuderia"],
+                    info["puntos"]
+                ])
+                pos_piloto += 1
+
+        console.print(
+            f"[bold green]✅ Reporte CSV exportado correctamente en '{ARCHIVO_CSV}'.[/bold green]")
+
+    except OSError as e:
+        console.print(
+            f"[bold red]Error de E/S: No se pudo escribir el archivo CSV. Detalle: {e}[/bold red]")
+    except Exception as e:
+        console.print(
+            f"[bold red]Error inesperado al exportar CSV: {e}[/bold red]")
+
+
+def restaurar_sistema_json(es_inicio=False):
     """
     Objetivo: Leer el archivo JSON de respaldo, validar su estructura
               y restaurar el estado de las variables del módulo datos.py
     """
     if not os.path.exists(ARCHIVO_JSON):
-        console.print(
-            f"[bold red]Error: No se enontro el "
-            f" archivo de respaldo '{ARCHIVO_JSON}'.[/bold red]"
-        )
+        if es_inicio:
+            console.print(
+                f"[bold yellow]Aviso: No se detectó un archivo previo de persistencia ({ARCHIVO_JSON}).\n"
+                "Se inicializará el sistema con el calendario y escuderías por defecto.[/bold yellow]"
+            )
+        else:
+            console.print(
+                f"[bold red]Error: No se enontro el "
+                f" archivo de respaldo '{ARCHIVO_JSON}'.[/bold red]"
+            )
         return
-    console.print(
-        f"[bold yellow]Cargando datos desde '{ARCHIVO_JSON}'...[/bold yellow]")
+
+    if es_inicio:
+        console.print(
+            f"[bold cyan]Buscando datos guardados en '{ARCHIVO_JSON}'...[/bold cyan]"
+        )
+    else:
+        console.print(
+            f"[bold yellow]Cargando datos desde '{ARCHIVO_JSON}'...[/bold yellow]"
+        )
 
     try:
         with open(ARCHIVO_JSON, "r", encoding="utf-8") as file:
@@ -261,7 +319,7 @@ def restaurar_sistema_json():
             "escuderias",
             "carreras",
             "matriz_resultados",
-            "tiempos_carreras"
+            "tiempos_carreras",
         ]
         if not all(llave in estado for llave in llaves_requeridas):
             console.print(
@@ -287,10 +345,14 @@ def restaurar_sistema_json():
         datos.tiempos_carreras.clear()
         datos.tiempos_carreras.update(estado["tiempos_carreras"])
 
-        console.print(
-            "[bold green]Sistema restaurado "
-            "por completo en memoria con éxito.[/bold green]"
-        )
+        if es_inicio:
+            console.print(
+                "[bold green]¡Éxito! Se restauró el progreso de la temporada anterior de forma automática.[/bold green]"
+            )
+        else:
+            console.print(
+                "[bold green]Sistema restaurado por completo en memoria con éxito.[/bold green]"
+            )
 
     except json.JSONDecodeError:
         console.print(
@@ -317,7 +379,8 @@ def menu_guardar():
     """
     opciones_menu = [
         "1. Guardar estado del sistema",
-        "2. Exportar reporte",
+        "2. Exportar reporte (.txt)",
+        "3. Exportar tabla de datos (.csv)",
         "0. Volver al menú principal",
     ]
     while True:
@@ -329,12 +392,14 @@ def menu_guardar():
                 guardar_estado_sistema()
             case "2":
                 exportar_reporte_txt()
+            case "3":
+                exportar_reporte_csv()
             case "0":
                 break
             case _:
                 console.print("[#a61b1b]--> Opción no válida.[/#a61b1b]")
 
-        if op in ("1", "2"):
+        if op in ("1", "2","3"):
             console.input(
                 "\n[#a61b1b]Presione Enter para continuar.[/#a61b1b]")
 
