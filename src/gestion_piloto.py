@@ -54,6 +54,14 @@ def agregar_piloto():
         )
         return
 
+    # Controlar que en la escuderia no hallan 2 pilotos ya
+    if len(escuderias[esc_sigla]["pilotos"]) >= 2:
+        console.print(
+            f"[bold red]Error: La escudería {esc_sigla} ya tiene 2 pilotos. "
+            "No se puede agregar más.[/bold red]"
+        )
+        return
+
     # Agregar al diccionario de pilotos
     pilotos[sigla] = {
         "datos_personales": [nombre, pais],
@@ -135,14 +143,23 @@ def modificar_piloto():
         # de su escuderia anterio solo si la escudería vieja aún
         # existe en el sistema
         escuderia_antigua = piloto_actual["escuderia"]
+
         if nueva_escuderia != escuderia_antigua:
 
-            if (escuderia_antigua in escuderias
+            # Controlar que en la escuderia no hallan 2 pilotos ya
+            if len(escuderias[nueva_escuderia]["pilotos"]) >= 2:
+                console.print(
+                    f"\n[bold red]Error: La escudería {nueva_escuderia} ya tiene 2 pilotos registrados.[/bold red]\n"
+                    "[bold yellow]El piloto mantendrá su escudería original.[/bold yellow]"
+                )
+                nueva_escuderia = escuderia_antigua
+            else:
+                if (escuderia_antigua in escuderias
                         and sigla in escuderias[escuderia_antigua]["pilotos"]
                     ):
-                escuderias[escuderia_antigua]["pilotos"].remove(sigla)
+                    escuderias[escuderia_antigua]["pilotos"].remove(sigla)
 
-            escuderias[nueva_escuderia]["pilotos"].append(sigla)
+                escuderias[nueva_escuderia]["pilotos"].append(sigla)
 
     # Actualizar datos en el diccionario principal
     pilotos[sigla]["datos_personales"] = [nuevo_nombre, nuevo_pais]
