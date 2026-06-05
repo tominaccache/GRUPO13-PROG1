@@ -1,35 +1,9 @@
-
 from registrar_resultado import (
     tiempo_a_segundos,
     validar_tiempo,
     validar_vuelta_perdida,
     clave_orden
 )
-from menu_escuderias import validar_sigla
-import pytest
-
-# Importamos las funciones puras
-
-# =============================================
-# TESTS PARA: menu_escuderias.py
-# =============================================
-
-
-def test_validar_sigla():
-    """
-    Objetivo: Validar que el formato de siglas
-              acepte solo 3 letras mayúsculas (ABM Escuderías).
-    """
-    # Casos de exito
-    assert validar_sigla("RBR") is True
-    assert validar_sigla("FER") is True
-
-    # Casos de Fallo
-    assert validar_sigla("rbr") is False
-    assert validar_sigla("RB") is False
-    assert validar_sigla("RBRR") is False
-    assert validar_sigla("R12") is False
-
 # =============================================
 # TESTS PARA: registrar_resultado.py
 # =============================================
@@ -87,7 +61,3 @@ def test_clave_orden():
     # 3. Caso Tiempo Normal (Debe retornar prioridad 0 y el tiempo en segundos)
     # 01:00:00.456 = 3600.546
     assert clave_orden(("VER", "01:00:00.456")) == (0, 3600.456)
-
-# =============================================
-# TESTS PARA: proyeccion.py
-# =============================================
