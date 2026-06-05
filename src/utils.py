@@ -16,7 +16,8 @@ def mostrar_menu_generico(titulo, opciones, ancho=49):
     Salida: Retorna la opción ingresada por el usuario como string.
     """
     # Recorremos la lista de opciones y le agregamos el color rojo a cada una
-    opciones_formateadas = [f"[#a61b1b]{opcion}[#a61b1b]" for opcion in opciones]
+    opciones_formateadas = list(
+        map(lambda opcion: f"[#a61b1b]{opcion}[/#a61b1b]", opciones))
 
     texto_menu = "\n".join(opciones_formateadas)
 
@@ -53,13 +54,14 @@ def mostrar_tabla_generica(titulo, columnas, filas, alineaciones=None):
     )
 
     for i in range(len(columnas)):
-        alig = alineaciones[i] if alineaciones and i < len(alineaciones) else "center"
+        alig = alineaciones[i] if alineaciones and i < len(
+            alineaciones) else "center"
         tabla.add_column(
             columnas[i], justify=alig, style="bold cyan" if alig == "center" else "cyan"
         )
 
     for fila in filas:
-        fila_str = [str(dato) for dato in fila]
+        fila_str = list(map(str, fila))
         tabla.add_row(*fila_str)
 
     console.print(tabla)

@@ -42,8 +42,18 @@ def agregar_escuderia():
 
     nombre = console.input(
         "[#a61b1b]Ingrese el nombre de la escuderia: [/#a61b1b]")
+
+    if not nombre:
+        console.print(
+            "[#a61b1b]Error: El nombre no puede estar vacío.[/#a61b1b]")
+        return
     pais = console.input(
         "[#a61b1b]Ingrese el pais de la escuderia: [/#a61b1b]")
+
+    if not pais:
+        console.print(
+            "[#a61b1b]Error: El pais no puede estar vacío.[/#a61b1b]")
+        return
     escuderias[sigla] = {
         "nombre": nombre,
         "pais": pais,

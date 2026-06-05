@@ -100,8 +100,12 @@ def exportar_reporte_txt():
     Parámetros: Ninguno.
     Retorno: None. Escribe el archivo en disco.
     """
+    directorio = os.path.dirname(ARCHIVO_REPORTE)
+    if directorio and not os.path.exists(directorio):
+        os.makedirs(directorio)
+
     console.print(
-        f"\n[bold yellow]Generando reporte en '{ARCHIVO_REPORTE}...[/bold yellow]'"
+        f"\n[bold yellow]Generando reporte en '{ARCHIVO_REPORTE}'...[/bold yellow]"
     )
 
     try:
@@ -399,7 +403,7 @@ def menu_guardar():
             case _:
                 console.print("[#a61b1b]--> Opción no válida.[/#a61b1b]")
 
-        if op in ("1", "2","3"):
+        if op in ("1", "2", "3"):
             console.input(
                 "\n[#a61b1b]Presione Enter para continuar.[/#a61b1b]")
 

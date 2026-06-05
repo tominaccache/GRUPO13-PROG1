@@ -1,8 +1,7 @@
 import re
 from rich.console import Console
-from rich.panel import Panel
 from datos import pilotos, escuderias, matriz_resultados, carreras
-from rich import box
+from menu_escuderias import validar_sigla
 from utils import (
     mostrar_menu_generico,
     mostrar_tabla_generica,
@@ -39,9 +38,19 @@ def agregar_piloto():
 
     nombre = console.input(
         "[#a61b1b]Ingrese el nombre del piloto: [/#a61b1b]").strip()
+
+    if not nombre:
+        console.print(
+            "[#a61b1b]Error: El nombre no puede estar vacío.[/#a61b1b]")
+        return
+
     pais = console.input(
         "[#a61b1b]Ingrese el país del piloto: [/#a61b1b]").strip()
 
+    if not pais:
+        console.print(
+            "[#a61b1b]Error: El pais no puede estar vacío.[/#a61b1b]")
+        return
     esc_sigla = console.input(
         "[#a61b1b]Ingrese la sigla de la escudería (ej. RBR, FER): "
         "[/#a61b1b]"
@@ -66,7 +75,8 @@ def agregar_piloto():
     pilotos[sigla] = {
         "datos_personales": [nombre, pais],
         "escuderia": esc_sigla,
-        "puntos": 0
+        "puntos": 0,
+        "activo": True
     }
 
     # Vincular al piloto dentro del diccionario de la escudería para mantener
@@ -96,11 +106,9 @@ def modificar_piloto():
         "[#a61b1b]Ingrese la sigla del piloto a modificar: [/#a61b1b]"
     ).upper()
 
-    if sigla not in pilotos:
+    if sigla not in pilotos or not pilotos[sigla].get("activo", True):
         console.print(
-            "[#a61b1b]Error: No se encontró "
-            "ningún piloto con esa sigla.[/#a61b1b]"
-        )
+            "[#a61b1b]Error: El piloto no existe o está inactivo actualmente.[/#a61b1b]")
         return
 
     piloto_actual = pilotos[sigla]
@@ -156,7 +164,7 @@ def modificar_piloto():
             else:
                 if (escuderia_antigua in escuderias
                         and sigla in escuderias[escuderia_antigua]["pilotos"]
-                    ):
+                        ):
                     escuderias[escuderia_antigua]["pilotos"].remove(sigla)
 
                 escuderias[nueva_escuderia]["pilotos"].append(sigla)
@@ -181,10 +189,10 @@ def eliminar_piloto():
     sigla = console.input(
         "[#a61b1b]Ingrese la sigla del piloto a eliminar: [/#a61b1b]").upper()
 
-    if sigla not in pilotos:
+    if sigla not in pilotos or not pilotos[sigla]["activo"]:
         console.print(
             "[#a61b1b]Error: "
-            "No se encontró ningún piloto con esa sigla.[/#a61b1b]"
+            "No se encontró ningún piloto activo con esa sigla.[/#a61b1b]"
         )
         return
 
@@ -192,20 +200,12 @@ def eliminar_piloto():
    # escudería aún exista
     escuderia_asignada = pilotos[sigla]["escuderia"]
     if (escuderia_asignada in escuderias
-                and sigla in escuderias[escuderia_asignada]["pilotos"]
-            ):
+            and sigla in escuderias[escuderia_asignada]["pilotos"]
+        ):
         escuderias[escuderia_asignada]["pilotos"].remove(sigla)
 
-    # Guardamos el nombre antes de eliminar y borramos la fila de la matriz
+    pilotos[sigla]["activo"] = False
     nombre_eliminado = pilotos[sigla]["datos_personales"][0]
-
-    for i in range(len(matriz_resultados)):
-        if matriz_resultados[i][0] == sigla:
-            del matriz_resultados[i]
-            break
-
-    # Eliminamos del diccionario principal
-    del pilotos[sigla]
 
     console.print(
         f"\n[bold green]✅ El piloto {nombre_eliminado} ({sigla}) "
@@ -223,12 +223,13 @@ def buscar_piloto():
     console.print("[#a61b1b]Buscar Piloto:[/#a61b1b]")
     sigla = console.input(
         "[#a61b1b]Ingrese la sigla del piloto: [/#a61b1b]").upper()
-    print()
-    if sigla not in pilotos:
+    if not validar_sigla(sigla):
         console.print(
-            "[#a61b1b]Error: "
-            "No se encontró ningún piloto con esa sigla.[/#a61b1b]"
-        )
+            "[#a61b1b]Error: La sigla no cumple con el formato (e.g, 'VER')[/#a61b1b]")
+        return
+    if sigla not in pilotos or not pilotos[sigla].get("activo", True):
+        console.print(
+            "[#a61b1b]Error: El piloto no existe o está inactivo actualmente.[/#a61b1b]")
         return
 
     datos = pilotos[sigla]
@@ -268,19 +269,24 @@ def listar_pilotos():
         return
 
     # Crear la tabla de Rich
-    cabeceras = ["Sigla", "Nombre", "Nacionalidad", "Escudería", "Puntos"]
+    cabeceras = ["Sigla", "Nombre", "Nacionalidad",
+                 "Escudería", "Puntos", "Estado"]
     alineaciones = ["center", "left", "left", "center", "center"]
 
     filas = []
+
     for sigla, datos in pilotos.items():
+        estado = "Activo" if datos.get("activo", True) else "Inactivo"
         fila = [
             sigla,
             datos["datos_personales"][0],
             datos["datos_personales"][1],
             datos["escuderia"],
-            datos["puntos"]
+            datos["puntos"],
+            estado
         ]
         filas.append(fila)
+
     mostrar_tabla_generica(
         "Listado Oficial de Pilotos",
         cabeceras,

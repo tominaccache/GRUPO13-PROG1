@@ -82,7 +82,7 @@ def analizar_piloto(sigla):
     if carreras_restantes == 0:
         console.print(
             "\n[bold yellow]El campeonato ha finalizado. Ya no quedan carreras por disputar.[/bold yellow]")
-
+        return
     lider, puntos_lider = obtener_lider(pilotos)
     puntos_piloto = pilotos[sigla]["puntos"]
     max_por_carrera = max(puntos_por_posicion)

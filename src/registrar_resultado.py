@@ -182,7 +182,7 @@ def cargar_tiempos_manual(siglas_pilotos):
     return tiempos_carrera
 
 
-def cargar_tiempos_archivo():
+def cargar_tiempos_archivo(siglas_activas):
     """
     Objetivo:
         Leer los tiempos de carrera desde un archivo de texto plano (.txt)
@@ -209,7 +209,6 @@ def cargar_tiempos_archivo():
         return {}
 
     tiempos_carrera_archivo = {}
-    siglas_sistema = list(pilotos.keys())
 
     try:
         with open(ruta_archivo, "r", encoding="utf-8") as file:
@@ -226,12 +225,12 @@ def cargar_tiempos_archivo():
                     console.print(
                         f"[#a61b1b]Error en el formato de línea: "
                         f"'{linea}'. Debe ser SIGLA:TIEMPO [/#a61b1b]")
-                    return
+                    return {}
 
                 sigla = partes[0].strip().upper()
                 tiempo = partes[1].strip().upper()
 
-                if sigla not in siglas_sistema:
+                if sigla not in siglas_activas:
                     console.print(
                         f"[bold red]Error: La sigla '{sigla}' en el archivo "
                         f"no corresponde a un piloto registrado.[/bold red]"
@@ -254,17 +253,18 @@ def cargar_tiempos_archivo():
                 tiempos_carrera_archivo[sigla] = tiempo
 
         # verificamos  si a todos los pilotos les quedo un tiempo cargado
-        if len(tiempos_carrera_archivo) != len(siglas_sistema):
+        if len(tiempos_carrera_archivo) != len(siglas_activas):
             console.print(
                 "[bold red]Error: La cantidad de pilotos en el archivo "
                 "no coincide con los del sistema.[/bold red]"
             )
             # Opcional: Mostrar cuáles faltan recorriendo la lista clásica
-            for s in siglas_sistema:
-                if s not in tiempos_carrera_archivo:
+            for piloto in siglas_activas:
+
+                if piloto not in tiempos_carrera_archivo:
                     console.print(
                         f"[yellow]Falta cargar "
-                        f" el tiempo del piloto: {s}[/yellow]"
+                        f" el tiempo del piloto: {piloto}[/yellow]"
                     )
             return {}
 
@@ -327,13 +327,14 @@ def registrar_tiempos():
     modo = mostrar_menu_generico("Modo de Carga", opciones_menu)
 
     # Pedir los tiempos para cada piloto
-    siglas_pilotos = list(pilotos.keys())
+    siglas_pilotos = [sigla for sigla,
+                      datos in pilotos.items() if datos.get("activo", True)]
 
     if modo == "1":
         tiempos_carrera_actual = cargar_tiempos_manual(siglas_pilotos)
 
     elif modo == "2":
-        tiempos_carrera_actual = cargar_tiempos_archivo()
+        tiempos_carrera_actual = cargar_tiempos_archivo(siglas_pilotos)
         if not tiempos_carrera_actual:
             return
     else:
@@ -341,7 +342,8 @@ def registrar_tiempos():
         return
 
     # Validar catidad de pilotos
-    if len(tiempos_carrera_actual) != len(pilotos):
+    pilotos_activos = [s for s, d in pilotos.items() if d.get("activo", True)]
+    if len(tiempos_carrera_actual) != len(pilotos_activos):
         console.print("[#a61b1b]Faltan pilotos cargados[/#a61b1b]")
         return
 
@@ -404,7 +406,7 @@ def ver_resultados():
     pos = 1
     for sigla, tiempo in resultados_ordenados:
         # Mostramos los puntos que ganó en esa carrera
-        if pos <= len(puntos_por_posicion) and validar_tiempo(tiempo):
+        if pos <= len(puntos_por_posicion) and tiempo != "DNF":
             puntos = puntos_por_posicion[pos - 1]
         else:
             puntos = 0
@@ -462,12 +464,13 @@ def modificar_resultados():
 
     opciones_carga = ["1. Carga Manual", "2. Cargar desde Archivo"]
     modo = mostrar_menu_generico("Modo de Nueva Carga", opciones_carga)
-    siglas_pilotos = list(pilotos.keys())
+
+    siglas_pilotos = [s for s, d in pilotos.items() if d.get("activo", True)]
 
     if modo == "1":
         tiempos_carrera_actual = cargar_tiempos_manual(siglas_pilotos)
     elif modo == "2":
-        tiempos_carrera_actual = cargar_tiempos_archivo()
+        tiempos_carrera_actual = cargar_tiempos_archivo(siglas_pilotos)
         if not tiempos_carrera_actual:
             return
     else:
@@ -543,6 +546,10 @@ def agregar_carrera():
     nueva_carrera = console.input(
         "[#a61b1b]Ingrese el Nombre del Nuevo Gran Premio:"
         " [/#a61b1b]").strip().title()
+    if nueva_carrera == "":
+        console.input(
+            "[#a61b1b]Error: El nombre no puede estar vacio.[/#a61b1b]")
+        return
 
     conjunto_carreras = set(carreras)
 

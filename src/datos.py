@@ -5,6 +5,7 @@ Diccionario de Pilotos:
     - datos_personales:lista [Nombre, Nacionalidad]
     - escuderia: sigla de la escuderia
     - puntos: puntos acumulados
+    - activo: el piloto esta corriendo o no
 """
 
 pilotos = {
@@ -12,111 +13,133 @@ pilotos = {
         "datos_personales": ["Max Verstappen", "Holanda"],
         "escuderia": "RBR",
         "puntos": 0,
+        "activo": True,
     },
     "HAD": {
         "datos_personales": ["Isack Hadjar", "Francia"],
         "escuderia": "RBR",
         "puntos": 0,
+        "activo": True,
     },
     "HAM": {
         "datos_personales": ["Lewis Hamilton", "Reino Unido"],
         "escuderia": "FER",
         "puntos": 0,
+        "activo": True,
     },
     "LEC": {
         "datos_personales": ["Charles Leclerc", "Monaco"],
         "escuderia": "FER",
         "puntos": 0,
+        "activo": True,
     },
     "RUS": {
         "datos_personales": ["George Russell", "Reino Unido"],
         "escuderia": "MER",
         "puntos": 0,
+        "activo": True,
     },
     "ANT": {
         "datos_personales": ["Kimi Antonelli", "Italia"],
         "escuderia": "MER",
         "puntos": 0,
+        "activo": True,
     },
     "NOR": {
         "datos_personales": ["Lando Norris", "Reino Unido"],
         "escuderia": "MCL",
         "puntos": 0,
+        "activo": True,
     },
     "PIA": {
         "datos_personales": ["Oscar Piastri", "Australia"],
         "escuderia": "MCL",
         "puntos": 0,
+        "activo": True,
     },
     "ALO": {
         "datos_personales": ["Fernando Alonso", "España"],
         "escuderia": "AST",
         "puntos": 0,
+        "activo": True,
     },
     "STR": {
         "datos_personales": ["Lance Stroll", "Canada"],
         "escuderia": "AST",
         "puntos": 0,
+        "activo": True,
     },
     "COL": {
         "datos_personales": ["Franco Colapinto", "Argentina"],
         "escuderia": "ALP",
         "puntos": 0,
+        "activo": True,
     },
     "GAS": {
         "datos_personales": ["Pierre Gasly", "Francia"],
         "escuderia": "ALP",
         "puntos": 0,
+        "activo": True,
     },
     "SAI": {
         "datos_personales": ["Carlos Sainz", "España"],
         "escuderia": "WIL",
         "puntos": 0,
+        "activo": True,
     },
     "ALB": {
         "datos_personales": ["Alexander Albon", "Tailandia"],
         "escuderia": "WIL",
         "puntos": 0,
+        "activo": True,
     },
     "LAW": {
         "datos_personales": ["Liam Lawson", "Nueva Zelanda"],
         "escuderia": "RBU",
         "puntos": 0,
+        "activo": True,
     },
     "LIN": {
         "datos_personales": ["Arvid Lindbland", "Reino Unido"],
         "escuderia": "RBU",
         "puntos": 0,
+        "activo": True,
     },
     "BEA": {
         "datos_personales": ["Oliver Bearman", "Reino Unido"],
         "escuderia": "HAS",
         "puntos": 0,
+        "activo": True,
     },
     "OCO": {
         "datos_personales": ["Esteban Ocon", "Francia"],
         "escuderia": "HAS",
         "puntos": 0,
+        "activo": True,
     },
     "BOR": {
         "datos_personales": ["Gabriel Bortoleto", "Brasil"],
         "escuderia": "AUD",
         "puntos": 0,
+        "activo": True,
     },
     "HUL": {
         "datos_personales": ["Niko Hülkenberg", "Alemania"],
         "escuderia": "AUD",
         "puntos": 0,
+        "activo": True,
     },
     "BOT": {
         "datos_personales": ["Valtteri Bottas", "Finlandia"],
         "escuderia": "CAD",
         "puntos": 0,
+        "activo": True,
     },
     "PER": {
         "datos_personales": ["Sergio Perez", "Mexico"],
         "escuderia": "CAD",
         "puntos": 0,
+        "activo": True
     },
 }
 

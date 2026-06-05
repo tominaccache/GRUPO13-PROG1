@@ -86,6 +86,11 @@ def menu_tabla_posiciones():
         elif op == "0":
             break
 
+        else:
+            console.print("[#a61b1b]--> Opción no válida.[/#a61b1b]")
+            console.input(
+                "\n[#a61b1b]Presione Enter para continuar...[/#a61b1b]")
+
 
 def mostrar_tabla_escuderias():
     """
