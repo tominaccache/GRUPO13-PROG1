@@ -164,7 +164,7 @@ def modificar_piloto():
             else:
                 if (escuderia_antigua in escuderias
                         and sigla in escuderias[escuderia_antigua]["pilotos"]
-                        ):
+                    ):
                     escuderias[escuderia_antigua]["pilotos"].remove(sigla)
 
                 escuderias[nueva_escuderia]["pilotos"].append(sigla)
@@ -200,8 +200,8 @@ def eliminar_piloto():
    # escudería aún exista
     escuderia_asignada = pilotos[sigla]["escuderia"]
     if (escuderia_asignada in escuderias
-            and sigla in escuderias[escuderia_asignada]["pilotos"]
-        ):
+                and sigla in escuderias[escuderia_asignada]["pilotos"]
+            ):
         escuderias[escuderia_asignada]["pilotos"].remove(sigla)
 
     pilotos[sigla]["activo"] = False
@@ -271,7 +271,7 @@ def listar_pilotos():
     # Crear la tabla de Rich
     cabeceras = ["Sigla", "Nombre", "Nacionalidad",
                  "Escudería", "Puntos", "Estado"]
-    alineaciones = ["center", "left", "left", "center", "center"]
+    alineaciones = ["center", "left", "left", "center", "center", "center"]
 
     filas = []
 

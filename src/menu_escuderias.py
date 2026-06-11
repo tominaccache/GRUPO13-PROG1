@@ -175,6 +175,7 @@ def eliminar_escuderia():
         for sigla_piloto in escuderias[sigla]["pilotos"]:
             if sigla_piloto in pilotos:
                 pilotos[sigla_piloto]["escuderia"] = "SIN ESCUDERIA"
+                pilotos[sigla_piloto]["activo"] = False
 
         del escuderias[sigla]
         console.print(

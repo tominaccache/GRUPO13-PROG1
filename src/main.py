@@ -6,7 +6,7 @@ from tabla_posiciones import menu_tabla_posiciones
 from proyeccion import submenu_proyeccion
 from registrar_resultado import menu_resultados
 from menu_estadisticas import menu_estadisticas
-from manejo_archivos import menu_cargar, menu_guardar, restaurar_sistema_json
+from manejo_archivos import menu_cargar, menu_guardar, restaurar_sistema_json, guardar_estado_sistema
 from utils import mostrar_menu_generico
 
 # Inicializamos la consola
@@ -69,10 +69,20 @@ def main():
             case "8":
                 menu_cargar()
             case "0":
-                console.print(
-                    "[#a61b1b]--> Gracias por utilizar la aplicacion.\n"
-                    "Nos vemos la proxima.[/#a61b1b]"
+                estado = console.input(
+                    "[#a61b1b]Desea guardar el estado del sistema? (S/N): [/#a61b1b]"
                 )
+                if estado.upper() == "S":
+                    guardar_estado_sistema()
+                    console.print(
+                        "[#a61b1b]--> Datos guardados. Gracias por utilizar la aplicación.\n"
+                        "Nos vemos la próxima.[/#a61b1b]"
+                    )
+                else:
+                    console.print(
+                        "[#a61b1b]--> Gracias por utilizar la aplicación.\n"
+                        "Nos vemos la próxima.[/#a61b1b]"
+                    )
             case _:
                 console.print(
                     "[#a61b1b]--> Error: Opción no válida. "

@@ -323,7 +323,7 @@ def registrar_tiempos():
     carrera_seleccionada = carreras_disponibles[opcion - 1]
 
     # Seleccionar el modo de carga
-    opciones_menu = ["1. Carga Manul", "2. Cargar desde Archivo"]
+    opciones_menu = ["1. Carga Manual", "2. Cargar desde Archivo"]
     modo = mostrar_menu_generico("Modo de Carga", opciones_menu)
 
     # Pedir los tiempos para cada piloto
