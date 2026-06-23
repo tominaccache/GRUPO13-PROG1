@@ -24,23 +24,28 @@ Sistema de gestión por consola para administrar los datos de telemetría y punt
 - Registro y validación de tiempos de carrera en formato `HH:MM:SS.mmm`, con soporte para vuelta perdida (`+N`) y abandono (`DNF`).
 - Cálculo automático de puntos y Tabla de Posiciones mediante matrices bidimensionales.
 - Proyección matemática de chances de campeonato por piloto.
-- Persistencia de datos mediante archivos JSON.
+- Persistencia de estado mediante archivos JSON y exportación de reportes a texto plano (`.txt`) y Excel (`.csv`).
 
 ## Estructura del Proyecto
 
-```
-src/
-├── main.py                  # Punto de entrada y menú principal
-├── datos.py                 # Estructuras de datos globales
-├── utils.py                 # Funciones genéricas reutilizables
-├── subMenuGestionPiloto.py  # ABM de pilotos
-├── menuEscuderias.py        # ABM de escuderías
-├── Registrar_Resultado.py   # Registro y gestión de resultados de carrera
-├── Tabla_Posiciones.py      # Tabla de pilotos y constructores
-├── subMenuEstadisticas.py   # Estadísticas del campeonato
-├── proyeccion.py            # Proyección de campeonato
-└── manejoArchivos.py        # Guardar y cargar datos
-```
+GRUPO13-PROG1/
+├── data/                       # Archivos de entrada (tiempos) y persistencia (JSON)
+├── out/                        # Reportes exportados por el sistema (CSV y TXT)
+├── src/                        # Código fuente principal
+│   ├── main.py                 # Punto de entrada y menú principal
+│   ├── datos.py                # Estructuras de datos globales
+│   ├── utils.py                # Funciones genéricas y UI (Rich)
+│   ├── gestion_piloto.py       # ABM de pilotos
+│   ├── menu_escuderias.py      # ABM de escuderías
+│   ├── registrar_resultado.py  # Registro y gestión de resultados de carrera
+│   ├── tabla_posiciones.py     # Tablas de clasificación
+│   ├── menu_estadisticas.py    # Estadísticas del campeonato
+│   ├── proyeccion.py           # Algoritmo recursivo de campeonato
+│   └── manejo_archivos.py      # Lógica de guardado/carga y exportación
+├── tests/                      # Pruebas unitarias automatizadas (pytest)
+├── .gitignore                  # Exclusiones de control de versiones
+├── pytest.ini                  # Configuración de pruebas
+└── README.md                   # Documentación principal del proyecto
 
 Este proyecto utiliza la librería `rich` para mejorar la interfaz visual de la consola (autorizado por la profesora).
 
@@ -64,7 +69,7 @@ python main.py
 | ABM Pilotos              | ✅ Completo      |
 | ABM Escuderías           | ✅ Completo      |
 | Registrar Resultados     | ✅ Completo      |
-| Tabla de Posiciones      | ✅ En desarrollo |
-| Estadísticas             | ✅ En desarrollo |
-| Proyección de Campeonato | 🔄 En desarrollo |
+| Tabla de Posiciones      | ✅ Completo      |
+| Estadísticas             | ✅ Completo      |
+| Proyección de Campeonato | ✅ Completo      |
 | Guardar/Cargar Datos     | ✅ Completo      |
