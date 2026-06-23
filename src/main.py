@@ -26,7 +26,7 @@ def main():
     # --- PROCESO DE CARGA AUTOMÁTICA AL INICIAR ---
     console.clear()
     console.print(
-        "[bold #a61b1b]=== Inicializando Administrador F1 ===[/bold #a61b1b]\n"
+        "[bold #a61b1b]--- Inicializando Administrador F1 ---[/bold #a61b1b]\n"
     )
     # Invocación inicial silenciosa/amigable
     restaurar_sistema_json(es_inicio=True)

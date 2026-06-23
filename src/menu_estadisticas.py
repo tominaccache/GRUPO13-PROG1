@@ -97,9 +97,9 @@ def mejor_tiempo():
         nombre = "Piloto Eliminado"
 
     info_mejor = (
-        f"[#a61b1b]Piloto: {nombre} ({mejor_sigla}) [/#a61b1b]"
-        f"[#a61b1b]Carrera: {mejor_carrera}[/#a61b1b]"
-        f"[#a61b1b]Tiempo: {mejor_tiempo_str}[/#a61b1b]"
+        f"[#a61b1b]Piloto: {nombre} ({mejor_sigla}) [/#a61b1b]\n"
+        f"[#a61b1b]Carrera: {mejor_carrera}[/#a61b1b]\n"
+        f"[#a61b1b]Tiempo: {mejor_tiempo_str}[/#a61b1b]\n"
     )
     mostrar_panel_generico("MEJOR TIEMPO DEL CAMPEONATO", info_mejor)
 

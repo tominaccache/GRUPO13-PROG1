@@ -3,8 +3,21 @@ from rich.panel import Panel
 from utils import mostrar_menu_generico, mostrar_tabla_generica
 import datos
 from manejo_archivos import exportar_reporte_txt
-
+from registrar_resultado import clave_orden
 console = Console()
+
+
+def obtener_victorias(sigla):
+    """Calcula las victorias en tiempo real leyendo el historial."""
+    victorias = 0
+    for carrera, resultados in datos.tiempos_carreras.items():
+        # Ordenamos los resultados de esa carrera
+        ordenados = sorted(resultados.items(), key=clave_orden)
+
+        # Si el piloto analizado está en la pisicion 0, ganó
+        if ordenados and ordenados[0][0] == sigla:
+            victorias += 1
+        return victorias
 
 
 def mostrar_tabla_pilotos():
@@ -29,7 +42,7 @@ def mostrar_tabla_pilotos():
 
     pilotos_ordenados = sorted(
         datos.pilotos.items(),
-        key=lambda item: item[1]["puntos"],
+        key=lambda item: (item[1]["puntos"], obtener_victorias(item[0])),
         reverse=True,
     )
 

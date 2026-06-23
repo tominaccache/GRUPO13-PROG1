@@ -295,6 +295,12 @@ def registrar_tiempos():
     """
     console.print("[#a61b1b]Registrar tiempos de carrera[/#a61b1b]\n")
 
+    # Validar catidad de pilotos
+    pilotos_activos = [s for s, d in pilotos.items() if d.get("activo", True)]
+    if not pilotos_activos:
+        console.print(
+            "[bold yellow]Error: No hay pilotos activos en el sistema para correr un Gran Premio.[/bold yellow].")
+
     # Filtrar carreras sin resultados
     carreras_disponibles = [c for c in carreras if c not in tiempos_carreras]
 
@@ -326,23 +332,17 @@ def registrar_tiempos():
     opciones_menu = ["1. Carga Manual", "2. Cargar desde Archivo"]
     modo = mostrar_menu_generico("Modo de Carga", opciones_menu)
 
-    # Pedir los tiempos para cada piloto
-    siglas_pilotos = [sigla for sigla,
-                      datos in pilotos.items() if datos.get("activo", True)]
-
     if modo == "1":
-        tiempos_carrera_actual = cargar_tiempos_manual(siglas_pilotos)
+        tiempos_carrera_actual = cargar_tiempos_manual(pilotos_activos)
 
     elif modo == "2":
-        tiempos_carrera_actual = cargar_tiempos_archivo(siglas_pilotos)
+        tiempos_carrera_actual = cargar_tiempos_archivo(pilotos_activos)
         if not tiempos_carrera_actual:
             return
     else:
         console.print("[#a61b1b]Opcion Inválida[/#a61b1b]")
         return
 
-    # Validar catidad de pilotos
-    pilotos_activos = [s for s, d in pilotos.items() if d.get("activo", True)]
     if len(tiempos_carrera_actual) != len(pilotos_activos):
         console.print("[#a61b1b]Faltan pilotos cargados[/#a61b1b]")
         return
@@ -476,7 +476,7 @@ def modificar_resultados():
     else:
         console.print("[#a61b1b] Opción Inválida[/#a61b1b]")
 
-    if len(tiempos_carrera_actual) != len(pilotos):
+    if len(tiempos_carrera_actual) != len(siglas_pilotos):
         console.print("[#a61b1b]Cancelado: Faltan pilotos cargados.[/#a61b1b]")
         return
 
@@ -546,8 +546,9 @@ def agregar_carrera():
     nueva_carrera = console.input(
         "[#a61b1b]Ingrese el Nombre del Nuevo Gran Premio:"
         " [/#a61b1b]").strip().title()
+
     if nueva_carrera == "":
-        console.input(
+        console.print(
             "[#a61b1b]Error: El nombre no puede estar vacio.[/#a61b1b]")
         return
 
@@ -569,7 +570,7 @@ def agregar_carrera():
         fila.append("")
 
     console.print(
-        f"[bold green] Gran Premio '{nueva_carrera}' agregada"
+        f"[bold green] Gran Premio '{nueva_carrera}' agregada "
         f"correctamente. Total de carreras: {len(carreras)}. [/bold green]"
     )
 

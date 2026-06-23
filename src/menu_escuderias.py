@@ -164,18 +164,16 @@ def eliminar_escuderia():
         return
 
     console.print(
-        f"[#a61b1b]Nombre: {
-            escuderias[sigla]['nombre']}[/#a61b1b]\n")
+        f"[#a61b1b]Nombre: {escuderias[sigla]['nombre']}[/#a61b1b]\n")
     console.print(f"[#a61b1b]Pais: {escuderias[sigla]['pais']}[/#a61b1b]\n")
     confirmacion = console.input(
         "[#a61b1b]¿Esta seguro "
-        "que desea eliminar esta escuderia (S= si, N= no)?: "
+        "que desea eliminar esta escuderia (S= si, N= no)?: [/#a61b1b]"
     )
     if confirmacion.upper() == "S":
         for sigla_piloto in escuderias[sigla]["pilotos"]:
             if sigla_piloto in pilotos:
                 pilotos[sigla_piloto]["escuderia"] = "SIN ESCUDERIA"
-                pilotos[sigla_piloto]["activo"] = False
 
         del escuderias[sigla]
         console.print(
