@@ -40,8 +40,8 @@ def test_validar_vuelta_perdida():
     Objetivo: Comprobar el reconocimiento estricto del patrón de
               vueltas perdidas (+N).
     """
-    assert validar_vuelta_perdida("+1") is True
-    assert validar_vuelta_perdida("+12") is True
+    assert validar_vuelta_perdida("+1") is True   # 1 vuelta por detras
+    assert validar_vuelta_perdida("+12") is True  # 12 vueltas atras
     assert validar_vuelta_perdida("1") is False   # Falta el mas
     assert validar_vuelta_perdida("-1") is False  # Signo incorrecto
     assert validar_vuelta_perdida("+A") is False  # No es un número

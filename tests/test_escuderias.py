@@ -10,11 +10,11 @@ def test_validar_sigla():
     Objetivo: Validar que el formato de siglas
               acepte solo 3 letras mayúsculas (ABM Escuderías).
     """
-    # Casos de exito
+    # Casos en los que la validación acepta la cadena
     assert validar_sigla("RBR") is True
     assert validar_sigla("FER") is True
 
-    # Casos de Fallo
+    # Casos en los que la validación rechaza
     assert validar_sigla("rbr") is False
     assert validar_sigla("RB") is False
     assert validar_sigla("RBRR") is False

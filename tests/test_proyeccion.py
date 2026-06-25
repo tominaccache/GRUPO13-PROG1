@@ -6,6 +6,7 @@ from proyeccion import puede_alcanzar_lider_recursivo, obtener_lider, analizar_p
 
 
 def test_alcanzar_lider_recursivo_imposible():
+    # No alcanza al lider
     resultado = puede_alcanzar_lider_recursivo(10, 2, 100, 25)
     assert resultado is False
 
